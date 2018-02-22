@@ -19,7 +19,7 @@ end
 
 group :test do
   gem 'rspec'
-  # gem 'coveralls'
+  gem 'coveralls', require: false
 end
 
 # group :deployment do
