@@ -1,0 +1,73 @@
+inherit_from: .rubocop_todo.yml
+
+# Turn on RSpec cops
+require: rubocop-rspec
+
+AllCops:
+  DisplayCopNames: true
+  Include:
+    - Rakefile
+    - config.ru
+    - lib/**/*.rake
+  Exclude:
+    - Gemfile.lock
+    - '**/*.md'
+    - bin/**/*
+    - config/**/*.yml
+    - config/environments/*.rb
+    - script/**/*
+    - vendor/**/*
+
+Bundler/OrderedGems:
+  Exclude:
+    - Gemfile
+
+# --- Layout ---
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  Enabled: false
+
+# --- Lint ---
+
+# --- Metrics ---
+
+# because this isn't 1994
+Metrics/LineLength:
+  Max: 120
+
+# --- Naming ---
+
+Naming/FileName:
+  Exclude:
+    - Capfile
+    - Gemfile
+
+# --- Performance ---
+
+# --- RSpec ---
+
+# --- Style ---
+
+Style/FrozenStringLiteralComment:
+  Enabled: false  # I don't even understand it
+
+# because ' vs " isn't a big deal for readability or maintainability or execution time
+Style/StringLiterals:
+  Enabled: false
+
+Style/SymbolArray:
+  Exclude:
+    - Rakefile # because [:spec, :rubocop] isn't a big deal
+
+Style/TernaryParentheses:
+  Exclude:
+    - config/boot.rb # line 37 is clearer with the parens
