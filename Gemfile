@@ -9,7 +9,7 @@ gem 'rake'
 # gem 'dor-workflow-service'
 # gem 'druid-tools' # druid validation and druid-tree parsing
 # gem 'moab-versioning' # work with Moab Objects
-# gem 'robot-controller'
+gem 'robot-controller'
 
 group :development, :test do
   gem 'pry-byebug'
