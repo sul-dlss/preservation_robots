@@ -1,6 +1,6 @@
 
 module Preservation
-  # Robot for transferring objects from the DOR export area to the SDR deposit area
+  # Robot for transferring objects from the DOR export area to the Moab object deposit area
   class TransferObject < Base
     def initialize(opts = {})
       super(REPOSITORY, WORKFLOW_NAME, 'transfer-object', opts)
