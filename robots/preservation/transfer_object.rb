@@ -30,7 +30,7 @@ module Preservation
       LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
       prereqs_for_transfer
       deposit_dir = prepare_deposit_dir
-      Base.execute_shell_command(tarpipe_command(deposit_dir))
+      self.class.execute_shell_command(tarpipe_command(deposit_dir))
     rescue StandardError => e
       raise(ItemError, "Error transferring object: #{e.message}")
     end
@@ -51,7 +51,7 @@ module Preservation
     def verify_version_metadata
       vm_path = File.join(Dor::Config.transfer_object.input_dir, bare_druid, VERSION_METADATA_PATH_SUFFIX)
       cmd = "if ssh #{Dor::Config.transfer_object.dor_host} test -e #{vm_path}; then echo yes; else echo no; fi"
-      raise(ItemError, "#{vm_path} not found") if Base.execute_shell_command(cmd) == 'no'
+      raise(ItemError, "#{vm_path} not found") if self.class.execute_shell_command(cmd) == 'no'
     end
 
     def prepare_deposit_dir
