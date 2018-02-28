@@ -18,7 +18,7 @@ module Preservation
         stdout
       else
         msg = "Shell command failed: [#{command}] caused by <STDERR = #{stderr}>"
-        msg << " STDOUT = #{stdout}" if stdout && stdout.length.positive?
+        msg << " STDOUT = #{stdout}" if stdout.try(:length).positive?
         raise(StandardError, msg)
       end
     rescue SystemCallError => e
