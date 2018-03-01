@@ -1,4 +1,3 @@
-
 module Preservation
   # Robot transfers deposit bags from the DOR export area to the Moab object deposit area
   class TransferObject < Base

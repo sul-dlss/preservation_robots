@@ -3,4 +3,5 @@ require 'preservation/base'
 
 require 'preservation/item_error'
 require 'preservation/transfer_object'
+require 'preservation/validate_bag'
 require 'preservation/verify_apo'
