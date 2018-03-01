@@ -5,6 +5,3 @@ cache: bundler
 
 env:
   - ROBOT_ENVIRONMENT=test
-
-before_script:
-  - cp config/environments/example.rb config/environments/test.rb

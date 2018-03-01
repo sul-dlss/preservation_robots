@@ -1,9 +1,8 @@
 coverage
-log
+log/wfs/*
+log/*.log
 workflow_service.log*
-doc/
-.yardoc/
-#tmp/*.*
+tmp/*.*
 .pry_history
 
-config/environments/dev.rb
+config/environments/development.rb

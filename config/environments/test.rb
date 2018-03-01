@@ -8,18 +8,26 @@ Dor::Config.configure do
   end
 
   workflow do
-    url ''
+    url 'https://workflows.example.org'
     logfile 'log/wfs/workflow_service.log'
     shift_age 'weekly'
   end
 
   # solr.url ''
-  dor_services.url ''
+  # dor_services.url ''
+  # fedora do
+  #   url ''
+  # end
 
   robots do
     workspace '/tmp'
   end
 
+  transfer_object do
+    dor_host "userid@dor-host"
+    input_dir "/dor/export/"
+  end
 end
+
 #REDIS_URL = ''
 REDIS_URL = 'localhost:6379/resque:test'

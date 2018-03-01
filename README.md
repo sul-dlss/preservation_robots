@@ -5,4 +5,4 @@
 
 # preservation_robots
 
-Robots for creating/updating Moabs for SDR objects, adding Moabs to the preservation_catalog, etc.
+Robots for creating/updating Moabs for DOR objects, adding Moabs to the preservation_catalog, etc.

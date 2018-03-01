@@ -40,9 +40,16 @@ Layout/SpaceAroundEqualsInParameterDefault:
 
 # --- Metrics ---
 
-# because this isn't 1994
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
 Metrics/LineLength:
-  Max: 120
+  Max: 120 # this isn't 1994
+
+Metrics/MethodLength:
+  Exclude:
+    - robots/preservation/base.rb # execute_shell_command
 
 # --- Naming ---
 
@@ -55,14 +62,26 @@ Naming/FileName:
 
 # --- RSpec ---
 
+RSpec/ExampleLength:
+  Max: 10
+  Exclude:
+    - spec/preservation/transfer_object_spec.rb # lots of expectations to set up for some specs
+
+RSpec/MessageSpies:
+  Enabled: false # receive is fine.  have_received is fine
+
+RSpec/MultipleExpectations:
+  Max: 4 # let's not be too pendantic about single expectation per test
+  Exclude:
+    - spec/preservation/transfer_object_spec.rb # lots of expectations to set up for some specs
+
 # --- Style ---
 
 Style/FrozenStringLiteralComment:
-  Enabled: false  # I don't even understand it
+  Enabled: false # avoid cruft in our files for something that MAY be default in Ruby 3.0
 
-# because ' vs " isn't a big deal for readability or maintainability or execution time
 Style/StringLiterals:
-  Enabled: false
+  Enabled: false # ' vs " isn't a big deal for readability or maintainability or execution time
 
 Style/SymbolArray:
   Exclude:
