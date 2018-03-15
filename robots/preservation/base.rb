@@ -6,6 +6,8 @@ module Preservation
     REPOSITORY = 'sdr'.freeze
     WORKFLOW_NAME = 'preservationIngestWF'.freeze
 
+    attr_reader :druid
+
     def workflow_service
       Dor::Config.workflow.client
     end
@@ -24,6 +26,16 @@ module Preservation
     rescue SystemCallError => e
       msg = "Shell command failed: [#{command}] caused by #{e.inspect}"
       raise(StandardError, msg)
+    end
+
+    private
+
+    def moab_object
+      @moab_object ||= Stanford::StorageServices.find_storage_object(druid, true)
+    end
+
+    def deposit_bag_pathname
+      @deposit_bag_pathname ||= moab_object.deposit_bag_pathname
     end
   end
 end
