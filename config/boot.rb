@@ -18,7 +18,7 @@ ROBOT_LOG.level = Logger::SEV_LABEL.index(ENV['ROBOT_LOG_LEVEL']) || Logger::INF
 # end
 
 # Load core robot services
-require 'dor-services'
+require 'dor-services' # FIXME: do we really need dor-services?   Just for Dor::Config ??
 require 'lyber_core'
 LyberCore::Log.set_level(ROBOT_LOG.level)
 
