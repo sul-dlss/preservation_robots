@@ -3,3 +3,4 @@ require 'preservation/base'
 
 require 'preservation/item_error'
 require 'preservation/transfer_object'
+require 'preservation/verify_apo'
