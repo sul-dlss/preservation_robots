@@ -24,8 +24,8 @@ Dor::Config.configure do
   end
 
   transfer_object do
-    dor_host "userid@dor-host"
-    input_dir "/dor/export/"
+    from_host "userid@from-host"
+    from_dir "/dor/export/"
   end
 end
 
