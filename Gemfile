@@ -24,6 +24,7 @@ group :test do
   gem 'coveralls', require: false
 end
 
-# group :deployment do
-#   gem 'dlss-capistrano'
-# end
+group :deployment do
+  gem 'capistrano-bundler'
+  gem 'dlss-capistrano'
+end
