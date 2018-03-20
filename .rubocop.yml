@@ -79,6 +79,10 @@ RSpec/MultipleExpectations:
   Exclude:
     - spec/preservation/transfer_object_spec.rb # lots of expectations to set up for some specs
 
+RSpec/NestedGroups:
+  Exclude:
+    - spec/preservation/verify_apo_spec.rb # it goes to 4 but so does the logic
+
 # --- Style ---
 
 Style/FrozenStringLiteralComment:
