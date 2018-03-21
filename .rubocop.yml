@@ -70,6 +70,9 @@ Naming/FileName:
 
 # --- RSpec ---
 
+RSpec/ContextWording:
+  Enabled: false # Don't need to have 'with', 'when', or 'without' in the start of a context block.
+
 RSpec/ExampleLength:
   Max: 10
   Exclude:
