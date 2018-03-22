@@ -1,14 +1,12 @@
 
 module Preservation
-  # Robot for transferring objects from the DOR export area to the Moab object deposit area
+  # Robot transfers deposit bags from the DOR export area to the Moab object deposit area
   class TransferObject < Base
     ROBOT_NAME = 'transfer-object'.freeze
 
     def initialize(opts = {})
       super(REPOSITORY, WORKFLOW_NAME, ROBOT_NAME, opts)
     end
-
-    attr_reader :druid
 
     def perform(druid)
       @druid = druid
@@ -55,9 +53,7 @@ module Preservation
     end
 
     def prepare_deposit_dir
-      moab_object = Stanford::StorageServices.find_storage_object(druid, true)
-      deposit_bag_pathname = moab_object.deposit_bag_pathname
-      LyberCore::Log.debug("deposit bag pathname is : #{deposit_bag_pathname}")
+      LyberCore::Log.debug("deposit bag pathname is: #{deposit_bag_pathname}")
       deposit_dir = deposit_bag_pathname.parent
       if deposit_bag_pathname.exist?
         remove_bag(deposit_bag_pathname)

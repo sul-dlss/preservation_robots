@@ -40,6 +40,10 @@ Layout/SpaceAroundEqualsInParameterDefault:
 
 # --- Metrics ---
 
+Metrics/AbcSize:
+  Exclude:
+    - robots/preservation/verify_apo.rb # verify_apo_moab is 16.76; couldn't think of a way to be clearer
+
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
@@ -75,10 +79,18 @@ RSpec/MultipleExpectations:
   Exclude:
     - spec/preservation/transfer_object_spec.rb # lots of expectations to set up for some specs
 
+RSpec/NestedGroups:
+  Exclude:
+    - spec/preservation/verify_apo_spec.rb # it goes to 4 but so does the logic
+
 # --- Style ---
 
 Style/FrozenStringLiteralComment:
   Enabled: false # avoid cruft in our files for something that MAY be default in Ruby 3.0
+
+Style/SafeNavigation:
+  Exclude:
+    - robots/preservation/verify_apo.rb # can't guarantee late enough ruby version on deployment
 
 Style/StringLiterals:
   Enabled: false # ' vs " isn't a big deal for readability or maintainability or execution time
