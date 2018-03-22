@@ -8,7 +8,7 @@ gem 'rake'
 # Stanford DLSS gems
 # gem 'druid-tools' # druid validation and druid-tree parsing
 # FIXME: do we really need dor-services?   Just for Dor::Config ??
-gem 'dor-services', '~> 5.24' # for Dor::Config
+gem 'dor-services', '~> 5.28' # for Dor::Config
 gem 'moab-versioning' # work with Moab Objects
 gem 'lyber-core' # robot code
 gem 'robot-controller' # requires Resque
