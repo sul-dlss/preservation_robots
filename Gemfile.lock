@@ -317,7 +317,7 @@ DEPENDENCIES
   dlss-capistrano
   dor-services (~> 5.28)
   lyber-core
-  moab-versioning
+  moab-versioning (>= 4.2.0)
   pry-byebug
   rake
   robot-controller
