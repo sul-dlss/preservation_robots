@@ -41,8 +41,6 @@ set :bundle_without, %w[development deployment test].join(' ')
 
 set :stages, %w[stage prod]
 
-set :default_env, robot_environment: fetch(:deploy_environment)
-
 # set :honeybadger_env, fetch(:deployment)
 # set :whenever_environment, fetch(:deploy_environment)
 # set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
