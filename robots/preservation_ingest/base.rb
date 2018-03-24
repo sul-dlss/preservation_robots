@@ -13,10 +13,6 @@ module Robots
 
         attr_reader :druid
 
-        def workflow_service
-          Dor::Config.workflow.client
-        end
-
         # if command doesn't exit with 0, grabs stdout and stderr and puts them in ruby exception message
         def self.execute_shell_command(command)
           require 'open3'

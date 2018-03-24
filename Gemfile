@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
+gem 'config'
 gem 'rake'
 gem 'pry' # useful for production environment
 
 # Stanford DLSS gems
-# FIXME: do we really need dor-services?   Just for Dor::Config ??
-gem 'dor-services', '~> 5.28' # for Dor::Config
+gem 'dor-workflow-service', '~> 2.2'
 gem 'moab-versioning', '>= 4.2.0' # work with Moab Objects; 4.2.0 has DepositBagValidator
 gem 'lyber-core' # robot code
 gem 'robot-controller' # requires Resque

@@ -1,0 +1,12 @@
+dor_services:
+  url: 'https://fakeuser:fakepass@fakeserver.example.edu/dor'
+workflow:
+  url: 'https://workflows.example.org'
+  # logfile: 'log/wfs/workflow_service.log'
+  # shift_age: 'weekly'
+  timeout: 60
+transfer_object:
+  dor_host: 'userid@dor-host'
+  input_dir: '/dor/export/'
+redis:
+  url: 'localhost:6379/resque:test'
