@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 
+gem 'config'
 # gem 'faraday' # HTTP requests to other ReST services
 # gem 'nokogiri' # xml parsing
 gem 'rake'
 # gem 'retries' # robust handling of network glitches
 
 # Stanford DLSS gems
+gem 'dor-workflow-service', '~> 2.2'
 # gem 'druid-tools' # druid validation and druid-tree parsing
-# FIXME: do we really need dor-services?   Just for Dor::Config ??
-gem 'dor-services', '~> 5.28' # for Dor::Config
 gem 'moab-versioning' # work with Moab Objects
 gem 'lyber-core' # robot code
 gem 'robot-controller' # requires Resque
