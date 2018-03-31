@@ -75,7 +75,7 @@ module Preservation
     # ssh user@remotehost "tar -cf - srcdir | tar -C destdir -xf -
     # Note that symbolic links from /dor/export to /dor/workspace get translated into real files by use of --dereference
     def tarpipe_command(deposit_dir)
-      "ssh #{Dor::Config.transfer_object.host} " \
+      "ssh #{Dor::Config.transfer_object.from_host} " \
         '"tar -C ' + "#{Dor::Config.transfer_object.from_dir} --dereference -cf - #{bare_druid}" + ' "' \
         " | tar -C #{deposit_dir} -xf -"
     end
