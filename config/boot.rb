@@ -1,34 +1,49 @@
 # Ensure subsequent requires search the correct local paths
+# $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), '..', 'robots'))
 
 require 'logger'
+
 # Load the environment file based on Environment.  Default to development
 environment = ENV['ROBOT_ENVIRONMENT'] ||= 'development'
 ROBOT_ROOT = File.expand_path(File.dirname(__FILE__) + '/..')
 ROBOT_LOG = Logger.new(File.join(ROBOT_ROOT, "log/#{environment}.log"))
 ROBOT_LOG.level = Logger::SEV_LABEL.index(ENV['ROBOT_LOG_LEVEL']) || Logger::INFO
 
+# Override Solrizer's logger before it gets a chance to load and pollute STDERR
+# begin
+#   require 'solrizer'
+#   Solrizer.logger = ROBOT_LOG
+# rescue LoadError, NameError, NoMethodError
+# end
+
+# Load core robot services
+require 'dor-services'
 require 'lyber_core'
 LyberCore::Log.set_level(ROBOT_LOG.level)
 
-require 'config'
-Config.setup do |config|
-  config.use_env = true
-  config.env_prefix = 'SETTINGS'
-  config.env_separator = '__'
-end
-Config.load_and_set_settings(Config.setting_files(File.dirname(__FILE__), environment))
-
-require 'dor-workflow-service'
-Dor::WorkflowService.configure(
-  Settings.workflow.url,
-  logger: LyberCore::Log.class_variable_get(:@@log), # reuse a logger
-  timeout: Settings.workflow.timeout || 0,
-  dor_services_url: Settings.dor_services.url
-)
-
+# Load any library files and all the robots
+# TODO: Maybe move auto-require to just run_robot and spec_helper?
+Dir["#{ROBOT_ROOT}/lib/*/*.rb"].each { |f| require f }
 require 'robots'
+
+# Load local environment configuration
+env_file = File.expand_path(File.dirname(__FILE__) + "/environments/#{environment}")
+puts "Loading config from #{env_file}"
+require env_file
+
+# Load Resque configuration and controller
 require 'resque'
-Resque.redis = Settings.redis.url || "localhost:6379/resque:#{ENV['ROBOT_ENVIRONMENT']}"
+Resque.redis = (defined? REDIS_URL) ? REDIS_URL : "localhost:6379/resque:#{ENV['ROBOT_ENVIRONMENT']}"
+# begin
+#   if defined? REDIS_TIMEOUT
+#     _server, _namespace = REDIS_URL.split('/', 2)
+#     _host, _port, _db = _server.split(':')
+#     _redis = Redis.new(host: _host, port: _port, thread_safe: true, db: _db, timeout: REDIS_TIMEOUT.to_f)
+#     Resque.redis = Redis::Namespace.new(_namespace, redis: _redis)
+#   else
+#     Resque.redis = REDIS_URL
+#   end
+# end
+
 require 'robot-controller'
-# require 'moab-versioning'
