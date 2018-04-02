@@ -1,0 +1,11 @@
+#
+# robots.yml - Provides the complete list of all robots in this suite
+#   to support robot-controller verify command, see
+#   https://github.com/sul-dlss/robot-controller/blob/master/bin/controller#L61-L62
+#
+- sdr_preservationIngestWF_transfer-object
+- sdr_preservationIngestWF_validate-bag
+- sdr_preservationIngestWF_verify-apo
+- sdr_preservationIngestWF_update-moab
+- sdr_preservationIngestWF_update-catalog
+- sdr_preservationIngestWF_complete-ingest

@@ -1,6 +1,7 @@
 cert_dir = File.join(File.dirname(__FILE__), '..', 'certs')
 
 Dor::Config.configure do
+  # FIXME do we need ssl and certs?
   ssl do
     cert_file File.join(cert_dir, '.crt')
     key_file File.join(cert_dir, '.key')
@@ -24,10 +25,13 @@ Dor::Config.configure do
   end
 
   transfer_object do
-    dor_host "userid@dor-host"
-    input_dir "/dor/export/"
+    from_host "userid@from-host"
+    from_dir "/dor/export/"
   end
 end
 
-#REDIS_URL = ''
 REDIS_URL = 'localhost:6379/resque:test'
+
+# kurma-stage has the following (probably to use dor_workflow_service)
+# WORKFLOW_URI = 'https://workflows.example.org'
+# Dor::WorkflowService.configure(WORKFLOW_URI + '/')
