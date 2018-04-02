@@ -4,7 +4,7 @@ module Preservation
     ROBOT_NAME = 'validate-bag'.freeze
 
     def initialize(opts = {})
-      super(REPOSITORY, WORKFLOW_NAME, 'validate-bag', opts)
+      super(REPOSITORY, WORKFLOW_NAME, ROBOT_NAME, opts)
     end
 
     attr_reader :druid
