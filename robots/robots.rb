@@ -1,7 +1,7 @@
 # Put each of your robots here and they will be included via config/boot'
-require 'preservation/base'
+require 'preservation_ingest/base'
 
-require 'preservation/item_error'
-require 'preservation/transfer_object'
-require 'preservation/validate_bag'
-require 'preservation/verify_apo'
+require 'preservation_ingest/item_error'
+require 'preservation_ingest/transfer_object'
+require 'preservation_ingest/validate_bag'
+require 'preservation_ingest/verify_apo'

@@ -42,7 +42,7 @@ Layout/SpaceAroundEqualsInParameterDefault:
 
 Metrics/AbcSize:
   Exclude:
-    - robots/preservation/verify_apo.rb # verify_apo_moab is 16.76; couldn't think of a way to be clearer
+    - robots/preservation_ingest/verify_apo.rb # verify_apo_moab is 16.76; couldn't think of a way to be clearer
 
 Metrics/BlockLength:
   Exclude:
@@ -53,7 +53,7 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   Exclude:
-    - robots/preservation/base.rb # execute_shell_command
+    - robots/preservation_ingest/base.rb # execute_shell_command
 
 # --- Naming ---
 
@@ -69,7 +69,10 @@ Naming/FileName:
 RSpec/ExampleLength:
   Max: 10
   Exclude:
-    - spec/preservation/transfer_object_spec.rb # lots of expectations to set up for some specs
+    - spec/preservation_ingest/transfer_object_spec.rb # lots of expectations to set up for some specs
+
+RSpec/FilePath:
+  Enabled: false # paths become long to no gain
 
 RSpec/MessageSpies:
   Enabled: false # receive is fine.  have_received is fine
@@ -77,11 +80,11 @@ RSpec/MessageSpies:
 RSpec/MultipleExpectations:
   Max: 4 # let's not be too pendantic about single expectation per test
   Exclude:
-    - spec/preservation/transfer_object_spec.rb # lots of expectations to set up for some specs
+    - spec/preservation_ingest/transfer_object_spec.rb # lots of expectations to set up for some specs
 
 RSpec/NestedGroups:
   Exclude:
-    - spec/preservation/verify_apo_spec.rb # it goes to 4 but so does the logic
+    - spec/preservation_ingest/verify_apo_spec.rb # it goes to 4 but so does the logic
 
 # --- Style ---
 
@@ -90,7 +93,7 @@ Style/FrozenStringLiteralComment:
 
 Style/SafeNavigation:
   Exclude:
-    - robots/preservation/verify_apo.rb # can't guarantee late enough ruby version on deployment
+    - robots/preservation_ingest/verify_apo.rb # can't guarantee late enough ruby version on deployment
 
 Style/StringLiterals:
   Enabled: false # ' vs " isn't a big deal for readability or maintainability or execution time

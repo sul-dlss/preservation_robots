@@ -1,4 +1,4 @@
-describe Preservation::ValidateBag do
+describe Robots::SdrRepo::PreservationIngest::ValidateBag do
   subject(:validate_bag_obj) { described_class.new }
 
   let(:deposit_dir_pathname) { Pathname(File.join(File.dirname(__FILE__), '..', 'fixtures', 'deposit')) }
@@ -26,7 +26,7 @@ describe Preservation::ValidateBag do
     it 'raises ItemError' do
       missing_file_regex_str = Regexp.escape('/oo000oo0000/data/metadata/versionMetadata.xml')
       exp_msg = "Bag validation failure.*required_file_not_found.*#{missing_file_regex_str} not found"
-      expect { validate_bag_obj.perform(druid) }.to raise_error(Preservation::ItemError, a_string_matching(exp_msg))
+      expect { validate_bag_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
     end
   end
 end
