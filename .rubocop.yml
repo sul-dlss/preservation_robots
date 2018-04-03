@@ -54,7 +54,7 @@ Metrics/LineLength:
     - spec/preservation_ingest/transfer_object_spec.rb # some long lines with fully namespaced classes
     - spec/preservation_ingest/validate_bag_spec.rb # one long line with fully namespaced classes
     - spec/preservation_ingest/verify_apo_spec.rb # one long line with fully namespaced classes
-
+    - spec/preservation_ingest/update_moab_spec.rb # one long ling with fully namespaced classes
 Metrics/MethodLength:
   Exclude:
     - robots/preservation_ingest/base.rb # execute_shell_command
@@ -69,6 +69,9 @@ Naming/FileName:
 # --- Performance ---
 
 # --- RSpec ---
+
+RSpec/ContextWording:
+  Enabled: false # Don't need to have 'with', 'when', or 'without' in the start of a context block.
 
 RSpec/ExampleLength:
   Max: 10
