@@ -9,7 +9,7 @@ gem 'rake'
 # gem 'druid-tools' # druid validation and druid-tree parsing
 # FIXME: do we really need dor-services?   Just for Dor::Config ??
 gem 'dor-services', '~> 5.28' # for Dor::Config
-gem 'moab-versioning' # work with Moab Objects
+gem 'moab-versioning', '>= 4.2.0' # work with Moab Objects; 4.2.0 has DepositBagValidator
 gem 'lyber-core' # robot code
 gem 'robot-controller' # requires Resque
 
