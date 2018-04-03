@@ -41,8 +41,6 @@ begin
     host, port, db = server.split(':')
     redis = Redis.new(host: host, port: port, thread_safe: true, db: db, timeout: REDIS_TIMEOUT.to_f)
     Resque.redis = Redis::Namespace.new(namespace, redis: redis)
-  else
-    Resque.redis = REDIS_URL
   end
 end
 
