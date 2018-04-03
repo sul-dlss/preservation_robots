@@ -1,4 +1,4 @@
-describe Preservation::TransferObject do
+describe Robots::SdrRepo::PreservationIngest::TransferObject do
   let(:bare_druid) { 'jc837rq9922' }
   let(:druid) { "druid:#{bare_druid}" }
   let(:vm_file_path) do
@@ -17,15 +17,15 @@ describe Preservation::TransferObject do
     expect(Dor::WorkflowService).to receive(:get_workflow_status)
       .with('dor', druid, 'accessionWF', 'sdr-ingest-transfer').and_return('foo')
     exp_msg = 'Error transferring object: accessionWF:sdr-ingest-transfer status is foo'
-    expect { xfer_obj.perform(druid) }.to raise_error(Preservation::ItemError, exp_msg)
+    expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
   end
 
   it 'raises ItemError if versionMetadata.xml file for druid does not exist' do
     allow(xfer_obj).to receive(:verify_accesssion_wf_step_completed)
     cmd_regex = Regexp.new(".*ssh #{Dor::Config.transfer_object.from_host} test -e #{vm_file_path}.*")
-    expect(Preservation::Base).to receive(:execute_shell_command).with(a_string_matching(cmd_regex)).and_return('no')
+    expect(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(a_string_matching(cmd_regex)).and_return('no')
     exp_msg = "Error transferring object: #{vm_file_path} not found"
-    expect { xfer_obj.perform(druid) }.to raise_error(Preservation::ItemError, exp_msg)
+    expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
   end
 
   describe 'deposit bag path' do
@@ -39,7 +39,7 @@ describe Preservation::TransferObject do
       allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
       xfer_obj.instance_variable_set(:@druid, druid)
       tarpipe_cmd = xfer_obj.send(:tarpipe_command, deposit_dir_pathname)
-      allow(Preservation::Base).to receive(:execute_shell_command).with(tarpipe_cmd)
+      allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(tarpipe_cmd)
     end
 
     it "ensures the deposit_dir_pathname is created if it does not exist" do
@@ -60,7 +60,7 @@ describe Preservation::TransferObject do
       expect(deposit_bag_pathname.exist?).to be true
       expect(deposit_bag_pathname).to receive(:rmtree).at_least(3).times.and_raise(StandardError, 'rmtree failed')
       exp_msg = Regexp.escape("Error transferring object: Failed cleanup (3 attempts) for #{deposit_bag_pathname}")
-      expect { xfer_obj.perform(druid) }.to raise_error(Preservation::ItemError, a_string_matching(/#{exp_msg}/))
+      expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(/#{exp_msg}/))
       expect(deposit_bag_pathname.exist?).to be true
     end
   end
@@ -74,10 +74,10 @@ describe Preservation::TransferObject do
 
     xfer_obj.instance_variable_set(:@druid, druid)
     tarpipe_cmd = xfer_obj.send(:tarpipe_command, deposit_dir_pathname)
-    allow(Preservation::Base).to receive(:execute_shell_command)
+    allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command)
       .with(tarpipe_cmd).and_raise(StandardError, 'tarpipe failed')
     exp_msg = Regexp.escape("Error transferring object: tarpipe failed")
-    expect { xfer_obj.perform(druid) }.to raise_error(Preservation::ItemError, a_string_matching(/#{exp_msg}/))
+    expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(/#{exp_msg}/))
   end
 
   it 'executes the tarpipe command to transfer the object when no errors are raised' do
@@ -87,7 +87,7 @@ describe Preservation::TransferObject do
       .with('dor', druid, 'accessionWF', 'sdr-ingest-transfer').and_return('completed')
 
     cmd_regex = Regexp.new("if ssh #{Dor::Config.transfer_object.from_host} test -e #{vm_file_path}.*")
-    expect(Preservation::Base).to receive(:execute_shell_command).with(a_string_matching(cmd_regex)).and_return('yes')
+    expect(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(a_string_matching(cmd_regex)).and_return('yes')
 
     mock_moab = instance_double(Moab::StorageObject)
     expect(mock_moab).to receive(:deposit_bag_pathname).and_return(deposit_bag_pathname)
@@ -95,7 +95,7 @@ describe Preservation::TransferObject do
 
     xfer_obj.instance_variable_set(:@druid, druid)
     tarpipe_cmd = xfer_obj.send(:tarpipe_command, deposit_dir_pathname)
-    expect(Preservation::Base).to receive(:execute_shell_command).with(tarpipe_cmd)
+    expect(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(tarpipe_cmd)
 
     xfer_obj.perform(druid)
   end

@@ -2,5 +2,5 @@ server 'preservation-robots1-stage.stanford.edu', user: 'pres', roles: %w[web ap
 
 Capistrano::OneTimeKey.generate_one_time_key!
 
-set :deploy_environment, 'test'
+set :deploy_environment, 'stage'
 set :default_env, robot_environment: fetch(:deploy_environment)

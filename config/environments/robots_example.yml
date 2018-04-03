@@ -8,7 +8,7 @@
 #
 #  where
 #    1. robot is a single robot identifier (fully-qualified with
-#       REPO_SUITE_ROBOT, e.g., "sdr_sdrIngestWF_technical-metadata").
+#       REPO_SUITE_ROBOT, e.g., "sdr_preservationIngestWF_transfer-object").
 #    2. lane is
 #          - a single identifier ('A'), or
 #          - a list of identiers ('A,B,C'), or
@@ -33,7 +33,7 @@
 #
 #    RIGHT
 #      - sdr_preservationIngestWF_transfer-object:A:5
-#      - 'sdr_spreservationIngestWF_transfer-object : A : 5'
+#      - 'sdr_preservationIngestWF_transfer-object : A : 5'
 #
 #    WRONG
 #      - sdr_preservationIngestWF_transfer-object : A : 5

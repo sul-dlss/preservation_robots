@@ -8,6 +8,7 @@ Coveralls.wear!
 SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 SimpleCov.start do
   add_filter 'spec'
+  add_filter 'config'
 end
 
 bootfile = File.join(File.dirname(__FILE__), '..', 'config/boot')
