@@ -53,7 +53,8 @@ module Robots
           raise(ItemError, "Unable to find isGovernedBy node of relationshipMetadata") if nodeset.empty?
 
           apo_attr = nodeset.first.attribute_with_ns('resource', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#')
-          raise(ItemError, "Unable to find 'resource' attribute for <isGovernedBy> in relationshipMetadata") unless apo_attr
+          err_msg = "Unable to find 'resource' attribute for <isGovernedBy> in relationshipMetadata"
+          raise(ItemError, err_msg) unless apo_attr
           apo_attr.text.split('/')[-1]
         rescue Nokogiri::XML::SyntaxError => e
           raise(ItemError, "Unable to parse #{relationship_md_pathname}: #{e.message}")
