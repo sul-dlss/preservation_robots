@@ -23,7 +23,8 @@ set :deploy_to, "/opt/app/pres/#{fetch(:application)}"
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
-append :linked_dirs, "log", "run", "config/environments", "config/certs", "tmp"
+append :linked_dirs, 'log', 'run', 'config/environments', 'config/certs', 'tmp'
+append :linked_files, 'log/wfs/workflow_service.log'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
