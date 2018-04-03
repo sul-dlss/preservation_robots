@@ -224,6 +224,7 @@ DEPENDENCIES
   rspec
   rubocop (~> 0.52.1)
   rubocop-rspec (~> 1.23.0)
+  whenever
 
 BUNDLED WITH
    1.16.1
