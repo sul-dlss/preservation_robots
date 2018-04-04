@@ -318,6 +318,7 @@ DEPENDENCIES
   dor-services (~> 5.28)
   lyber-core
   moab-versioning (>= 4.2.0)
+  pry
   pry-byebug
   rake
   robot-controller
