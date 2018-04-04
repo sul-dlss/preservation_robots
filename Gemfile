@@ -1,13 +1,9 @@
 source 'https://rubygems.org'
 
-# gem 'faraday' # HTTP requests to other ReST services
-# gem 'nokogiri' # xml parsing
 gem 'rake'
-# gem 'retries' # robust handling of network glitches
 gem 'pry' # useful for production environment
 
 # Stanford DLSS gems
-# gem 'druid-tools' # druid validation and druid-tree parsing
 # FIXME: do we really need dor-services?   Just for Dor::Config ??
 gem 'dor-services', '~> 5.28' # for Dor::Config
 gem 'moab-versioning', '>= 4.2.0' # work with Moab Objects; 4.2.0 has DepositBagValidator
