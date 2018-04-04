@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 # gem 'nokogiri' # xml parsing
 gem 'rake'
 # gem 'retries' # robust handling of network glitches
+gem 'pry' # useful for production environment
 
 # Stanford DLSS gems
 # gem 'druid-tools' # druid validation and druid-tree parsing
