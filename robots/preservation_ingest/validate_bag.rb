@@ -15,7 +15,7 @@ module Robots
         attr_reader :druid
 
         def perform(druid)
-          @druid = druid
+          @druid = druid # for base class attr_accessor
           validate_bag
         end
 

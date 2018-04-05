@@ -19,7 +19,7 @@ module Robots
         end
 
         def perform(druid)
-          @druid = druid
+          @druid = druid # for base class attr_accessor
           verify_governing_apo
         end
 
