@@ -14,7 +14,6 @@ describe Robots::SdrRepo::PreservationIngest::UpdateMoab do
 
     it 'calls #ingest_bag and verify_version_storage on Moab::StorageObjectVersion' do
       allow(LyberCore::Log).to receive(:debug).with("update-moab druid:bj102hs9687 starting")
-      expect(Moab::StorageServices).to receive(:find_storage_object).with(full_druid, true).and_return(mock_so)
       expect(mock_path).to receive(:mkpath)
       expect(mock_so).to receive(:ingest_bag).and_return(mock_new_version)
       allow(verification_result).to receive(:verified).and_return(true)
