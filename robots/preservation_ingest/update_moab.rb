@@ -14,15 +14,13 @@ module Robots
 
         def perform(druid)
           LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
-          storage_object = Moab::StorageServices.find_storage_object(druid, true)
-          storage_object.object_pathname.mkpath
-          update_moab(storage_object)
+          update_moab
         end
 
         private
 
-        def update_moab(storage_object)
-          new_version = storage_object.ingest_bag
+        def update_moab
+          new_version = moab_object.ingest_bag
           result = new_version.verify_version_storage
           return if result.verified
           LyberCore::Log.info result.to_json(false)
