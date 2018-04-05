@@ -4,7 +4,7 @@ module Robots
   module SdrRepo
     # The workflow package name - match the actual workflow name, minus ending WF (using CamelCase)
     module PreservationIngest
-      # Robot for validating bag in the Moab object deposit area
+      # Robot for ingesting deposit bag into Moab object (creating a new version)
       class UpdateMoab < Base
         ROBOT_NAME = 'update-moab'.freeze
 
@@ -13,16 +13,15 @@ module Robots
         end
 
         def perform(druid)
-          LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
-          storage_object = Moab::StorageServices.find_storage_object(druid, true)
-          storage_object.object_pathname.mkpath
-          update_moab(storage_object)
+          @druid = druid # for base class attr_accessor
+          update_moab
         end
 
         private
 
-        def update_moab(storage_object)
-          new_version = storage_object.ingest_bag
+        def update_moab
+          LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
+          new_version = moab_object.ingest_bag
           result = new_version.verify_version_storage
           return if result.verified
           LyberCore::Log.info result.to_json(false)

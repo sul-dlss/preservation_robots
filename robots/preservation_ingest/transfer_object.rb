@@ -13,7 +13,7 @@ module Robots
         end
 
         def perform(druid)
-          @druid = druid
+          @druid = druid # for base class attr_accessor
           transfer_object
         end
 
