@@ -4,7 +4,7 @@ module Robots
   module SdrRepo
     # The workflow package name - match the actual workflow name, minus ending WF (using CamelCase)
     module PreservationIngest
-      # Robot for validating bag in the Moab object deposit area
+      # Robot for ingesting deposit bag into Moab object (creating a new version)
       class UpdateMoab < Base
         ROBOT_NAME = 'update-moab'.freeze
 
