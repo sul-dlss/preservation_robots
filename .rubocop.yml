@@ -78,6 +78,7 @@ RSpec/ExampleLength:
   Max: 10
   Exclude:
     - spec/preservation_ingest/transfer_object_spec.rb # lots of expectations to set up for some specs
+    - spec/lib/stats_reporter_spec.rb # mimicking cli output takes many lines
 
 RSpec/FilePath:
   Enabled: false # paths become long to no gain

@@ -5,11 +5,12 @@ gem 'rake'
 gem 'pry' # useful for production environment
 
 # Stanford DLSS gems
-gem 'dor-workflow-service', '~> 2.2'
+gem 'dor-workflow-service', '>= 2.3' # need 2.3 or higher for get_output_for_step calls
 gem 'moab-versioning', '>= 4.2.0' # work with Moab Objects; 4.2.0 has DepositBagValidator
 gem 'lyber-core' # robot code
 gem 'robot-controller' # robot code
 gem 'honeybadger' # for error reporting / tracking / notifications
+gem 'text-table' # to generate tables for StatsReporter
 gem 'whenever' # manage cron for robots and monitoring
 
 group :development, :test do
@@ -21,6 +22,7 @@ end
 group :test do
   gem 'rspec'
   gem 'coveralls', require: false
+  gem 'webmock'
 end
 
 group :deployment do
