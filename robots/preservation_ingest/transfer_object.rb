@@ -51,8 +51,8 @@ module Robots
         VERSION_METADATA_PATH_SUFFIX = '/data/metadata/versionMetadata.xml'.freeze
 
         def verify_version_metadata
-          vm_path = File.join(Settings.transfer_object.input_dir, bare_druid, VERSION_METADATA_PATH_SUFFIX)
-          cmd = "if ssh #{Settings.transfer_object.dor_host} test -e #{vm_path}; then echo yes; else echo no; fi"
+          vm_path = File.join(Settings.transfer_object.from_dir, bare_druid, VERSION_METADATA_PATH_SUFFIX)
+          cmd = "if ssh #{Settings.transfer_object.from_host} test -e #{vm_path}; then echo yes; else echo no; fi"
           raise(ItemError, "#{vm_path} not found") if self.class.execute_shell_command(cmd) == 'no'
         end
 
@@ -80,8 +80,8 @@ module Robots
         # Note that symbolic links from /dor/export to /dor/workspace get
         #  translated into real files by use of --dereference
         def tarpipe_command(deposit_dir)
-          "ssh #{Settings.transfer_object.dor_host} " \
-            '"tar -C ' + "#{Settings.transfer_object.input_dir} --dereference -cf - #{bare_druid}" + ' "' \
+          "ssh #{Settings.transfer_object.from_host} " \
+            '"tar -C ' + "#{Settings.transfer_object.from_dir} --dereference -cf - #{bare_druid}" + ' "' \
             " | tar -C #{deposit_dir} -xf -"
         end
 

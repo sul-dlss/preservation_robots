@@ -4,9 +4,10 @@ workflow:
   url: 'https://workflows.example.org'
   # logfile: 'log/wfs/workflow_service.log'
   # shift_age: 'weekly'
-  timeout: 60
+  timeout: 60 # seconds
+# where to find the deposit bag to be preserved
 transfer_object:
-  dor_host: 'userid@dor-host'
-  input_dir: '/dor/export/'
+  from_host: 'userid@common-accessioning-vm'
+  from_dir: '/dor/export/'
 redis:
   url: 'localhost:6379/resque:test'
