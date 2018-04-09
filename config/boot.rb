@@ -11,6 +11,7 @@ ROBOT_LOG.level = Logger::SEV_LABEL.index(ENV['ROBOT_LOG_LEVEL']) || Logger::INF
 require 'lyber_core'
 LyberCore::Log.set_level(ROBOT_LOG.level)
 
+# config gem, without Rails, requires we load the config ourselves
 require 'config'
 Config.setup do |config|
   config.use_env = true
