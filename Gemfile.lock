@@ -116,6 +116,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     haml (4.0.7)
       tilt
+    honeybadger (3.3.0)
     hooks (0.4.1)
       uber (~> 0.0.14)
     htmlentities (4.3.4)
@@ -316,6 +317,7 @@ DEPENDENCIES
   coveralls
   dlss-capistrano
   dor-services (~> 5.28)
+  honeybadger
   lyber-core
   moab-versioning (>= 4.2.0)
   pry

@@ -42,7 +42,7 @@ set :bundle_without, %w[development deployment test].join(' ')
 
 set :stages, %w[stage prod]
 
-# set :honeybadger_env, fetch(:deployment)
+set :honeybadger_env, fetch(:stage)
 # set :whenever_environment, fetch(:deploy_environment)
 # set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 
