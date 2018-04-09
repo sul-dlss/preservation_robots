@@ -9,6 +9,7 @@ gem 'dor-services', '~> 5.28' # for Dor::Config
 gem 'moab-versioning', '>= 4.2.0' # work with Moab Objects; 4.2.0 has DepositBagValidator
 gem 'lyber-core' # robot code
 gem 'robot-controller' # requires Resque
+gem 'honeybadger' # for error reporting / tracking / notifications
 
 group :development, :test do
   gem 'pry-byebug'

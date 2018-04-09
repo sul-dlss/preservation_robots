@@ -35,7 +35,7 @@ require "capistrano/bundler"
 # require "capistrano/passenger"
 
 require 'dlss/capistrano'
-# require 'capistrano/honeybadger'
+require 'capistrano/honeybadger'
 # require 'whenever/capistrano'
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
