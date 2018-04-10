@@ -13,3 +13,6 @@ end
 
 bootfile = File.join(File.dirname(__FILE__), '..', 'config/boot')
 require bootfile
+
+require 'moab'
+require 'moab/stanford'

@@ -1,0 +1,13 @@
+dor_services:
+  url: 'https://fakeuser:fakepass@fakeserver.example.edu/dor'
+workflow:
+  url: 'https://workflows.example.org'
+  # logfile: 'log/wfs/workflow_service.log'
+  # shift_age: 'weekly'
+  timeout: 60 # seconds
+# where to find the deposit bag to be preserved
+transfer_object:
+  from_host: 'userid@common-accessioning-vm'
+  from_dir: '/dor/export/'
+redis:
+  url: 'localhost:6379/resque:test'

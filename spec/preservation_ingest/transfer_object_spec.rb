@@ -2,7 +2,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
   let(:bare_druid) { 'jc837rq9922' }
   let(:druid) { "druid:#{bare_druid}" }
   let(:vm_file_path) do
-    from_dir = File.join(Dor::Config.transfer_object.from_dir, bare_druid)
+    from_dir = File.join(Settings.transfer_object.from_dir, bare_druid)
     File.join(from_dir, described_class::VERSION_METADATA_PATH_SUFFIX)
   end
   let(:deposit_dir_pathname) { Pathname(File.join(File.dirname(__FILE__), '..', 'fixtures', 'deposit', 'foo')) }
@@ -22,7 +22,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
 
   it 'raises ItemError if versionMetadata.xml file for druid does not exist' do
     allow(xfer_obj).to receive(:verify_accesssion_wf_step_completed)
-    cmd_regex = Regexp.new(".*ssh #{Dor::Config.transfer_object.from_host} test -e #{vm_file_path}.*")
+    cmd_regex = Regexp.new(".*ssh #{Settings.transfer_object.from_host} test -e #{vm_file_path}.*")
     expect(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(a_string_matching(cmd_regex)).and_return('no')
     exp_msg = "Error transferring object: #{vm_file_path} not found"
     expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
@@ -86,7 +86,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
     expect(Dor::WorkflowService).to receive(:get_workflow_status)
       .with('dor', druid, 'accessionWF', 'sdr-ingest-transfer').and_return('completed')
 
-    cmd_regex = Regexp.new("if ssh #{Dor::Config.transfer_object.from_host} test -e #{vm_file_path}.*")
+    cmd_regex = Regexp.new("if ssh #{Settings.transfer_object.from_host} test -e #{vm_file_path}.*")
     expect(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(a_string_matching(cmd_regex)).and_return('yes')
 
     mock_moab = instance_double(Moab::StorageObject)
