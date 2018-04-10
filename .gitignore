@@ -3,6 +3,7 @@ log/wfs/*
 log/*.log
 workflow_service.log*
 tmp/*.*
+.byebug_history
 .pry_history
 
 config/environments/development.rb
