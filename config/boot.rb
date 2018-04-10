@@ -8,9 +8,6 @@ ROBOT_ROOT = File.expand_path(File.dirname(__FILE__) + '/..')
 ROBOT_LOG = Logger.new(File.join(ROBOT_ROOT, "log/#{environment}.log"))
 ROBOT_LOG.level = Logger::SEV_LABEL.index(ENV['ROBOT_LOG_LEVEL']) || Logger::INFO
 
-require 'lyber_core'
-LyberCore::Log.set_level(ROBOT_LOG.level)
-
 # config gem, without Rails, requires we load the config ourselves
 require 'config'
 Config.setup do |config|
@@ -19,6 +16,10 @@ Config.setup do |config|
   config.env_separator = '__'
 end
 Config.load_and_set_settings(Config.setting_files(File.dirname(__FILE__), environment))
+
+require 'lyber_core'
+LyberCore::Log.set_logfile(Settings.lybercore_log)
+LyberCore::Log.set_level(ROBOT_LOG.level)
 
 # Load Resque configuration and controller
 require 'resque'
@@ -37,8 +38,16 @@ Dor::WorkflowService.configure(
   Settings.workflow.url,
   logger: LyberCore::Log.class_variable_get(:@@log), # reuse a logger
   timeout: Settings.workflow.timeout || 0,
-  dor_services_url: Settings.dor_services.url
+  dor_services_url: Settings.workflow.dor_services_url
 )
+
+require 'moab'
+Moab::Config.configure do
+  storage_roots Settings.moab.storage_roots
+  storage_trunk Settings.moab.storage_trunk
+  deposit_trunk Settings.moab.deposit_trunk
+  path_method Settings.moab.path_method
+end
 
 require 'robots'
 require 'robot-controller'
