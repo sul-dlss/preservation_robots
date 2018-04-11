@@ -1,13 +1,32 @@
-dor_services:
-  url: 'https://fakeuser:fakepass@fakeserver.example.edu/dor'
+redis:
+  url: 'localhost:6379/resque:test'
+  timeout: 10 # seconds
+
+lybercore_log: 'log/lybercore.log'
+
+# for workflows
 workflow:
   url: 'https://workflows.example.org'
-  # logfile: 'log/wfs/workflow_service.log'
-  # shift_age: 'weekly'
+  dor_services_url: 'https://fakeuser:fakepass@fakeserver.example.edu/dor'
+  logfile: 'log/workflow_service.log'
+  shift_age: 'weekly'
   timeout: 60 # seconds
+
 # where to find the deposit bag to be preserved
 transfer_object:
   from_host: 'userid@common-accessioning-vm'
   from_dir: '/dor/export/'
-redis:
-  url: 'localhost:6379/resque:test'
+
+ssl:
+  # NOTE:  could use cert and key in /etc/pki/tls dir ... w some puppet fun?
+  cert_file: 'dir/with/cert/files/common-accesioning-vm.crt'
+  key_file: 'dir/with/cert/files/common-accesioning-vm.key'
+  key_pass: 'keypass'
+
+moab:
+  # storage_roots:
+  #   - '/services-disk/store1'
+  #   - '/services-disk/store2'
+  storage_trunk: 'sdr2objects'
+  deposit_trunk: 'deposit'
+  path_method: 'druid_tree'
