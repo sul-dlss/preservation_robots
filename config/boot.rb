@@ -41,13 +41,14 @@ Dor::WorkflowService.configure(
   dor_services_url: Settings.workflow.dor_services_url
 )
 
+require 'robots'
+require 'robot-controller'
+
 require 'moab'
+require 'moab/stanford'
 Moab::Config.configure do
   storage_roots Settings.moab.storage_roots
   storage_trunk Settings.moab.storage_trunk
   deposit_trunk Settings.moab.deposit_trunk
   path_method Settings.moab.path_method
 end
-
-require 'robots'
-require 'robot-controller'
