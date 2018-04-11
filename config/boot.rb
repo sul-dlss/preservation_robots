@@ -34,9 +34,10 @@ else
 end
 
 require 'dor-workflow-service'
+wf_log = Logger.new(Settings.workflow.logfile, Settings.workflow.shift_age)
 Dor::WorkflowService.configure(
   Settings.workflow.url,
-  logger: LyberCore::Log.class_variable_get(:@@log), # reuse a logger
+  logger: wf_log,
   timeout: Settings.workflow.timeout || 0,
   dor_services_url: Settings.workflow.dor_services_url
 )

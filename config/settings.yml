@@ -8,9 +8,8 @@ lybercore_log: 'log/lybercore.log'
 workflow:
   url: 'https://workflows.example.org'
   dor_services_url: 'https://fakeuser:fakepass@fakeserver.example.edu/dor'
-  # FIXME: if we get workflows logging to the individual robot logs, remove the following comments
-  # logfile: 'log/wfs/workflow_service.log'
-  # shift_age: 'weekly'
+  logfile: 'log/workflow_service.log'
+  shift_age: 'weekly'
   timeout: 60 # seconds
 
 # where to find the deposit bag to be preserved
