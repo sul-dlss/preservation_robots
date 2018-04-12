@@ -60,19 +60,13 @@ module Robots
           LyberCore::Log.debug("deposit bag pathname is: #{deposit_bag_pathname}")
           deposit_dir = deposit_bag_pathname.parent
           if deposit_bag_pathname.exist?
-            remove_bag(deposit_bag_pathname)
+            deposit_bag_pathname.rmtree
           else
             deposit_dir.mkpath
           end
           deposit_dir
-        end
-
-        def remove_bag(bag_pathname)
-          tries ||= 3
-          bag_pathname.rmtree
         rescue StandardError => e
-          retry if (tries -= 1).positive?
-          raise(ItemError, "Failed cleanup (3 attempts) for #{bag_pathname}: #{e.message}")
+          raise(ItemError, "Failed preparation of deposit dir #{deposit_bag_pathname}: #{e.message}")
         end
 
         # @see http://en.wikipedia.org/wiki/User:Chdev/tarpipe
