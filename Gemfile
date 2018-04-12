@@ -14,7 +14,7 @@ gem 'honeybadger' # for error reporting / tracking / notifications
 group :development, :test do
   gem 'pry-byebug'
   gem 'rubocop', '~> 0.52.1', require: false # avoid code churn due to rubocop changes
-  gem 'rubocop-rspec'
+  gem 'rubocop-rspec', '~> 1.23.0', require: false # avoid code churn due to rubocop-rspec changes
 end
 
 group :test do
