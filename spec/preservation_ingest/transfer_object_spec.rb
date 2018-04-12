@@ -60,7 +60,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
       expect(deposit_bag_pathname.exist?).to be true
       expect(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, 'rmtree failed')
       exp_msg = Regexp.escape("Error transferring object: Failed preparation of deposit dir #{deposit_bag_pathname}")
-      expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(/#{exp_msg}/))
+      expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
       expect(deposit_bag_pathname.exist?).to be true
     end
   end
@@ -77,7 +77,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
     allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command)
       .with(tarpipe_cmd).and_raise(StandardError, 'tarpipe failed')
     exp_msg = Regexp.escape("Error transferring object: tarpipe failed")
-    expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(/#{exp_msg}/))
+    expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
   end
 
   it 'executes the tarpipe command to transfer the object when no errors are raised' do
