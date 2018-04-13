@@ -226,6 +226,7 @@ DEPENDENCIES
   coveralls
   dlss-capistrano
   dor-workflow-service (>= 2.3)
+  faraday
   honeybadger
   lyber-core
   moab-versioning (>= 4.2.0)

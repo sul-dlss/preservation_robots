@@ -21,7 +21,21 @@ module Robots
         private
 
         def update_catalog
-          # FIXME:  do something and update the comment too
+          size = moab_object.size
+          storage_location = moab_object.storage_root
+          latest_version_id = moab_object.current_version_id
+          args = {
+            druid: druid,
+            incoming_version: latest_version_id,
+            incoming_size: size,
+            storage_location: storage_location
+          }
+          response = conn.post '/catalog', args
+          conn.patch "/catalog/#{druid}", args if response.status == 409
+        end
+
+        def conn
+          @conn ||= Faraday.new(url: Settings.preservation_catalog.url)
         end
       end
     end

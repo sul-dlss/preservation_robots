@@ -30,3 +30,6 @@ moab:
   storage_trunk: 'sdr2objects'
   deposit_trunk: 'deposit'
   path_method: 'druid_tree'
+
+preservation_catalog:
+  url: 'http://localhost:3000'
