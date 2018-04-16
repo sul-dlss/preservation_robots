@@ -104,7 +104,7 @@ GEM
       concurrent-ruby (~> 1.0)
     inflecto (0.0.2)
     json (2.1.0)
-    lyber-core (4.1.3)
+    lyber-core (4.1.4)
       activesupport
       dor-workflow-service (>= 1.7, < 3)
     method_source (0.9.0)
@@ -228,7 +228,7 @@ DEPENDENCIES
   dor-workflow-service (>= 2.3)
   faraday
   honeybadger
-  lyber-core
+  lyber-core (>= 4.1.4)
   moab-versioning (>= 4.2.0)
   pry
   pry-byebug

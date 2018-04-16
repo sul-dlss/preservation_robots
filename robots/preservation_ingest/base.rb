@@ -5,13 +5,22 @@ module Robots
     # The workflow package name - match the actual workflow name, minus ending WF (using CamelCase)
     module PreservationIngest
       # Base class for all preservation robots
-      class Base
-        include LyberCore::Robot
-
+      class Base < LyberCore::Base
         REPOSITORY = 'sdr'.freeze
         WORKFLOW_NAME = 'preservationIngestWF'.freeze
 
         attr_reader :druid
+
+        # @param [String] a concrete class' robot name
+        def self.robot_name
+          return const_get(:ROBOT_NAME) if const_defined?(:ROBOT_NAME)
+          raise NotImplementedError, "specify ROBOT_NAME or implement self.robot_name in subclass"
+        end
+
+        # a constructor
+        def self.worker
+          new(REPOSITORY, WORKFLOW_NAME, robot_name)
+        end
 
         # if command doesn't exit with 0, grabs stdout and stderr and puts them in ruby exception message
         def self.execute_shell_command(command)
