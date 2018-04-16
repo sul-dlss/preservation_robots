@@ -8,13 +8,13 @@ gem 'pry' # useful for production environment
 gem 'dor-workflow-service', '~> 2.2'
 gem 'moab-versioning', '>= 4.2.0' # work with Moab Objects; 4.2.0 has DepositBagValidator
 gem 'lyber-core' # robot code
-gem 'robot-controller' # requires Resque
+gem 'robot-controller' # robot code
 gem 'honeybadger' # for error reporting / tracking / notifications
 
 group :development, :test do
   gem 'pry-byebug'
-  gem 'rubocop', '~> 0.52.1', require: false # avoid code churn due to rubocop changes
-  gem 'rubocop-rspec'
+  gem 'rubocop', '~> 0.52.1' # avoid code churn due to rubocop changes
+  gem 'rubocop-rspec', '~> 1.23.0' # avoid code churn due to rubocop-rspec changes
 end
 
 group :test do

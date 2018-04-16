@@ -54,13 +54,13 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
       xfer_obj.perform(druid)
       expect(deposit_bag_pathname.exist?).to be false
     end
-    it 'raises an ItemError if previous bag is not removed after 3 tries' do
+    it 'raises an ItemError if previous bag is not removed' do
       FileUtils.mkdir_p(deposit_bag_pathname)
       FileUtils.touch(deposit_bag_pathname + 'bagit_file.txt')
       expect(deposit_bag_pathname.exist?).to be true
-      expect(deposit_bag_pathname).to receive(:rmtree).at_least(3).times.and_raise(StandardError, 'rmtree failed')
-      exp_msg = Regexp.escape("Error transferring object: Failed cleanup (3 attempts) for #{deposit_bag_pathname}")
-      expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(/#{exp_msg}/))
+      expect(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, 'rmtree failed')
+      exp_msg = Regexp.escape("Error transferring object: Failed preparation of deposit dir #{deposit_bag_pathname}")
+      expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
       expect(deposit_bag_pathname.exist?).to be true
     end
   end
@@ -77,7 +77,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
     allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command)
       .with(tarpipe_cmd).and_raise(StandardError, 'tarpipe failed')
     exp_msg = Regexp.escape("Error transferring object: tarpipe failed")
-    expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(/#{exp_msg}/))
+    expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
   end
 
   it 'executes the tarpipe command to transfer the object when no errors are raised' do
