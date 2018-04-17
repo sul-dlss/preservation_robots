@@ -10,6 +10,7 @@ gem 'moab-versioning', '>= 4.2.0' # work with Moab Objects; 4.2.0 has DepositBag
 gem 'lyber-core' # robot code
 gem 'robot-controller' # robot code
 gem 'honeybadger' # for error reporting / tracking / notifications
+gem 'whenever' # manage cron for robots and monitoring
 
 group :development, :test do
   gem 'pry-byebug'
