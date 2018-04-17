@@ -18,11 +18,11 @@ module Robots
         private
 
         def update_moab
-          LyberCore::Log.debug("#{self.class.robot_name} #{druid} starting")
+          logger.debug("#{self.class.robot_name} #{druid} starting")
           new_version = moab_object.ingest_bag
           result = new_version.verify_version_storage
           return if result.verified
-          LyberCore::Log.info result.to_json(false)
+          logger.info result.to_json(false)
           raise(ItemError, "Failed verification for #{result.entity}")
         end
       end

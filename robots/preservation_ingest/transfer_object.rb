@@ -27,7 +27,7 @@ module Robots
         #     regarding the handling of vendor extended attributes.
         #     See: http://xorl.wordpress.com/2012/05/15/admin-mistakes-gnu-bsd-tar-and-posix-compatibility/
         def transfer_object
-          LyberCore::Log.debug("#{self.class.robot_name} #{druid} starting")
+          logger.debug("#{self.class.robot_name} #{druid} starting")
           prereqs_for_transfer
           deposit_dir = prepare_deposit_dir
           self.class.execute_shell_command(tarpipe_command(deposit_dir))
@@ -55,7 +55,7 @@ module Robots
         end
 
         def prepare_deposit_dir
-          LyberCore::Log.debug("deposit bag pathname is: #{deposit_bag_pathname}")
+          logger.debug("deposit bag pathname is: #{deposit_bag_pathname}")
           deposit_dir = deposit_bag_pathname.parent
           if deposit_bag_pathname.exist?
             deposit_bag_pathname.rmtree

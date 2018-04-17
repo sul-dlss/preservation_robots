@@ -25,15 +25,14 @@ module Robots
         private
 
         def verify_governing_apo
-          LyberCore::Log.debug("#{self.class.robot_name} #{druid} starting")
+          logger.debug("#{self.class.robot_name} #{druid} starting")
           if relationship_md_pathname
             verify_apo_moab
-            LyberCore::Log.debug("APO #{apo_druid} was verified")
-          else
-            errmsg = "relationshipMetadata.xml not found in deposit bag for #{druid}"
-            raise(ItemError, errmsg) unless deposit_version > 1
-            LyberCore::Log.debug("APO verification skipped: deposit version > 1 && no relationshipMetadata.xml in bag")
+            logger.debug("APO #{apo_druid} was verified")
+            return
           end
+          raise(ItemError, "relationshipMetadata.xml not found in deposit bag for #{druid}") unless deposit_version > 1
+          logger.debug("APO verification skipped: deposit version > 1 && no relationshipMetadata.xml in bag")
         end
 
         def relationship_md_pathname

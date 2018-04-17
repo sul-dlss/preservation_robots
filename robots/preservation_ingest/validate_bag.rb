@@ -18,7 +18,7 @@ module Robots
         private
 
         def validate_bag
-          LyberCore::Log.debug("#{self.class.robot_name} #{druid} starting")
+          logger.debug("#{self.class.robot_name} #{druid} starting")
           deposit_bag_validator = Moab::DepositBagValidator.new(moab_object)
           validation_errors = deposit_bag_validator.validation_errors
           raise(ItemError, "Bag validation failure(s) for #{druid}: #{validation_errors}") if validation_errors.any?
