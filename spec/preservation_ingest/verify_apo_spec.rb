@@ -1,5 +1,5 @@
 describe Robots::SdrRepo::PreservationIngest::VerifyApo do
-  subject(:verify_apo) { described_class.new }
+  subject(:verify_apo) { described_class.worker }
 
   let(:deposit_dir_pathname) { Pathname(File.join(File.dirname(__FILE__), '..', 'fixtures', 'deposit')) }
   let(:deposit_bag_pathname) { Pathname(File.join(deposit_dir_pathname, id)) }

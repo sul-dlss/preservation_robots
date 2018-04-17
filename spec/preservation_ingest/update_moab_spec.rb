@@ -1,5 +1,5 @@
 describe Robots::SdrRepo::PreservationIngest::UpdateMoab do
-  let(:pres_update_moab) { described_class.new }
+  let(:pres_update_moab) { described_class.worker }
   let(:full_druid) { 'druid:bj102hs9687' }
   let(:mock_path) { instance_double(Pathname) }
   let(:mock_so) { instance_double(Moab::StorageObject, object_pathname: mock_path) }

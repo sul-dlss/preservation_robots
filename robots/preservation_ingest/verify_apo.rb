@@ -8,14 +8,13 @@ module Robots
       #   We sensibly only check the APO if relationshipMetadata.xml is in
       #   THIS object's deposit bag || if deposit will be version 1 of THIS Moab.
       class VerifyApo < Base
-        ROBOT_NAME = 'verify-apo'.freeze
         DATA_DIR = 'data'.freeze
         METADATA_DIR = 'metadata'.freeze
         RELATIONSHIP_MD_FNAME = 'relationshipMetadata.xml'.freeze
         VERSION_MD_FNAME = 'versionMetadata.xml'.freeze
 
-        def initialize(opts = {})
-          super(REPOSITORY, WORKFLOW_NAME, ROBOT_NAME, opts)
+        def self.robot_name
+          'verify-apo'
         end
 
         def perform(druid)
@@ -26,7 +25,7 @@ module Robots
         private
 
         def verify_governing_apo
-          LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
+          LyberCore::Log.debug("#{self.class.robot_name} #{druid} starting")
           if relationship_md_pathname
             verify_apo_moab
             LyberCore::Log.debug("APO #{apo_druid} was verified")

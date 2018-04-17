@@ -6,10 +6,8 @@ module Robots
     module PreservationIngest
       # Robot for ingesting deposit bag into Moab object (creating a new version)
       class UpdateMoab < Base
-        ROBOT_NAME = 'update-moab'.freeze
-
-        def initialize(opts={})
-          super(REPOSITORY, WORKFLOW_NAME, ROBOT_NAME, opts)
+        def self.robot_name
+          'update-moab'
         end
 
         def perform(druid)
@@ -20,7 +18,7 @@ module Robots
         private
 
         def update_moab
-          LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
+          LyberCore::Log.debug("#{self.class.robot_name} #{druid} starting")
           new_version = moab_object.ingest_bag
           result = new_version.verify_version_storage
           return if result.verified

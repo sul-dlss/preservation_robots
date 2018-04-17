@@ -7,7 +7,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
   end
   let(:deposit_dir_pathname) { Pathname(File.join(File.dirname(__FILE__), '..', 'fixtures', 'deposit', 'foo')) }
   let(:deposit_bag_pathname) { Pathname(File.join(deposit_dir_pathname, bare_druid)) }
-  let(:xfer_obj) { described_class.new }
+  let(:xfer_obj) { described_class.worker }
 
   after do
     deposit_dir_pathname.rmtree if deposit_dir_pathname.exist?

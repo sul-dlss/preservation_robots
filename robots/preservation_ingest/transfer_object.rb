@@ -6,10 +6,8 @@ module Robots
     module PreservationIngest
       # Robot transfers deposit bags from the DOR export area to the Moab object deposit area
       class TransferObject < Base
-        ROBOT_NAME = 'transfer-object'.freeze
-
-        def initialize(opts = {})
-          super(REPOSITORY, WORKFLOW_NAME, ROBOT_NAME, opts)
+        def self.robot_name
+          'transfer-object'
         end
 
         def perform(druid)
@@ -29,7 +27,7 @@ module Robots
         #     regarding the handling of vendor extended attributes.
         #     See: http://xorl.wordpress.com/2012/05/15/admin-mistakes-gnu-bsd-tar-and-posix-compatibility/
         def transfer_object
-          LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
+          LyberCore::Log.debug("#{self.class.robot_name} #{druid} starting")
           prereqs_for_transfer
           deposit_dir = prepare_deposit_dir
           self.class.execute_shell_command(tarpipe_command(deposit_dir))
