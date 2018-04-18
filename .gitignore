@@ -7,3 +7,4 @@ tmp/*.*
 .pry_history
 
 config/environments/development.rb
+config/certs

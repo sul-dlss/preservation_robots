@@ -1,6 +1,7 @@
 # Make sure specs run with the definitions from test.rb
 ENV['ROBOT_ENVIRONMENT'] = 'test'
 
+require 'webmock/rspec'
 require 'simplecov'
 require 'coveralls'
 Coveralls.wear!
