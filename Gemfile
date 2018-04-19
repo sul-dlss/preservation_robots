@@ -12,7 +12,8 @@ gem 'robot-controller' # robot code
 gem 'honeybadger' # for error reporting / tracking / notifications
 gem 'text-table' # to generate tables for StatsReporter
 gem 'whenever' # manage cron for robots and monitoring
-gem 'faraday' # for ReST calls
+gem 'faraday' # for ReST calls to Preservation Catalog
+gem 'retries'
 
 group :development, :test do
   gem 'pry-byebug'

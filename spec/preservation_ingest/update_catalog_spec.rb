@@ -3,7 +3,7 @@ describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
 
   let(:bare_druid) { 'bj102hs9687' }
   let(:size) { 2342 }
-  let(:version) { 3 }
+  let(:version) { 1 }
   let(:strg_root) { "some/storage/location/from/endpoint/table" }
   let(:faraday_dbl) { class_double(Faraday) }
   let(:url) { 'http://localhost:3000' }
@@ -31,12 +31,27 @@ describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         expect(faraday_dbl).not_to receive(:patch)
         update_catalog_obj.perform(bare_druid)
       end
+
+      it 'HTTP fails twice' do
+        response = instance_double(Faraday::Response, status: 201)
+        expect(LyberCore::Log).to receive(:warn).twice
+        expect(faraday_dbl).to receive(:post).with('/catalog', args).and_raise(Faraday::Error).twice
+        expect(faraday_dbl).to receive(:post).with('/catalog', args).and_return(response)
+        expect(faraday_dbl).not_to receive(:patch)
+        update_catalog_obj.perform(bare_druid)
+      end
+
+      it 'HTTP fails thrice' do
+        expect(faraday_dbl).to receive(:post).with('/catalog', args).and_raise(Faraday::Error).exactly(3).times
+        expect { update_catalog_obj.perform(bare_druid) }.to raise_error(Faraday::Error)
+      end
     end
 
     context 'object already exists' do
+      let(:version) { 3 }
+
       it 'PATCH to /catalog/:druid' do
         response = instance_double(Faraday::Response, status: 409)
-        expect(faraday_dbl).to receive(:post).with('/catalog', args).and_return(response)
         expect(faraday_dbl).to receive(:patch).with("/catalog/#{bare_druid}", args).and_return(response)
         update_catalog_obj.perform(bare_druid)
       end

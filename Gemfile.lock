@@ -233,6 +233,7 @@ DEPENDENCIES
   pry
   pry-byebug
   rake
+  retries
   robot-controller
   rspec
   rubocop (~> 0.52.1)
