@@ -4,3 +4,14 @@ every 5.minutes do
   set :environment_variable, 'ROBOT_ENVIRONMENT'
   rake 'robots:verify'
 end
+
+every :sunday, at: '4am' do
+  set :output, nil
+  set :environment_variable, 'ROBOT_ENVIRONMENT'
+  rake 'generate_stats'
+end
+
+every :sunday, at: '5am' do
+  set :output, nil
+  command "/bin/cat /var/log/preservation_robots/weekly_stats.log | mail -s 'Weekly preservation stats' sdr-discuss@lists.stanford.edu"
+end
