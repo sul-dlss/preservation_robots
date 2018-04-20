@@ -31,3 +31,17 @@ rescue LoadError
     abort 'Please install the rubocop gem to run rubocop.'
   end
 end
+
+desc 'Generate stats'
+task generate_stats: [:environment] do
+  require File.expand_path(File.dirname(__FILE__) + '/lib/stats_reporter')
+  stats_reporter = StatsReporter.new
+  complete_report = <<-REPORT.strip_heredoc
+Stats compiled on #{Time.now.to_date}
+Storage stats for mounts on #{Socket.gethostname}:
+#{stats_reporter.storage_report_text}
+Workflow stats:
+#{stats_reporter.workflow_report_text}
+  REPORT
+  File.open("#{ROBOT_ROOT}/log/weekly_stats.log", 'w') { |f| f.write(complete_report) }
+end
