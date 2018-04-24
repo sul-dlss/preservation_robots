@@ -23,7 +23,7 @@ LyberCore::Log.set_level(ROBOT_LOG.level)
 
 # Load Resque configuration and controller
 require 'resque'
-redis_url = Settings.redis.url || "localhost:6379/resque:#{ENV['ROBOT_ENVIRONMENT']}"
+redis_url = Settings.redis.url || "localhost:6379/resque:#{environment}"
 if defined? Settings.redis.timeout
   server, namespace = redis_url.split('/', 2)
   host, port, db = server.split(':')
