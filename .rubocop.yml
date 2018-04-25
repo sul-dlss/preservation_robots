@@ -55,12 +55,12 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Max: 120 # this isn't 1994
   Exclude:
+    - config/schedule.rb # one long cli command
     - spec/preservation_ingest/complete_ingest_spec.rb
     - spec/preservation_ingest/transfer_object_spec.rb # some long lines with fully namespaced classes
     - spec/preservation_ingest/update_moab_spec.rb # one long ling with fully namespaced classes
     - spec/preservation_ingest/validate_bag_spec.rb # one long line with fully namespaced classes
     - spec/preservation_ingest/verify_apo_spec.rb # one long line with fully namespaced classes
-    - config/schedule.rb # one long cli command
 Metrics/MethodLength:
   Exclude:
     - robots/preservation_ingest/base.rb # execute_shell_command
@@ -82,8 +82,8 @@ RSpec/ContextWording:
 RSpec/ExampleLength:
   Max: 10
   Exclude:
-    - spec/preservation_ingest/transfer_object_spec.rb # lots of expectations to set up for some specs
     - spec/lib/stats_reporter_spec.rb # mimicking cli output takes many lines
+    - spec/preservation_ingest/transfer_object_spec.rb # lots of expectations to set up for some specs
 
 RSpec/FilePath:
   Enabled: false # paths become long to no gain
