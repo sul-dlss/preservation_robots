@@ -15,3 +15,8 @@ every :sunday, at: '5am' do
   set :output, nil
   command "/bin/cat /var/log/preservation_robots/weekly_stats.log | mail -s 'Weekly preservation stats' sdr-discuss@lists.stanford.edu"
 end
+
+every 1.day, at: '5am' do
+  set :output, nil
+  rake 'preservation_errors', mailto: 'sdr2service@sul-sdr-services.stanford.edu'
+end

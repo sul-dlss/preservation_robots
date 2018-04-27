@@ -45,3 +45,10 @@ Workflow stats:
   REPORT
   File.open("#{ROBOT_ROOT}/log/weekly_stats.log", 'w') { |f| f.write(complete_report) }
 end
+
+desc 'retrieve preservation erorrs'
+task preservation_errors: [:environment] do
+  require File.expand_path(File.dirname(__FILE__) + '/lib/error_reporter')
+  error_reporter = ErrorReporter.new
+  error_reporter.output
+end
