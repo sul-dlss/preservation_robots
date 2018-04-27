@@ -58,12 +58,14 @@ Metrics/LineLength:
     - config/schedule.rb # one long cli command
     - spec/preservation_ingest/complete_ingest_spec.rb
     - spec/preservation_ingest/transfer_object_spec.rb # some long lines with fully namespaced classes
+    - spec/preservation_ingest/update_catalog_spec.rb # one long line #12
     - spec/preservation_ingest/update_moab_spec.rb # one long ling with fully namespaced classes
     - spec/preservation_ingest/validate_bag_spec.rb # one long line with fully namespaced classes
     - spec/preservation_ingest/verify_apo_spec.rb # one long line with fully namespaced classes
 Metrics/MethodLength:
   Exclude:
     - robots/preservation_ingest/base.rb # execute_shell_command
+    - robots/preservation_ingest/update_catalog.rb # one too many line [11/10]
 
 # --- Naming ---
 

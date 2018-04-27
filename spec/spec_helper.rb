@@ -12,5 +12,6 @@ SimpleCov.start do
   add_filter 'config'
 end
 
-bootfile = File.join(File.dirname(__FILE__), '..', 'config/boot')
-require bootfile
+require File.join(File.dirname(__FILE__), '..', 'config/boot')
+
+Retries.sleep_enabled = false # skip delays during testing

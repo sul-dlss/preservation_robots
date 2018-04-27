@@ -226,12 +226,14 @@ DEPENDENCIES
   coveralls
   dlss-capistrano
   dor-workflow-service (>= 2.3)
+  faraday
   honeybadger
   lyber-core
   moab-versioning (>= 4.2.0)
   pry
   pry-byebug
   rake
+  retries
   robot-controller
   rspec
   rubocop (~> 0.52.1)
