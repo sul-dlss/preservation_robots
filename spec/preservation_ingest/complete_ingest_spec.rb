@@ -20,7 +20,7 @@ describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
     it 'raises ItemError if it fails to remove the deposit bag' do
       expect(deposit_bag_pathname.exist?).to be true
       expect(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, 'rmtree failed')
-      exp_msg = Regexp.escape("Error completing ingest: failed to remove deposit bag (#{deposit_bag_pathname}): rmtree failed")
+      exp_msg = Regexp.escape("Error completing ingest for #{druid}: failed to remove deposit bag (#{deposit_bag_pathname}): rmtree failed")
       expect { this_robot.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
       expect(deposit_bag_pathname.exist?).to be true
     end
@@ -29,7 +29,7 @@ describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
       error = Dor::WorkflowException.new('foo')
       expect(Dor::WorkflowService).to receive(:update_workflow_status)
         .with('dor', druid, 'accessionWF', 'sdr-ingest-received', 'completed', instance_of(Hash)).and_raise(error)
-      exp_msg = "#{Regexp.escape('Error completing ingest: failed to update accessionWF, sdr-ingest-received step, to completed: ')}.*foo"
+      exp_msg = Regexp.escape("Error completing ingest for #{druid}: failed to update accessionWF:sdr-ingest-received to completed: ") + ".*foo"
       expect { this_robot.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
     end
 

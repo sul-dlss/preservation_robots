@@ -34,7 +34,7 @@ module Robots
           deposit_dir = prepare_deposit_dir
           self.class.execute_shell_command(tarpipe_command(deposit_dir))
         rescue StandardError => e
-          raise(ItemError, "Error transferring object: #{e.message}")
+          raise(ItemError, "Error transferring bag from common-accessioning for #{druid}: #{e.message}")
         end
 
         def prereqs_for_transfer
@@ -44,7 +44,7 @@ module Robots
 
         def verify_accesssion_wf_step_completed
           accession_status = workflow_service.get_workflow_status('dor', druid, 'accessionWF', 'sdr-ingest-transfer')
-          err_msg = "accessionWF:sdr-ingest-transfer status is #{accession_status}"
+          err_msg = "accessionWF:sdr-ingest-transfer status is #{accession_status} for #{druid}"
           raise(ItemError, err_msg) unless accession_status == 'completed'
         end
 

@@ -13,7 +13,7 @@ describe Robots::SdrRepo::PreservationIngest::VerifyApo do
         let(:id) { 'verify-apo-rel-md-no-isGovernedBy' }
 
         it 'raises ItemError' do
-          exp_msg = "Unable to find isGovernedBy node of relationshipMetadata"
+          exp_msg = "Unable to find isGovernedBy node of relationshipMetadata for #{id}"
           expect { verify_apo.perform(id) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
         end
       end
@@ -22,7 +22,7 @@ describe Robots::SdrRepo::PreservationIngest::VerifyApo do
         let(:id) { 'verify-apo-rel-md-no-resource-attr' }
 
         it 'raises ItemError' do
-          exp_msg = "Unable to find 'resource' attribute for <isGovernedBy> in relationshipMetadata"
+          exp_msg = "Unable to find 'resource' attribute for <isGovernedBy> in relationshipMetadata for #{id}"
           expect { verify_apo.perform(id) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
         end
       end
@@ -32,7 +32,7 @@ describe Robots::SdrRepo::PreservationIngest::VerifyApo do
 
         it 'raises ItemError' do
           rel_md_pathname = deposit_bag_pathname.join('data/metadata/relationshipMetadata.xml')
-          exp_msg = "^Unable to parse #{rel_md_pathname}: .*"
+          exp_msg = "^Unable to parse #{rel_md_pathname} .*#{id}"
           expect { verify_apo.perform(id) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
         end
       end
@@ -53,13 +53,13 @@ describe Robots::SdrRepo::PreservationIngest::VerifyApo do
       it "raises ItemError if the APO Moab's object_pathname is not a directory" do
         allow(mock_moab).to receive(:object_pathname).and_return(mock_object_pathname)
         expect(mock_object_pathname).to receive(:directory?).and_return(false)
-        exp_msg = "Governing APO object druid:aa000aa0000 not found"
+        exp_msg = "Governing APO object druid:aa000aa0000 not found for #{id}"
         expect { verify_apo.perform(id) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
       end
 
       it "raises ItemError if the APO Moab's object_pathname is nil" do
         allow(mock_moab).to receive(:object_pathname)
-        exp_msg = "Governing APO object druid:aa000aa0000 not found"
+        exp_msg = "Governing APO object druid:aa000aa0000 not found for #{id}"
         expect { verify_apo.perform(id) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
       end
     end
@@ -80,7 +80,7 @@ describe Robots::SdrRepo::PreservationIngest::VerifyApo do
       let(:id) { 'verify-apo-no-rel-md-v1' }
 
       it 'raises ItemError' do
-        exp_msg = "relationshipMetadata.xml not found in deposit bag"
+        exp_msg = "relationshipMetadata.xml not found in deposit bag for #{id}"
         expect { verify_apo.perform(id) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
       end
     end
@@ -88,7 +88,7 @@ describe Robots::SdrRepo::PreservationIngest::VerifyApo do
       let(:id) { 'verify-apo-no-rel-md-no-version' }
 
       it 'raises ItemError' do
-        exp_msg = "Unable to determine deposit version"
+        exp_msg = "Unable to determine deposit version for #{id}"
         expect { verify_apo.perform(id) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
       end
     end

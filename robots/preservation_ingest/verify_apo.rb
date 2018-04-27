@@ -31,7 +31,8 @@ module Robots
             verify_apo_moab
             LyberCore::Log.debug("APO #{apo_druid} was verified")
           else
-            raise(ItemError, "relationshipMetadata.xml not found in deposit bag") unless deposit_version > 1
+            errmsg = "relationshipMetadata.xml not found in deposit bag for #{druid}"
+            raise(ItemError, errmsg) unless deposit_version > 1
             LyberCore::Log.debug("APO verification skipped: deposit version > 1 && no relationshipMetadata.xml in bag")
           end
         end
@@ -44,20 +45,20 @@ module Robots
         def verify_apo_moab
           apo_moab = Stanford::StorageServices.find_storage_object(apo_druid)
           return if apo_moab && apo_moab.object_pathname && apo_moab.object_pathname.directory?
-          raise(ItemError, "Governing APO object #{apo_druid} not found")
+          raise(ItemError, "Governing APO object #{apo_druid} not found for #{druid}")
         end
 
         def apo_druid
           rel_md_ng_xml = Nokogiri::XML(File.open(relationship_md_pathname.to_s), &:strict)
           nodeset = rel_md_ng_xml.xpath("//hydra:isGovernedBy", 'hydra' => 'http://projecthydra.org/ns/relations#')
-          raise(ItemError, "Unable to find isGovernedBy node of relationshipMetadata") if nodeset.empty?
+          raise(ItemError, "Unable to find isGovernedBy node of relationshipMetadata for #{druid}") if nodeset.empty?
 
           apo_attr = nodeset.first.attribute_with_ns('resource', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#')
-          err_msg = "Unable to find 'resource' attribute for <isGovernedBy> in relationshipMetadata"
+          err_msg = "Unable to find 'resource' attribute for <isGovernedBy> in relationshipMetadata for #{druid}"
           raise(ItemError, err_msg) unless apo_attr
           apo_attr.text.split('/')[-1]
         rescue Nokogiri::XML::SyntaxError => e
-          raise(ItemError, "Unable to parse #{relationship_md_pathname}: #{e.message}")
+          raise(ItemError, "Unable to parse #{relationship_md_pathname} for #{druid}: #{e.message}")
         end
 
         # NOTE : if there is an XML parsing error, deposit_version is nil and
@@ -67,7 +68,7 @@ module Robots
           version_md_ng_xml = Nokogiri::XML(version_md_pathname.read)
           nodeset = version_md_ng_xml.xpath("/versionMetadata/version")
           # note: version id _should_ have been successfully retrieved for success in previous validate-bag robot
-          raise(ItemError, "Unable to determine deposit version") if nodeset.empty?
+          raise(ItemError, "Unable to determine deposit version for #{druid}") if nodeset.empty?
           nodeset.last['versionId'].to_i
         end
       end
