@@ -16,7 +16,6 @@ describe ErrorReporter do
         allow(described_class.new).to receive(:default_log_files).and_return(["/fake/file/path"])
       end
       it 'returns an empty array' do
-        p Dir.pwd
         expect(error_table.rows).to be_empty
         expect(warning_table.rows).to be_empty
       end

@@ -46,6 +46,7 @@ Layout/IndentHeredoc:
 
 Metrics/AbcSize:
   Exclude:
+    - lib/activity_reporter.rb # output method is 16.55
     - lib/error_reporter.rb
     - robots/preservation_ingest/verify_apo.rb # verify_apo_moab is 16.76; couldn't think of a way to be clearer
 
@@ -70,6 +71,7 @@ Metrics/LineLength:
     
 Metrics/MethodLength:
   Exclude:
+    - lib/activity_reporter.rb # converted bash script
     - lib/error_reporter.rb
     - robots/preservation_ingest/base.rb # execute_shell_command
     - robots/preservation_ingest/update_catalog.rb # one too many line [11/10]
@@ -111,6 +113,7 @@ RSpec/MultipleExpectations:
 
 RSpec/NestedGroups:
   Exclude:
+    - spec/lib/activity_reporter_spec.rb # needed for script
     - spec/lib/error_reporter_spec.rb
     - spec/preservation_ingest/verify_apo_spec.rb # it goes to 4 but so does the logic
 

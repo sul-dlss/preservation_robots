@@ -1,2 +1,5 @@
 INFO [2017-04-27 11:07:36] (17545)  :: druid:db274ff1758 processing
 WARN [2017-04-27 11:07:37] (17541)  :: Some Random Warning
+INFO [2017-04-27 11:07:36] (17545)  :: Finished druid:db274ff1758
+INFO [2017-04-27 11:07:36] (17545)  :: Finished druid:db274ff1758
+INFO [2017-04-27 11:07:36] (17545)  :: Finished druid:aa000aa0000
