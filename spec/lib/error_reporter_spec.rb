@@ -13,7 +13,8 @@ describe ErrorReporter do
   describe '#table_generator' do
     context 'file does not exist' do
       before do
-        allow(described_class.new).to receive(:default_log_files).and_return(["/fake/file/path"])
+        allow(error_reporter).to receive(:default_log_files).and_return(["/fake/file/path"])
+        allow(STDOUT).to receive(:puts).with("EMPTY or NON-EXISTENT: /fake/file/path")
       end
       it 'returns an empty array' do
         expect(error_table.rows).to be_empty

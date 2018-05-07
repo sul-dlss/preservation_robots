@@ -46,14 +46,14 @@ Workflow stats:
   File.open("#{ROBOT_ROOT}/log/weekly_stats.log", 'w') { |f| f.write(complete_report) }
 end
 
-desc 'retrieve preservation erorrs'
+desc 'get error and warning messages for each WF step'
 task preservation_errors: [:environment] do
   require File.expand_path(File.dirname(__FILE__) + '/lib/error_reporter')
   error_reporter = ErrorReporter.new
   error_reporter.output
 end
 
-desc 'retrieve preservation logs'
+desc 'get druid counts for each WF step'
 task preservation_logs: [:environment] do
   require File.expand_path(File.dirname(__FILE__) + '/lib/activity_reporter')
   activity_reporter = ActivityReporter.new

@@ -17,7 +17,7 @@ describe ActivityReporter do
         allow(activity_reporter).to receive(:default_log_files).and_return(["/fake/file/path"])
       end
       it 'prints out expected message' do
-        expect(STDOUT).to receive(:puts).with('EMPTY or NON-EXISTANT: /fake/file/path')
+        expect(STDOUT).to receive(:puts).with('EMPTY or NON-EXISTENT: /fake/file/path')
         output
       end
     end

@@ -21,7 +21,7 @@ every 1.day, at: '5am' do
   rake 'preservation_errors', mailto: 'sdr2service@sul-sdr-services.stanford.edu'
 end
 
-every 1.day, at: '5:30am' do
+every 1.day, at: '5:10am' do
   set :output, nil
   rake 'preservation_logs', mailto: 'sdr2service@sul-sdr-services.stanford.edu'
 end
