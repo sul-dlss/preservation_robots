@@ -8,7 +8,7 @@ class ActivityReporter
     puts "*" * 20
     log_files.each do |file|
       unless File.exist?(file) && File.size(file) > 0
-        STDOUT.puts "EMPTY or NON-EXISTANT: #{file}"
+        STDOUT.puts "EMPTY or NON-EXISTENT: #{file}"
         next
       end
       extract_druid(file, today, counter)

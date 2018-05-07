@@ -52,3 +52,10 @@ task preservation_errors: [:environment] do
   error_reporter = ErrorReporter.new
   error_reporter.output
 end
+
+desc 'retrieve preservation logs'
+task preservation_logs: [:environment] do
+  require File.expand_path(File.dirname(__FILE__) + '/lib/activity_reporter')
+  activity_reporter = ActivityReporter.new
+  activity_reporter.output
+end
