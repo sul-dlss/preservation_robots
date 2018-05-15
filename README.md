@@ -14,6 +14,11 @@ Check the [Wiki](https://github.com/sul-dlss/robot-master/wiki) in the robot-mas
 Uses the `lyber-core`/`robot-controller` infrastructure, which uses `bundle exec controller boot`
 to start all robots defined in `config/environments/robots_ENV.yml`.
 
+See also:
+
+- [DOR Workflows, Workflow Objects, and the workflowDefinition Datastream](https://docs.google.com/document/d/1s04rEIMPqD8K3wN2h_f8KwW_5SPhHTEKZqP0t-Q0e_g)
+- [Robots and Workflows](https://docs.google.com/document/d/1wq8XX50hfyiG5alaDpxR-GbRN4wnbcQPl-Zy1LU7HuE)
+
 ## Restarting Robots
 
 ```
@@ -26,7 +31,7 @@ External dependencies are surfaced in `config/settings.yml` and [shared_configs]
 
 # Overview of workflow
 
-A copy of the workflow datastream (from the Workflow object) is at `config/workflows/sdr/preservationIngestWF`
+A copy of the workflow datastream (from the Workflow object, `druid:rv601yh2288`) is at `config/workflows/sdr/preservationIngestWF`
 
 There are 6 robots:
 
@@ -41,3 +46,7 @@ There are 6 robots:
 5. `update-catalog`: create/update Preservation Catalog entry for this Moab
 
 6. `complete-ingest`: removes deposit bag created by transfer-object robot, then transfers control back to accessioning
+
+# Testing
+
+See https://docs.google.com/document/d/1d1GmSkam5_mR8NkbUQIf-Ztneu82zWChSqVSo6yUDVY
