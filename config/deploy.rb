@@ -7,9 +7,6 @@ ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/opt/app/pres/#{fetch(:application)}"
 
-# for robot-controller's verify command
-set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
-
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
@@ -45,8 +42,8 @@ set :bundle_without, %w[development deployment test].join(' ')
 set :stages, %w[stage prod]
 
 set :honeybadger_env, fetch(:stage)
-# set :whenever_environment, fetch(:deploy_environment)
-# set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
+# for robot-controller's verify command
+set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 
 namespace :deploy do
   desc 'Restart application'
