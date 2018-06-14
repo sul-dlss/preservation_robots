@@ -33,3 +33,7 @@ moab:
 
 preservation_catalog:
   url: 'http://localhost:3000'
+
+email_addresses:
+  discussion_list: 'user@discussion_list.org'
+  user_list: 'user@user_list.org'
