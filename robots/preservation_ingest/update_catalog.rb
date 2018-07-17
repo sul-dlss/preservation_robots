@@ -29,7 +29,8 @@ module Robots
             druid: druid,
             incoming_version: moab_object.current_version_id,
             incoming_size: moab_object.size,
-            storage_location: moab_object.storage_root
+            storage_location: moab_object.storage_root,
+            checksums_validated: true
           }
         end
 
