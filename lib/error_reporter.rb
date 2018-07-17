@@ -13,7 +13,7 @@ class ErrorReporter
     today = Time.now.to_date.to_s
 
     log_files.each do |file|
-      unless File.exist?(file) && File.size(file) > 0
+      unless File.exist?(file) && File.size(file).positive?
         puts "EMPTY or NON-EXISTENT: #{file}"
         next
       end
@@ -21,13 +21,13 @@ class ErrorReporter
         line =~ /#{today}/ || next
         line.chomp!
         stack << line
-        if line =~ /ERROR/
+        if line.match?('ERROR')
           error_table.rows << [file, stack.shift, today] if stack.size > 1
           error_table.rows << [file, line, today]
           next
         end
-        if line =~ /WARN/
-          next if line =~ /resque-signals/
+        if line.match?('WARN')
+          next if line.match?('resque-signals')
           warning_table.rows << [file, line, today]
         end
         stack.pop if stack.size > 2
