@@ -8,7 +8,13 @@ describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
   let(:faraday_dbl) { class_double(Faraday) }
   let(:url) { 'http://localhost:3000' }
   let(:args) do
-    { druid: bare_druid, incoming_version: version, incoming_size: size, storage_location: strg_root }
+    {
+      druid: bare_druid,
+      incoming_version: version,
+      incoming_size: size,
+      storage_location: strg_root,
+      checksums_validated: true
+    }
   end
   let(:mock_so) do
     instance_double(Moab::StorageObject, object_pathname: instance_double(Pathname), size: size, storage_root: strg_root, current_version_id: version)

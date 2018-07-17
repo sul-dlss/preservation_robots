@@ -7,7 +7,7 @@ class ActivityReporter
     counter = {}
     puts "*" * 20
     log_files.each do |file|
-      unless File.exist?(file) && File.size(file) > 0
+      unless File.exist?(file) && File.size(file).positive?
         puts "EMPTY or NON-EXISTENT: #{file}"
         next
       end
