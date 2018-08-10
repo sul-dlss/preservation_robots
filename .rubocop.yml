@@ -68,8 +68,6 @@ Metrics/LineLength:
     - spec/preservation_ingest/update_moab_spec.rb # one long ling with fully namespaced classes
     - spec/preservation_ingest/validate_bag_spec.rb # one long line with fully namespaced classes
     - spec/preservation_ingest/verify_apo_spec.rb # one long line with fully namespaced classes
-    - spec/lib/activity_reporter_spec.rb # two long lines #65 and #67
-    - spec/lib/error_reporter_spec.rb # three long lines #81-3
     - spec/lib/reporter_spec.rb # one long line #10
 
 Metrics/MethodLength:
