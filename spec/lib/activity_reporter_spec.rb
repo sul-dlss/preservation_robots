@@ -3,8 +3,8 @@ describe ActivityReporter do
   let(:date) { "2017-04-27" }
   let(:activity_reporter) { described_class.new }
   let(:base_path) { "#{Dir.pwd}/spec/fixtures" }
-  let(:error_path) { "#{base_path}/sdr_preservationIngestWF_transfer-object.log" }
-  let(:happy_path) { "#{base_path}/sdr_preservationIngestWF_validate-bag.log" }
+  let(:error_path) { "#{base_path}/log/sdr_preservationIngestWF_transfer-object.log" }
+  let(:happy_path) { "#{base_path}/log/sdr_preservationIngestWF_validate-bag.log" }
   let(:dbl_date) { instance_double(Time, to_date: date) }
   let(:output) { activity_reporter.output }
 

@@ -31,13 +31,6 @@ class ActivityReporter
   end
 
   def default_log_files
-    [
-      "sdr_preservationIngestWF_transfer-object.log",
-      "sdr_preservationIngestWF_validate-bag.log",
-      "sdr_preservationIngestWF_verify-apo.log",
-      "sdr_preservationIngestWF_update-moab.log",
-      "sdr_preservationIngestWF_update-catalog.log",
-      "sdr_preservationIngestWF_complete-ingest.log"
-    ].map { |file| "#{Dir.pwd}/log/#{file}" }
+    Reporter.default_log_files
   end
 end

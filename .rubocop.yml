@@ -68,7 +68,8 @@ Metrics/LineLength:
     - spec/preservation_ingest/update_moab_spec.rb # one long ling with fully namespaced classes
     - spec/preservation_ingest/validate_bag_spec.rb # one long line with fully namespaced classes
     - spec/preservation_ingest/verify_apo_spec.rb # one long line with fully namespaced classes
-    
+    - spec/lib/reporter_spec.rb # one long line #10
+
 Metrics/MethodLength:
   Exclude:
     - lib/activity_reporter.rb # converted bash script
