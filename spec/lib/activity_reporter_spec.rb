@@ -3,8 +3,8 @@ describe ActivityReporter do
   let(:date) { "2017-04-27" }
   let(:activity_reporter) { described_class.new }
   let(:base_path) { "#{Dir.pwd}/spec/fixtures" }
-  let(:error_path) { "#{base_path}/sdr_preservationIngestWF_transfer-object.log" }
-  let(:happy_path) { "#{base_path}/sdr_preservationIngestWF_validate-bag.log" }
+  let(:error_path) { "#{base_path}/log/sdr_preservationIngestWF_transfer-object.log" }
+  let(:happy_path) { "#{base_path}/log/sdr_preservationIngestWF_validate-bag.log" }
   let(:dbl_date) { instance_double(Time, to_date: date) }
   let(:output) { activity_reporter.output }
 
@@ -56,6 +56,15 @@ describe ActivityReporter do
           output
         end
       end
+    end
+  end
+
+  describe '#default_log_files' do
+    it 'returns a filtered array of log files' do
+      allow(Dir).to receive(:pwd).and_return(base_path.to_s)
+      expect(activity_reporter.default_log_files).to eq ["#{base_path}/log/sdr_preservationIngestWF_transfer-object.log",
+                                                         "#{base_path}/log/sdr_preservationIngestWF_validate-bag.log"]
+      expect(activity_reporter.default_log_files).not_to include "#{base_path}/log/sdr_preservationIngestWF_validate-bag.log.1"
     end
   end
 end

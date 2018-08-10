@@ -7,8 +7,8 @@ describe ErrorReporter do
   let(:date) { "2017-04-27" }
   let(:dbl_date) { instance_double(Time, to_date: date) }
   let(:base_path) { "#{Dir.pwd}/spec/fixtures" }
-  let(:error_path) { "#{base_path}/sdr_preservationIngestWF_transfer-object.log" }
-  let(:warn_path) { "#{base_path}/sdr_preservationIngestWF_validate-bag.log" }
+  let(:error_path) { "#{base_path}/log/sdr_preservationIngestWF_transfer-object.log" }
+  let(:warn_path) { "#{base_path}/log/sdr_preservationIngestWF_validate-bag.log" }
 
   describe '#table_generator' do
     context 'file does not exist' do
