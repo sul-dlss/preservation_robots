@@ -55,6 +55,6 @@ class ErrorReporter
   end
 
   def default_log_files
-    Dir.glob("#{Dir.pwd}/log/sdr_preservationIngestWF*.log").sort
+    Reporter.default_log_files
   end
 end
