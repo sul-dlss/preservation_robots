@@ -11,12 +11,14 @@ end
 every :sunday, at: '4am' do
   set :output, nil
   set :environment_variable, 'ROBOT_ENVIRONMENT'
-  rake 'generate_stats'
+  rake 'generate_storage_stats'
+  rake 'generate_wf_stats'
 end
 
 every :sunday, at: '5am' do
   set :output, nil
-  command "/bin/cat /var/log/preservation_robots/weekly_stats.log | mail -s 'Weekly preservation stats' #{Settings.email_addresses.discussion_list}"
+  command "/bin/cat /var/log/preservation_robots/storage_stats.log | mail -s 'Weekly preservation storage stats' #{Settings.email_addresses.discussion_list}"
+  command "/bin/cat /var/log/preservation_robots/wf_stats.log | mail -f 'Weekly preservation workflow stats' #{Settings.email_addresses.discussion_list}"
 end
 
 every 1.day, at: '5am' do
