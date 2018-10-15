@@ -32,7 +32,7 @@ rescue LoadError
   end
 end
 
-desc 'Generate stats'
+desc 'Generate all stats'
 task generate_stats: [:environment] do
   require File.expand_path(File.dirname(__FILE__) + '/lib/stats_reporter')
   stats_reporter = StatsReporter.new
