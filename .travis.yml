@@ -1,6 +1,5 @@
 language: ruby
 rvm:
-  - 2.4.3 # make sure this matches our VMs
   - 2.5.3
 cache: bundler
 
