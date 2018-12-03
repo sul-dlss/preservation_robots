@@ -17,8 +17,8 @@ end
 
 every :sunday, at: '5am' do
   set :output, nil
-  command "/bin/cat /var/log/preservation_robots/storage_stats.log | mail -s 'Weekly preservation storage stats' #{Settings.email_addresses.discussion_list}"
-  command "/bin/cat /var/log/preservation_robots/wf_stats.log | mail -f 'Weekly preservation workflow stats' #{Settings.email_addresses.discussion_list}"
+  command "/bin/cat #{ROBOT_ROOT}/log/preservation_robots/storage_stats.log | mail -s 'Weekly preservation storage stats' #{Settings.email_addresses.discussion_list}"
+  command "/bin/cat #{ROBOT_ROOT}/log/preservation_robots/wf_stats.log | mail -f 'Weekly preservation workflow stats' #{Settings.email_addresses.discussion_list}"
 end
 
 every 1.day, at: '5am' do
