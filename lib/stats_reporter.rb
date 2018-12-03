@@ -61,6 +61,8 @@ class StatsReporter
   def waiting_count
     Dor::WorkflowService.count_objects_in_step(ingest_wf, 'start-ingest',
                                                'waiting', repository)
+  rescue Dor::WorkflowException => exception
+    "Error connecting to workflow service: #{exception.message}"
   end
 
   def erroring_count
@@ -68,15 +70,21 @@ class StatsReporter
       Dor::WorkflowService.count_objects_in_step(ingest_wf, step,
                                                  'error', repository)
     end.sum
+  rescue Dor::WorkflowException => exception
+    "Error connecting to workflow service: #{exception.message}"
   end
 
   def completed_count
     Dor::WorkflowService.count_objects_in_step(ingest_wf, 'complete-ingest',
                                                'completed', repository)
+  rescue Dor::WorkflowException => exception
+    "Error connecting to workflow service: #{exception.message}"
   end
 
   def archived_count
     Dor::WorkflowService.count_archived_for_workflow(ingest_wf, repository)
+  rescue Dor::WorkflowException => exception
+    "Error connecting to workflow service: #{exception.message}"
   end
 
   def workflow_report_lines
