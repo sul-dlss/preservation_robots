@@ -48,21 +48,48 @@ describe StatsReporter do
   end
 
   describe '#workflow_report_text' do
-    it 'constructs a table from several queries to the workflow service' do
+    before do
       # this is a little lazy: the error count below
       # demonstrates requests for all workflow steps
       # because 7 steps * 5 objects per step = 35
-      stub_request(:get, /workflow/)
-        .to_return(status: 200, body: "<objects count='5'>")
-      stats_reporter = described_class.new
-      table_output = <<-TABLE.strip_heredoc
-  +----------------------+---------+-------+--------+----------+
-  |       workflow       | waiting | error | recent | archived |
-  +----------------------+---------+-------+--------+----------+
-  | preservationIngestWF | 5       | 35    | 5      | 5        |
-  +----------------------+---------+-------+--------+----------+
-      TABLE
-      expect(stats_reporter.workflow_report_text).to eq(table_output)
+      stub_request(:get, /workflow/).to_return(status: 200, body: "<objects count='5'>")
+    end
+
+    context 'when workflow service responds' do
+      let(:table_output) do
+        "+----------------------+---------+-------+--------+----------+\n" \
+          "|       workflow       | waiting | error | recent | archived |\n" \
+          "+----------------------+---------+-------+--------+----------+\n" \
+          "| preservationIngestWF | 5       | 35    | 5      | 5        |\n" \
+          "+----------------------+---------+-------+--------+----------+\n"
+      end
+
+      it 'constructs a table from several queries to the workflow service' do
+        expect(stats_reporter.workflow_report_text).to eq(table_output)
+      end
+    end
+
+    context 'when workflow service raises an exception' do
+      before do
+        allow(Dor::WorkflowService).to receive(:count_archived_for_workflow)
+          .and_raise(Dor::WorkflowException, exception_message)
+      end
+
+      let(:exception_message) { 'stuff broke!' }
+      # rubocop:disable Metrics/LineLength
+      let(:table_output) do
+        "+----------------------+---------+-------+--------+----------------------------------------------------+\n" \
+          "|       workflow       | waiting | error | recent |                      archived                      |\n" \
+          "+----------------------+---------+-------+--------+----------------------------------------------------+\n" \
+          "| preservationIngestWF | 5       | 35    | 5      | Error connecting to workflow service: #{exception_message} |\n" \
+          "+----------------------+---------+-------+--------+----------------------------------------------------+\n"
+      end
+
+      # rubocop:enable Metrics/LineLength
+
+      it 'renders table with exception messages embedded within' do
+        expect(stats_reporter.workflow_report_text).to eq(table_output)
+      end
     end
   end
 
