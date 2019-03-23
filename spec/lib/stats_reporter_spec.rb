@@ -57,37 +57,14 @@ describe StatsReporter do
 
     context 'when workflow service responds' do
       let(:table_output) do
-        "+----------------------+---------+-------+--------+----------+\n" \
-          "|       workflow       | waiting | error | recent | archived |\n" \
-          "+----------------------+---------+-------+--------+----------+\n" \
-          "| preservationIngestWF | 5       | 35    | 5      | 5        |\n" \
-          "+----------------------+---------+-------+--------+----------+\n"
+        "+----------------------+---------+-------+--------+\n" \
+          "|       workflow       | waiting | error | recent |\n" \
+          "+----------------------+---------+-------+--------+\n" \
+          "| preservationIngestWF | 5       | 35    | 5      |\n" \
+          "+----------------------+---------+-------+--------+\n"
       end
 
       it 'constructs a table from several queries to the workflow service' do
-        expect(stats_reporter.workflow_report_text).to eq(table_output)
-      end
-    end
-
-    context 'when workflow service raises an exception' do
-      before do
-        allow(Dor::WorkflowService).to receive(:count_archived_for_workflow)
-          .and_raise(Dor::WorkflowException, exception_message)
-      end
-
-      let(:exception_message) { 'stuff broke!' }
-      # rubocop:disable Metrics/LineLength
-      let(:table_output) do
-        "+----------------------+---------+-------+--------+----------------------------------------------------+\n" \
-          "|       workflow       | waiting | error | recent |                      archived                      |\n" \
-          "+----------------------+---------+-------+--------+----------------------------------------------------+\n" \
-          "| preservationIngestWF | 5       | 35    | 5      | Error connecting to workflow service: #{exception_message} |\n" \
-          "+----------------------+---------+-------+--------+----------------------------------------------------+\n"
-      end
-
-      # rubocop:enable Metrics/LineLength
-
-      it 'renders table with exception messages embedded within' do
         expect(stats_reporter.workflow_report_text).to eq(table_output)
       end
     end

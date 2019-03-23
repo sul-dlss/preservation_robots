@@ -10,7 +10,7 @@ class StatsReporter
   end
 
   def workflow_report_text
-    head = %w[workflow waiting error recent archived]
+    head = %w[workflow waiting error recent]
     Text::Table.new(head: head, rows: workflow_report_lines).to_s
   end
 
@@ -81,19 +81,12 @@ class StatsReporter
     "Error connecting to workflow service: #{exception.message}"
   end
 
-  def archived_count
-    Dor::WorkflowService.count_archived_for_workflow(ingest_wf, repository)
-  rescue Dor::WorkflowException => exception
-    "Error connecting to workflow service: #{exception.message}"
-  end
-
   def workflow_report_lines
     [[
       ingest_wf,
       waiting_count,
       erroring_count,
-      completed_count,
-      archived_count
+      completed_count
     ]]
   end
 end
