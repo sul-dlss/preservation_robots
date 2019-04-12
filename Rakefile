@@ -5,6 +5,8 @@ task :environment do
   require_relative 'config/boot'
 end
 
+task 'resque:setup' => :environment
+
 task default: :ci
 
 desc 'run continuous integration suite (tests & rubocop)'
