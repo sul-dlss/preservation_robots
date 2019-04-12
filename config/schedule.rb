@@ -1,13 +1,6 @@
 # to let whenever access settings:
 require File.expand_path(File.dirname(__FILE__) + "/boot")
 
-every 5.minutes do
-  # cannot use :output with Hash/String because we don't want append behavior
-  set :output, (proc { '> log/verify.log 2> log/cron.log' })
-  set :environment_variable, 'ROBOT_ENVIRONMENT'
-  rake 'robots:verify'
-end
-
 every :sunday, at: '4am' do
   set :output, nil
   set :environment_variable, 'ROBOT_ENVIRONMENT'

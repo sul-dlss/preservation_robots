@@ -1,5 +1,5 @@
 require 'rake'
-require 'robot-controller/tasks'
+require 'resque/pool/tasks'
 
 task :environment do
   require_relative 'config/boot'

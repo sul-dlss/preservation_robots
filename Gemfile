@@ -8,12 +8,13 @@ gem 'pry' # useful for production environment
 gem 'dor-workflow-service', '>= 2.3' # need 2.3 or higher for get_output_for_step calls
 gem 'moab-versioning', '>= 4.2.0' # work with Moab Objects; 4.2.0 has DepositBagValidator
 gem 'lyber-core' # robot code
-gem 'robot-controller' # robot code
 gem 'honeybadger' # for error reporting / tracking / notifications
 gem 'text-table' # to generate tables for StatsReporter
 gem 'whenever' # manage cron for robots and monitoring
 gem 'faraday' # for ReST calls to Preservation Catalog
 gem 'retries'
+gem 'resque'
+gem 'resque-pool'
 
 group :development, :test do
   gem 'pry-byebug'
@@ -30,4 +31,5 @@ end
 group :deployment do
   gem 'capistrano-bundler'
   gem 'dlss-capistrano'
+  gem 'capistrano-resque-pool'
 end

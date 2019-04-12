@@ -45,8 +45,6 @@ Dor::WorkflowService.configure(
 )
 
 require 'robots'
-require 'robot-controller'
-
 require 'moab'
 require 'moab/stanford'
 Moab::Config.configure do

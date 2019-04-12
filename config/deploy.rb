@@ -45,27 +45,7 @@ set :honeybadger_env, fetch(:stage)
 # for robot-controller's verify command
 set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 
-namespace :deploy do
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 10 do
-      within release_path do
-        # Uncomment  with the first deploy
-        # execute :bundle, :install
+# update shared_configs before restarting app
+before 'deploy:publishing', 'shared_configs:update'
 
-        # Comment with the first deploy
-        test :bundle, :exec, :controller, :stop
-        sleep 10 # wait for clean stop
-        test :bundle, :exec, :controller, :quit
-
-        # Always call the boot
-        execute :bundle, :exec, :controller, :boot
-      end
-    end
-  end
-
-  # update shared_configs before restarting app
-  before :restart, 'shared_configs:update'
-
-  after :publishing, :restart
-end
+after 'deploy:publishing', 'resque:pool:full_restart'
