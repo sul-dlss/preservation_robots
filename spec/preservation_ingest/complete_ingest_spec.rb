@@ -27,7 +27,7 @@ describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
 
     it 'raises ItemError if it fails to update the accessionWF sdr-ingest-received step' do
       error = Dor::WorkflowException.new('foo')
-      expect(Dor::WorkflowService).to receive(:update_workflow_status)
+      expect(Dor::Config.workflow.client).to receive(:update_workflow_status)
         .with('dor', druid, 'accessionWF', 'sdr-ingest-received', 'completed', instance_of(Hash)).and_raise(error)
       exp_msg = Regexp.escape("Error completing ingest for #{druid}: failed to update accessionWF:sdr-ingest-received to completed: ") + ".*foo"
       expect { this_robot.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
@@ -35,7 +35,7 @@ describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
 
     it 'removes the deposit bag and updates the accessionWF when no errors are raised' do
       expect(deposit_bag_pathname).to receive(:rmtree)
-      expect(Dor::WorkflowService).to receive(:update_workflow_status)
+      expect(Dor::Config.workflow.client).to receive(:update_workflow_status)
         .with('dor', druid, 'accessionWF', 'sdr-ingest-received', 'completed', instance_of(Hash))
       expect { this_robot.perform(druid) }.not_to raise_error
     end

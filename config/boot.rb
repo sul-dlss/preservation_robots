@@ -35,14 +35,9 @@ else
   Resque.redis = redis_url
 end
 
-require 'dor-workflow-service'
-wf_log = Logger.new(Settings.workflow.logfile, Settings.workflow.shift_age)
-Dor::WorkflowService.configure(
-  Settings.workflow.url,
-  logger: wf_log,
-  timeout: Settings.workflow.timeout || 0,
-  dor_services_url: Settings.workflow.dor_services_url
-)
+Dor.configure do
+  workflow.url Settings.workflow.url
+end
 
 require 'robots'
 require 'moab'
