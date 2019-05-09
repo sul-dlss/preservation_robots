@@ -13,13 +13,6 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
     deposit_dir_pathname.rmtree if deposit_dir_pathname.exist?
   end
 
-  it 'raises ItemError if sdr-ingest-transfer robot in accessionWF does not have status completed' do
-    expect(Dor::WorkflowService).to receive(:get_workflow_status)
-      .with('dor', druid, 'accessionWF', 'sdr-ingest-transfer').and_return('foo')
-    exp_msg = "Error transferring bag from common-accessioning for #{druid}: accessionWF:sdr-ingest-transfer status is foo for #{druid}"
-    expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
-  end
-
   it 'raises ItemError if versionMetadata.xml file for druid does not exist' do
     allow(xfer_obj).to receive(:verify_accesssion_wf_step_completed)
     cmd_regex = Regexp.new(".*ssh #{Settings.transfer_object.from_host} test -e #{vm_file_path}.*")
@@ -82,9 +75,6 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
 
   it 'executes the tarpipe command to transfer the object when no errors are raised' do
     expect(deposit_bag_pathname.exist?).to be false
-
-    expect(Dor::WorkflowService).to receive(:get_workflow_status)
-      .with('dor', druid, 'accessionWF', 'sdr-ingest-transfer').and_return('completed')
 
     cmd_regex = Regexp.new("if ssh #{Settings.transfer_object.from_host} test -e #{vm_file_path}.*")
     expect(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(a_string_matching(cmd_regex)).and_return('yes')
