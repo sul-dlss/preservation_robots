@@ -30,22 +30,11 @@ module Robots
         #     See: http://xorl.wordpress.com/2012/05/15/admin-mistakes-gnu-bsd-tar-and-posix-compatibility/
         def transfer_object
           LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
-          prereqs_for_transfer
+          verify_version_metadata
           deposit_dir = prepare_deposit_dir
           self.class.execute_shell_command(tarpipe_command(deposit_dir))
         rescue StandardError => e
           raise(ItemError, "Error transferring bag from common-accessioning for #{druid}: #{e.message}")
-        end
-
-        def prereqs_for_transfer
-          verify_accesssion_wf_step_completed
-          verify_version_metadata
-        end
-
-        def verify_accesssion_wf_step_completed
-          accession_status = workflow_service.get_workflow_status('dor', druid, 'accessionWF', 'sdr-ingest-transfer')
-          err_msg = "accessionWF:sdr-ingest-transfer status is #{accession_status} for #{druid}"
-          raise(ItemError, err_msg) unless accession_status == 'completed'
         end
 
         VERSION_METADATA_PATH_SUFFIX = '/data/metadata/versionMetadata.xml'.freeze
