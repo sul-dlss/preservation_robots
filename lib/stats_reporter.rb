@@ -20,15 +20,16 @@ class StatsReporter
   end
 
   def repository
-    workflow_xml.at_xpath('//workflow-def/@repository').value
+    'sdr'
   end
 
   def ingest_wf
-    workflow_xml.at_xpath('//workflow-def/@id').value
+    'preservationIngestWF'
   end
 
   def ingest_wf_steps
-    workflow_xml.xpath('//process/@name').map(&:value)
+    ["start-ingest", "transfer-object", "validate-bag",
+     "verify-apo", "update-moab", "update-catalog", "complete-ingest"]
   end
 
   private
@@ -52,10 +53,6 @@ class StatsReporter
     parsed_storage_mount_lines.map do |h|
       [h.values_at(:filesystem, :total, :used, :percent_used, :remaining, :percent_free)]
     end
-  end
-
-  def workflow_xml
-    @workflow_xml ||= File.open('config/workflows/sdr/preservationIngestWF') { |f| Nokogiri::XML(f) }
   end
 
   def waiting_count
