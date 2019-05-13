@@ -1,3 +1,5 @@
+require_relative 'reporter'
+
 # generates text for a report on errors and warning in robot
 class ErrorReporter
   require 'text-table'

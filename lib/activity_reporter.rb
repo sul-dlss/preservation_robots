@@ -1,3 +1,5 @@
+require_relative 'reporter'
+
 # generates text for a report on druid count and logs
 class ActivityReporter
   DRUID_REGEXP = '[[:lower:]]{2}\\d{3}[[:lower:]]{2}\\d{4}'.freeze
