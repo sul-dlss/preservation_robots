@@ -1,6 +1,4 @@
 # Ensure subsequent requires search the correct local paths
-$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), '..', 'robots'))
-
 require 'logger'
 require 'honeybadger'
 
@@ -39,7 +37,12 @@ Dor.configure do
   workflow.url Settings.workflow.url
 end
 
-require 'robots'
+require 'zeitwerk'
+loader = Zeitwerk::Loader.new
+loader.push_dir('lib')
+loader.push_dir('.')
+loader.setup
+
 require 'moab'
 require 'moab/stanford'
 Moab::Config.configure do

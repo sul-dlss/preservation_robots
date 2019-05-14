@@ -14,6 +14,7 @@ gem 'faraday' # for ReST calls to Preservation Catalog
 gem 'retries'
 gem 'resque'
 gem 'resque-pool'
+gem 'zeitwerk', '~> 2.1'
 
 group :development, :test do
   gem 'pry-byebug'

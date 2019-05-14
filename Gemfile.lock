@@ -353,6 +353,7 @@ GEM
     whenever (0.11.0)
       chronic (>= 0.6.3)
     xml-simple (1.1.5)
+    zeitwerk (2.1.6)
 
 PLATFORMS
   ruby
@@ -379,6 +380,7 @@ DEPENDENCIES
   text-table
   webmock
   whenever
+  zeitwerk (~> 2.1)
 
 BUNDLED WITH
    1.17.3
