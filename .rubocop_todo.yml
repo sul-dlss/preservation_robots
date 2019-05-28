@@ -53,7 +53,7 @@ Layout/SpaceAroundEqualsInParameterDefault:
   Exclude:
     - 'lib/activity_reporter.rb'
     - 'lib/error_reporter.rb'
-    - 'robots/sdr_repo/preservation_ingest/update_moab.rb'
+    - 'lib/robots/sdr_repo/preservation_ingest/update_moab.rb'
 
 # Offense count: 1
 Lint/HandleExceptions:
@@ -166,7 +166,7 @@ Style/StringLiterals:
     - 'config/schedule.rb'
     - 'lib/activity_reporter.rb'
     - 'lib/stats_reporter.rb'
-    - 'robots/sdr_repo/preservation_ingest/verify_apo.rb'
+    - 'lib/robots/sdr_repo/preservation_ingest/verify_apo.rb'
     - 'spec/lib/activity_reporter_spec.rb'
     - 'spec/lib/error_reporter_spec.rb'
     - 'spec/lib/stats_reporter_spec.rb'

@@ -39,8 +39,7 @@ end
 
 require 'zeitwerk'
 loader = Zeitwerk::Loader.new
-loader.push_dir('lib')
-loader.push_dir('.')
+loader.push_dir(File.expand_path('lib'))
 loader.setup
 
 require 'moab'
