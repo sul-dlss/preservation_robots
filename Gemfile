@@ -6,7 +6,8 @@ gem 'pry' # useful for production environment
 
 # Stanford DLSS gems
 gem 'moab-versioning', '>= 4.2.0' # work with Moab Objects; 4.2.0 has DepositBagValidator
-gem 'lyber-core', '~> 5.0' # robot code
+gem 'lyber-core', '~> 5.1' # robot code
+gem 'dor-services', '~> 7.0'
 gem 'honeybadger' # for error reporting / tracking / notifications
 gem 'text-table' # to generate tables for StatsReporter
 gem 'whenever' # manage cron for robots and monitoring
