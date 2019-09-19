@@ -40,9 +40,9 @@ else
   druids = [opts[:druid]]
 end
 
-robot_split = robot.split(":")
+(_, workflow, process) = robot.split(":")
 druids.each do |druid|
   # the step must be queued, otherwise the run robot step will fail
-  Dor::Config.workflow.client.update_workflow_status(robot_split[0], druid, robot_split[1], robot_split[2], 'queued')
+  Dor::Config.workflow.client.update_status(druid: druid, workflow: workflow, process: process, status: 'queued')
   bot.work druid
 end
