@@ -37,11 +37,12 @@ module Robots
         end
 
         def update_accession_workflow
-          opts = {
-            elapsed: 1,
-            note: "#{WORKFLOW_NAME} completed on #{Socket.gethostname}"
-          }
-          workflow_service.update_workflow_status('dor', druid, 'accessionWF', 'sdr-ingest-received', 'completed', opts)
+          workflow_service.update_status(druid: druid,
+                                         workflow: 'accessionWF',
+                                         process: 'sdr-ingest-received',
+                                         status: 'completed',
+                                         elapsed: 1,
+                                         note: "#{WORKFLOW_NAME} completed on #{Socket.gethostname}")
         rescue Dor::WorkflowException => e
           errmsg = "Error completing ingest for #{druid}: failed to update " \
             "accessionWF:sdr-ingest-received to completed: #{e.message}\n#{e.backtrace.join('\n')}"
