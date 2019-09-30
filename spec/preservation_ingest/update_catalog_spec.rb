@@ -38,17 +38,19 @@ describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         update_catalog_obj.perform(bare_druid)
       end
 
-      it 'HTTP fails twice' do
+      it 'succeeds when HTTP fails twice' do
         response = instance_double(Faraday::Response, status: 201)
-        expect(LyberCore::Log).to receive(:warn).twice
-        expect(faraday_dbl).to receive(:post).with('/catalog', args).and_raise(Faraday::Error).twice
-        expect(faraday_dbl).to receive(:post).with('/catalog', args).and_return(response)
-        expect(faraday_dbl).not_to receive(:patch)
+        allow(LyberCore::Log).to receive(:warn).twice
+        expect(faraday_dbl).to receive(:post).with('/catalog', args).and_raise(Faraday::Error.new('foo')).twice
+        expect(faraday_dbl).to receive(:post).with('/catalog', args).once.and_return(response)
+        allow(faraday_dbl).to receive(:patch)
         update_catalog_obj.perform(bare_druid)
+        expect(faraday_dbl).not_to have_received(:patch)
+        expect(LyberCore::Log).to have_received(:warn).twice
       end
 
-      it 'HTTP fails thrice' do
-        expect(faraday_dbl).to receive(:post).with('/catalog', args).and_raise(Faraday::Error).exactly(3).times
+      it 'fails when HTTP fails thrice' do
+        allow(faraday_dbl).to receive(:post).with('/catalog', args).and_raise(Faraday::Error.new('foo')).exactly(3).times
         expect { update_catalog_obj.perform(bare_druid) }.to raise_error(Faraday::Error)
       end
     end
