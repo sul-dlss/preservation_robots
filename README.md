@@ -6,18 +6,6 @@
 
 Robots for creating/updating preservation artifacts (Moabs) for DOR objects, adding Moabs to the preservation_catalog, etc.
 
-# General Robot Documentation
-
-Check the [Wiki](https://github.com/sul-dlss/robot-master/wiki) in the robot-master repo.
-
-Uses the `lyber-core`/`robot-controller` infrastructure, which uses `bundle exec controller boot`
-to start all robots defined in `config/environments/robots_ENV.yml`.
-
-See also:
-
-- [DOR Workflows, Workflow Objects, and the workflowDefinition Datastream](https://docs.google.com/document/d/1s04rEIMPqD8K3wN2h_f8KwW_5SPhHTEKZqP0t-Q0e_g)
-- [Robots and Workflows](https://docs.google.com/document/d/1wq8XX50hfyiG5alaDpxR-GbRN4wnbcQPl-Zy1LU7HuE)
-
 ## Restarting Robots
 
 ```
@@ -30,7 +18,7 @@ External dependencies are surfaced in `config/settings.yml` and [shared_configs]
 
 # Overview of workflow
 
-A copy of the workflow datastream (from the Workflow object, `druid:rv601yh2288`) is at `config/workflows/sdr/preservationIngestWF`
+The workflow is defined by: https://github.com/sul-dlss/workflow-server-rails/blob/master/config/workflows/sdr/preservationIngestWF.xml
 
 There are 6 robots:
 
