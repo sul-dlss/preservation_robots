@@ -45,15 +45,19 @@ module Robots
         def update_catalog
           with_retries(max_tries: 3, handler: handler, rescue: Faraday::Error) do
             if moab_object.current_version_id == 1
-              conn.post '/catalog', http_args
+              conn.post '/v1/catalog', http_args
             else
-              conn.patch "/catalog/#{druid}", http_args
+              conn.patch "/v1/catalog/#{druid}", http_args
             end
           end
         end
 
         def conn
-          @conn ||= Faraday.new(url: Settings.preservation_catalog.url)
+          @conn ||= Faraday.new(Settings.preservation_catalog.url) do |builder|
+            builder.use Faraday::Response::RaiseError
+            builder.request :url_encoded
+            builder.adapter Faraday.default_adapter
+          end
         end
       end
     end

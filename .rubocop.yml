@@ -9,3 +9,7 @@ AllCops:
     - Rakefile
     - config.ru
     - lib/**/*.rake
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*

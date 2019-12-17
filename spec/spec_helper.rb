@@ -4,6 +4,7 @@ ENV['ROBOT_ENVIRONMENT'] = 'test'
 require 'webmock/rspec'
 require 'simplecov'
 require 'coveralls'
+require 'byebug'
 Coveralls.wear!
 
 SimpleCov.formatter = Coveralls::SimpleCov::Formatter
