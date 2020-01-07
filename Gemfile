@@ -10,8 +10,8 @@ gem 'lyber-core', '~> 5.1' # robot code
 gem 'dor-services', '~> 7.0'
 gem 'honeybadger' # for error reporting / tracking / notifications
 gem 'text-table' # to generate tables for StatsReporter
+gem 'preservation-client', '~> 2.1'
 gem 'whenever' # manage cron for robots and monitoring
-gem 'faraday' # for ReST calls to Preservation Catalog
 gem 'retries'
 gem 'resque'
 gem 'resque-pool'

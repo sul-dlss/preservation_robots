@@ -88,7 +88,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         end
 
         it 'fails' do
-          expect { update_catalog_obj.perform(bare_druid) }.to raise_error(Faraday::Error)
+          expect { update_catalog_obj.perform(bare_druid) }.to raise_error(Preservation::Client::UnexpectedResponseError)
         end
       end
     end
