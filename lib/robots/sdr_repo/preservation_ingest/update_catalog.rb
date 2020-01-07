@@ -24,16 +24,6 @@ module Robots
 
         private
 
-        def http_args
-          {
-            druid: druid,
-            incoming_version: moab_object.current_version_id,
-            incoming_size: moab_object.size,
-            storage_location: moab_object.storage_root,
-            checksums_validated: true
-          }
-        end
-
         def handler
           update_cat_msg = "Updating preservation catalog for #{druid}"
           proc do |exception, attempt_number, _total_delay|
@@ -43,20 +33,11 @@ module Robots
         end
 
         def update_catalog
-          with_retries(max_tries: 3, handler: handler, rescue: Faraday::Error) do
-            if moab_object.current_version_id == 1
-              conn.post '/v1/catalog', http_args
-            else
-              conn.patch "/v1/catalog/#{druid}", http_args
-            end
-          end
-        end
-
-        def conn
-          @conn ||= Faraday.new(Settings.preservation_catalog.url) do |builder|
-            builder.use Faraday::Response::RaiseError
-            builder.request :url_encoded
-            builder.adapter Faraday.default_adapter
+          with_retries(max_tries: 3, handler: handler, rescue: Preservation::Client::Error) do
+            Preservation::Client.update(druid: druid,
+                                        version: moab_object.current_version_id,
+                                        size: moab_object.size,
+                                        storage_location: moab_object.storage_root)
           end
         end
       end
