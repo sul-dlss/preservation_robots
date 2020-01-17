@@ -1,14 +1,3 @@
-GIT
-  remote: https://github.com/sul-dlss/preservation-client.git
-  revision: cab0eaabd6fed5fc7145675632c97963296a3e76
-  branch: pass-jwt
-  specs:
-    preservation-client (2.1.0)
-      activesupport (>= 4.2, < 7)
-      faraday (~> 0.15)
-      moab-versioning (~> 4.3)
-      zeitwerk (~> 2.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -246,6 +235,11 @@ GEM
     parser (2.7.0.2)
       ast (~> 2.4.0)
     powerpack (0.1.2)
+    preservation-client (3.0.0)
+      activesupport (>= 4.2, < 7)
+      faraday (>= 0.15, < 2.0)
+      moab-versioning (~> 4.3)
+      zeitwerk (~> 2.1)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -399,7 +393,7 @@ DEPENDENCIES
   honeybadger
   lyber-core (~> 5.1)
   moab-versioning (>= 4.2.0)
-  preservation-client!
+  preservation-client (>= 3.0)
   pry
   pry-byebug
   rake

@@ -10,8 +10,7 @@ gem 'lyber-core', '~> 5.1' # robot code
 gem 'dor-services', '~> 7.0'
 gem 'honeybadger' # for error reporting / tracking / notifications
 gem 'text-table' # to generate tables for StatsReporter
-# gem 'preservation-client', '~> 2.1'
-gem 'preservation-client', git: 'https://github.com/sul-dlss/preservation-client.git', branch: 'pass-jwt' # switch to official release once available
+gem 'preservation-client', '>= 3.0' # 3.x or greater is needed for token auth
 gem 'whenever' # manage cron for robots and monitoring
 gem 'retries'
 gem 'resque'
