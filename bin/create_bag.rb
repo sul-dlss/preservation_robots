@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
+
+# This script can be used to pull objects from preservation, if we need to re-accession it into DOR.
+#
 # must run this from ~/preservation_robots/current/
 # usage is ruby /directory/of/script/create_bag.rb /directory/with/druids/druid-list.txt /some/directory
 # where /directory/of/script/createBag.rb is whereever you place this particular script
