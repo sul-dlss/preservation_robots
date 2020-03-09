@@ -343,7 +343,7 @@ GEM
       nokogiri
       stomp
       xml-simple
-    sshkit (1.20.0)
+    sshkit (1.21.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     stanford-mods (2.6.1)
@@ -378,7 +378,7 @@ GEM
     whenever (1.0.0)
       chronic (>= 0.6.3)
     xml-simple (1.1.5)
-    zeitwerk (2.2.2)
+    zeitwerk (2.3.0)
 
 PLATFORMS
   ruby
