@@ -121,7 +121,7 @@ GEM
       zeitwerk (~> 2.1)
     druid-tools (2.1.0)
       deprecation
-    dry-configurable (0.11.4)
+    dry-configurable (0.11.5)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.4, >= 0.4.7)
       dry-equalizer (~> 0.2)
@@ -367,7 +367,7 @@ GEM
     uber (0.0.15)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.6)
+    unf_ext (0.0.7.7)
     unicode-display_width (1.7.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
