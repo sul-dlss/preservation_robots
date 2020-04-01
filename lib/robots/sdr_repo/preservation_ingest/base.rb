@@ -8,7 +8,6 @@ module Robots
       class Base
         include LyberCore::Robot
 
-        REPOSITORY = 'sdr'.freeze
         WORKFLOW_NAME = 'preservationIngestWF'.freeze
 
         attr_reader :druid

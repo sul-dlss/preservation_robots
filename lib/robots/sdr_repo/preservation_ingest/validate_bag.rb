@@ -9,7 +9,7 @@ module Robots
         ROBOT_NAME = 'validate-bag'.freeze
 
         def initialize(opts = {})
-          super(REPOSITORY, WORKFLOW_NAME, ROBOT_NAME, opts)
+          super(WORKFLOW_NAME, ROBOT_NAME, opts)
         end
 
         attr_reader :druid

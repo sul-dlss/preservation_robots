@@ -19,10 +19,6 @@ class StatsReporter
     stdout_str
   end
 
-  def repository
-    'sdr'
-  end
-
   def ingest_wf
     'preservationIngestWF'
   end
@@ -56,24 +52,33 @@ class StatsReporter
   end
 
   def waiting_count
-    workflow_client.count_objects_in_step(ingest_wf, 'start-ingest',
-                                          'waiting', repository)
+    # 4th argument is passed from the workflow client to the service which
+    # ignores it completely. Can remove once
+    # https://github.com/sul-dlss/dor-workflow-client/pull/159 is merged and
+    # released and made available in preservation_robots
+    workflow_client.count_objects_in_step(ingest_wf, 'start-ingest', 'waiting', nil)
   rescue Dor::WorkflowException => exception
     "Error connecting to workflow service: #{exception.message}"
   end
 
   def erroring_count
     ingest_wf_steps.map do |step|
-      workflow_client.count_objects_in_step(ingest_wf, step,
-                                            'error', repository)
+      # 4th argument is passed from the workflow client to the service which
+      # ignores it completely. Can remove once
+      # https://github.com/sul-dlss/dor-workflow-client/pull/159 is merged and
+      # released and made available in preservation_robots
+      workflow_client.count_objects_in_step(ingest_wf, step, 'error', nil)
     end.sum
   rescue Dor::WorkflowException => exception
     "Error connecting to workflow service: #{exception.message}"
   end
 
   def completed_count
-    workflow_client.count_objects_in_step(ingest_wf, 'complete-ingest',
-                                          'completed', repository)
+    # 4th argument is passed from the workflow client to the service which
+    # ignores it completely. Can remove once
+    # https://github.com/sul-dlss/dor-workflow-client/pull/159 is merged and
+    # released and made available in preservation_robots
+    workflow_client.count_objects_in_step(ingest_wf, 'complete-ingest', 'completed', nil)
   rescue Dor::WorkflowException => exception
     "Error connecting to workflow service: #{exception.message}"
   end
