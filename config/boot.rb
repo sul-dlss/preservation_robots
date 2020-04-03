@@ -32,10 +32,6 @@ else
   Resque.redis = redis_url
 end
 
-Dor.configure do
-  workflow.url Settings.workflow.url
-end
-
 Preservation::Client.configure(url: Settings.preservation_catalog.url, token: Settings.preservation_catalog.token)
 
 loader = Zeitwerk::Loader.new

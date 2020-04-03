@@ -6,7 +6,7 @@ gem 'pry' # useful for production environment
 
 # Stanford DLSS gems
 gem 'moab-versioning', '>= 4.2.0' # work with Moab Objects; 4.2.0 has DepositBagValidator
-gem 'dor-services', '~> 7.0'
+gem 'dor-services', '~> 9.1'
 gem 'dor-workflow-client', '~> 3.21'
 gem 'honeybadger' # for error reporting / tracking / notifications
 gem 'lyber-core', '~> 6.1' # robot code
@@ -14,6 +14,7 @@ gem 'preservation-client', '>= 3.1' # 3.x or greater is needed for token auth
 gem 'resque'
 gem 'resque-pool'
 gem 'retries'
+gem 'slop'
 gem 'text-table' # to generate tables for StatsReporter
 gem 'whenever' # manage cron for robots and monitoring
 gem 'zeitwerk', '~> 2.1'
