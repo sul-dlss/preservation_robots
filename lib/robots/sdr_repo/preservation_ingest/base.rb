@@ -8,7 +8,6 @@ module Robots
       class Base
         include LyberCore::Robot
 
-        REPOSITORY = 'sdr'.freeze
         WORKFLOW_NAME = 'preservationIngestWF'.freeze
 
         attr_reader :druid
@@ -27,6 +26,10 @@ module Robots
         rescue SystemCallError => e
           msg = "Shell command failed: [#{command}] caused by #{e.inspect}"
           raise(StandardError, msg)
+        end
+
+        def workflow_service
+          @workflow_service ||= WorkflowClientFactory.build
         end
 
         private

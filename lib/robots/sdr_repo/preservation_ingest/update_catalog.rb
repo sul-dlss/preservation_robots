@@ -13,7 +13,7 @@ module Robots
         ROBOT_NAME = 'update-catalog'.freeze
 
         def initialize(opts = {})
-          super(REPOSITORY, WORKFLOW_NAME, ROBOT_NAME, opts)
+          super(WORKFLOW_NAME, ROBOT_NAME, opts)
         end
 
         def perform(druid)

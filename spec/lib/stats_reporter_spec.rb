@@ -70,12 +70,6 @@ describe StatsReporter do
     end
   end
 
-  describe '.repository' do
-    it 'returns the repository attribute value in the preservationIngestWF xml' do
-      expect(stats_reporter.repository).to eq('sdr')
-    end
-  end
-
   describe '.ingest_wf' do
     it 'returns the workflow definition id from the preservationIngestWF xml' do
       expect(stats_reporter.ingest_wf).to eq('preservationIngestWF')

@@ -15,7 +15,7 @@ module Robots
         VERSION_MD_FNAME = 'versionMetadata.xml'.freeze
 
         def initialize(opts = {})
-          super(REPOSITORY, WORKFLOW_NAME, ROBOT_NAME, opts)
+          super(WORKFLOW_NAME, ROBOT_NAME, opts)
         end
 
         def perform(druid)

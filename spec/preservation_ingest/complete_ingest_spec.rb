@@ -27,7 +27,7 @@ describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
 
     context 'if it fails to update the accessionWF sdr-ingest-received step' do
       before do
-        allow(Dor::Config.workflow.client).to receive(:update_status).and_raise(Dor::WorkflowException.new('foo'))
+        allow(this_robot.workflow_service).to receive(:update_status).and_raise(Dor::WorkflowException.new('foo'))
       end
 
       it 'raises ItemError' do
@@ -38,7 +38,7 @@ describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
 
     it 'removes the deposit bag and updates the accessionWF when no errors are raised' do
       expect(deposit_bag_pathname).to receive(:rmtree)
-      expect(Dor::Config.workflow.client).to receive(:update_status)
+      expect(this_robot.workflow_service).to receive(:update_status)
         .with(druid: druid,
               workflow: 'accessionWF',
               process: 'sdr-ingest-received',
