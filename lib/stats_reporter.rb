@@ -1,9 +1,8 @@
-# generates text for a report on storage root size and object status
+require 'text-table'
+require 'open3'
+
+# Generates text for a report on storage root size and object status
 class StatsReporter
-
-  require 'text-table'
-  require 'open3'
-
   def storage_report_text
     head = %w[filesystem total used pct_used free pct_free]
     Text::Table.new(head: head, rows: storage_report_lines).to_s
@@ -63,22 +62,14 @@ class StatsReporter
 
   def erroring_count
     ingest_wf_steps.map do |step|
-      # 4th argument is passed from the workflow client to the service which
-      # ignores it completely. Can remove once
-      # https://github.com/sul-dlss/dor-workflow-client/pull/159 is merged and
-      # released and made available in preservation_robots
-      workflow_client.count_objects_in_step(ingest_wf, step, 'error', nil)
+      workflow_client.count_objects_in_step(ingest_wf, step, 'error')
     end.sum
   rescue Dor::WorkflowException => exception
     "Error connecting to workflow service: #{exception.message}"
   end
 
   def completed_count
-    # 4th argument is passed from the workflow client to the service which
-    # ignores it completely. Can remove once
-    # https://github.com/sul-dlss/dor-workflow-client/pull/159 is merged and
-    # released and made available in preservation_robots
-    workflow_client.count_objects_in_step(ingest_wf, 'complete-ingest', 'completed', nil)
+    workflow_client.count_objects_in_step(ingest_wf, 'complete-ingest', 'completed')
   rescue Dor::WorkflowException => exception
     "Error connecting to workflow service: #{exception.message}"
   end
@@ -93,6 +84,6 @@ class StatsReporter
   end
 
   def workflow_client
-    Dor::Config.workflow.client
+    @workflow_client ||= WorkflowClientFactory.build
   end
 end

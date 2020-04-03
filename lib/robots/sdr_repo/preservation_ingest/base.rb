@@ -28,6 +28,10 @@ module Robots
           raise(StandardError, msg)
         end
 
+        def workflow_service
+          @workflow_service ||= WorkflowClientFactory.build
+        end
+
         private
 
         def moab_object
