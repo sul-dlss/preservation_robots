@@ -4,6 +4,9 @@ describe Robots::SdrRepo::PreservationIngest::VerifyApo do
   let(:deposit_dir_pathname) { Pathname(File.join(File.dirname(__FILE__), '..', 'fixtures', 'deposit')) }
   let(:deposit_bag_pathname) { Pathname(File.join(deposit_dir_pathname, id)) }
   let(:mock_moab) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
+  let(:mock_apo_obj) { Dor::AdminPolicyObject.new }
+  let(:mock_item_obj) { Dor::Item.new }
+  let(:exception_type) { Robots::SdrRepo::PreservationIngest::ItemError }
 
   before { allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab) }
 
@@ -14,7 +17,7 @@ describe Robots::SdrRepo::PreservationIngest::VerifyApo do
 
         it 'raises ItemError' do
           exp_msg = "Unable to find isGovernedBy node of relationshipMetadata for #{id}"
-          expect { verify_apo.perform(id) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
+          expect { verify_apo.perform(id) }.to raise_error(exception_type, exp_msg)
         end
       end
 
@@ -23,7 +26,7 @@ describe Robots::SdrRepo::PreservationIngest::VerifyApo do
 
         it 'raises ItemError' do
           exp_msg = "Unable to find 'resource' attribute for <isGovernedBy> in relationshipMetadata for #{id}"
-          expect { verify_apo.perform(id) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
+          expect { verify_apo.perform(id) }.to raise_error(exception_type, exp_msg)
         end
       end
 
@@ -33,7 +36,7 @@ describe Robots::SdrRepo::PreservationIngest::VerifyApo do
         it 'raises ItemError' do
           rel_md_pathname = deposit_bag_pathname.join('data/metadata/relationshipMetadata.xml')
           exp_msg = "^Unable to parse #{rel_md_pathname} .*#{id}"
-          expect { verify_apo.perform(id) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
+          expect { verify_apo.perform(id) }.to raise_error(exception_type, a_string_matching(exp_msg))
         end
       end
 
@@ -42,25 +45,22 @@ describe Robots::SdrRepo::PreservationIngest::VerifyApo do
     describe 'and APO druid attained' do
       let(:id) { 'verify-apo-has-rel-md-v1' }
       let(:deposit_bag_pathname) { Pathname(File.join(deposit_dir_pathname, id)) }
-      let(:mock_object_pathname) { instance_double(Pathname) }
 
-      it "if the APO Moab's object_pathname is a directory then no errors are raised" do
-        allow(mock_moab).to receive(:object_pathname).and_return(mock_object_pathname)
-        expect(mock_object_pathname).to receive(:directory?).and_return(true)
+      it 'if the object exist in Fedora and is an APO type' do
+        allow(Dor).to receive(:find).and_return(mock_apo_obj)
         expect { verify_apo.perform(id) }.not_to raise_error
       end
 
-      it "raises ItemError if the APO Moab's object_pathname is not a directory" do
-        allow(mock_moab).to receive(:object_pathname).and_return(mock_object_pathname)
-        expect(mock_object_pathname).to receive(:directory?).and_return(false)
+      it 'if the object does not exist in Fedora' do
         exp_msg = "Governing APO object druid:aa000aa0000 not found for #{id}"
-        expect { verify_apo.perform(id) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
+        allow(Dor).to receive(:find).and_raise(exception_type, exp_msg)
+        expect { verify_apo.perform(id) }.to raise_error(exception_type, exp_msg)
       end
 
-      it "raises ItemError if the APO Moab's object_pathname is nil" do
-        allow(mock_moab).to receive(:object_pathname)
-        exp_msg = "Governing APO object druid:aa000aa0000 not found for #{id}"
-        expect { verify_apo.perform(id) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
+      it 'if the object exists in Fedora but is not an APO type' do
+        allow(Dor).to receive(:find).and_return(mock_item_obj)
+        exp_msg = "Governing APO object druid:aa000aa0000 not type APO object for #{id}"
+        expect { verify_apo.perform(id) }.to raise_error(exception_type, exp_msg)
       end
     end
   end
@@ -81,7 +81,7 @@ describe Robots::SdrRepo::PreservationIngest::VerifyApo do
 
       it 'raises ItemError' do
         exp_msg = "relationshipMetadata.xml not found in deposit bag for #{id}"
-        expect { verify_apo.perform(id) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
+        expect { verify_apo.perform(id) }.to raise_error(exception_type, exp_msg)
       end
     end
     context 'when deposit version is unavailable' do
@@ -89,7 +89,7 @@ describe Robots::SdrRepo::PreservationIngest::VerifyApo do
 
       it 'raises ItemError' do
         exp_msg = "Unable to determine deposit version for #{id}"
-        expect { verify_apo.perform(id) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
+        expect { verify_apo.perform(id) }.to raise_error(exception_type, exp_msg)
       end
     end
   end

@@ -28,8 +28,8 @@ module Robots
         def verify_governing_apo
           LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
           if relationship_md_pathname
-            verify_apo_moab
-            LyberCore::Log.debug("APO #{apo_druid} was verified")
+            verify_apo_registered
+            LyberCore::Log.debug("APO #{apo_druid} was verified as existing and of type APO")
           else
             errmsg = "relationshipMetadata.xml not found in deposit bag for #{druid}"
             raise(ItemError, errmsg) unless deposit_version > 1
@@ -42,9 +42,10 @@ module Robots
           @relationship_md_pathname if @relationship_md_pathname.file?
         end
 
-        def verify_apo_moab
-          apo_moab = Stanford::StorageServices.find_storage_object(apo_druid)
-          return if apo_moab && apo_moab.object_pathname && apo_moab.object_pathname.directory?
+        def verify_apo_registered
+          apo_object = Dor.find(apo_druid)
+          raise(ItemError, "Governing APO object #{apo_druid} not type APO object for #{druid}") unless apo_object.class == Dor::AdminPolicyObject
+        rescue ActiveFedora::ObjectNotFoundError
           raise(ItemError, "Governing APO object #{apo_druid} not found for #{druid}")
         end
 
