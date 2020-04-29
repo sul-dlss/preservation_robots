@@ -24,7 +24,7 @@ class StatsReporter
 
   def ingest_wf_steps
     ["start-ingest", "transfer-object", "validate-bag",
-     "verify-apo", "update-moab", "update-catalog", "complete-ingest"]
+     "update-moab", "update-catalog", "complete-ingest"]
   end
 
   private
