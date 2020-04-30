@@ -60,7 +60,7 @@ describe StatsReporter do
         "+----------------------+---------+-------+--------+\n" \
           "|       workflow       | waiting | error | recent |\n" \
           "+----------------------+---------+-------+--------+\n" \
-          "| preservationIngestWF | 5       | 35    | 5      |\n" \
+          "| preservationIngestWF | 5       | 30    | 5      |\n" \
           "+----------------------+---------+-------+--------+\n"
       end
 
@@ -79,7 +79,7 @@ describe StatsReporter do
   describe '.ingest_wf_steps' do
     it 'returns an array of process names from the preservationIngestWF xml' do
       expect(stats_reporter.ingest_wf_steps).to eq(["start-ingest", "transfer-object",
-                                                    "validate-bag", "verify-apo", "update-moab",
+                                                    "validate-bag", "update-moab",
                                                     "update-catalog", "complete-ingest"])
     end
   end

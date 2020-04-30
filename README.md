@@ -20,19 +20,17 @@ External dependencies are surfaced in `config/settings.yml` and [shared_configs]
 
 The workflow is defined by: https://github.com/sul-dlss/workflow-server-rails/blob/master/config/workflows/sdr/preservationIngestWF.xml
 
-There are 6 robots:
+There are 5 robots:
 
 1. `transfer-object`: copies the BagIt bag containing files for a new Moab version (or new Moab), which was created by common-accessioning sdr-ingest-transfer robot, to the deposit location for the Moab.
 
 2. `validate-bag`: validates the BagIt/Moab deposit bag structure and version
 
-3. `verify-apo`: verifies the governing APO for this object is in SDR
+3. `update-moab`: create/add a version to Moab object from deposit bag
 
-4. `update-moab`: create/add a version to Moab object from deposit bag
+4. `update-catalog`: create/update Preservation Catalog entry for this Moab
 
-5. `update-catalog`: create/update Preservation Catalog entry for this Moab
-
-6. `complete-ingest`: removes deposit bag created by transfer-object robot, then transfers control back to accessioning
+5. `complete-ingest`: removes deposit bag created by transfer-object robot, then transfers control back to accessioning
 
 # Testing
 

@@ -17,14 +17,6 @@ Bundler/OrderedGems:
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, no_empty_lines
-Layout/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'spec/preservation_ingest/verify_apo_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
 # SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines
 Layout/EmptyLinesAroundClassBody:
   Exclude:
@@ -115,7 +107,6 @@ RSpec/FilePath:
     - 'spec/preservation_ingest/update_catalog_spec.rb'
     - 'spec/preservation_ingest/update_moab_spec.rb'
     - 'spec/preservation_ingest/validate_bag_spec.rb'
-    - 'spec/preservation_ingest/verify_apo_spec.rb'
 
 # Offense count: 20
 # Configuration parameters: EnforcedStyle.
@@ -126,7 +117,6 @@ RSpec/MessageSpies:
     - 'spec/preservation_ingest/complete_ingest_spec.rb'
     - 'spec/preservation_ingest/transfer_object_spec.rb'
     - 'spec/preservation_ingest/update_moab_spec.rb'
-    - 'spec/preservation_ingest/verify_apo_spec.rb'
 
 # Offense count: 14
 # Configuration parameters: AggregateFailuresByDefault.
@@ -140,7 +130,6 @@ RSpec/NestedGroups:
     - 'spec/lib/activity_reporter_spec.rb'
     - 'spec/lib/error_reporter_spec.rb'
     - 'spec/preservation_ingest/update_catalog_spec.rb'
-    - 'spec/preservation_ingest/verify_apo_spec.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -160,7 +149,6 @@ Style/StringLiterals:
     - 'bin/run_robot.rb'
     - 'config/schedule.rb'
     - 'lib/activity_reporter.rb'
-    - 'lib/robots/sdr_repo/preservation_ingest/verify_apo.rb'
     - 'lib/stats_reporter.rb'
     - 'spec/lib/activity_reporter_spec.rb'
     - 'spec/lib/error_reporter_spec.rb'
@@ -169,7 +157,6 @@ Style/StringLiterals:
     - 'spec/preservation_ingest/transfer_object_spec.rb'
     - 'spec/preservation_ingest/update_catalog_spec.rb'
     - 'spec/preservation_ingest/update_moab_spec.rb'
-    - 'spec/preservation_ingest/verify_apo_spec.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
