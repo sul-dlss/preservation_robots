@@ -48,5 +48,5 @@ druids.each do |druid|
   # years, and this script wasn't even working, so I'm content to leave this as
   # is since it now at least achieves parity with common-accessioning's
   # implementation of bin/run_robot
-  bot.work druid
+  bot.perform druid
 end
