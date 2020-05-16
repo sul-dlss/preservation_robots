@@ -7,7 +7,6 @@ lybercore_log: 'log/lybercore.log'
 # for workflows
 workflow:
   url: 'https://workflows.example.org'
-  dor_services_url: 'https://fakeuser:fakepass@fakeserver.example.edu/dor'
   logfile: 'log/workflow_service.log'
   shift_age: 'weekly'
   timeout: 60 # seconds
