@@ -169,9 +169,9 @@ GEM
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2020.0425)
+    mime-types-data (3.2020.0512)
     mini_portile2 (2.4.0)
-    minitest (5.14.0)
+    minitest (5.14.1)
     moab-versioning (4.4.1)
       druid-tools (>= 1.0.0)
       json
@@ -333,7 +333,7 @@ GEM
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.10)
-    tins (1.24.1)
+    tins (1.25.0)
       sync
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
