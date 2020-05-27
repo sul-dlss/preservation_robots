@@ -12,11 +12,14 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'moab/stanford'
+require 'yaml'
 
 include Stanford # rubocop:disable Style/MixinUsage
 
+settings = YAML.load_file('../config/environments/prod.yml')
+
 Moab::Config.configure do
-  storage_roots Dir.glob('/services-disk*').sort
+  storage_roots settings['moab']['storage_roots'].sort
   storage_trunk 'sdr2objects'
   deposit_trunk 'deposit'
   path_method 'druid_tree'
