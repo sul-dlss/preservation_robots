@@ -13,7 +13,7 @@ workflow:
 
 # where to find the deposit bag to be preserved
 transfer_object:
-  from_host: 'userid@common-accessioning-vm'
+  from_host: 'userid@dor-services-app'
   from_dir: '/dor/export/'
 
 ssl:
