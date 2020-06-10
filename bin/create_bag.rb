@@ -30,13 +30,11 @@ druidlist = File.open(ARGV[0])
 druidlist.each_line { |line| druids.push line.chomp }
 
 druids.each do |druid|
-  begin
-    druid = "druid:#{druid}" unless druid.start_with?('druid')
-    storage_object = StorageServices.find_storage_object(druid)
-    version_id = storage_object.current_version_id
-    bag_dir = "#{ARGV[1]}/bags/#{druid}"
-    storage_object.reconstruct_version(version_id, bag_dir)
-  rescue ObjectNotFoundException => msg
-    puts "#{druid}, #{msg}"
-  end
+  druid = "druid:#{druid}" unless druid.start_with?('druid')
+  storage_object = StorageServices.find_storage_object(druid)
+  version_id = storage_object.current_version_id
+  bag_dir = "#{ARGV[1]}/bags/#{druid}"
+  storage_object.reconstruct_version(version_id, bag_dir)
+rescue ObjectNotFoundException => e
+  puts "#{druid}, #{e}"
 end

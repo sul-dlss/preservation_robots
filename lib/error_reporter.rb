@@ -8,7 +8,7 @@ class ErrorReporter
     table_generator.each { |table| puts table.to_s unless table.rows.empty? }
   end
 
-  def table_generator(log_files=default_log_files)
+  def table_generator(log_files = default_log_files)
     stack = []
     today = Time.now.to_date.to_s
 
@@ -28,6 +28,7 @@ class ErrorReporter
         end
         if line.match?('WARN')
           next if line.match?('resque-signals')
+
           warning_table.rows << [file, line, today]
         end
         stack.pop if stack.size > 2

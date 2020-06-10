@@ -35,11 +35,12 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
       allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(tarpipe_cmd)
     end
 
-    it "ensures the deposit_dir_pathname is created if it does not exist" do
+    it 'ensures the deposit_dir_pathname is created if it does not exist' do
       expect(deposit_dir_pathname.exist?).to be false
       xfer_obj.perform(druid)
       expect(deposit_dir_pathname.exist?).to be true
     end
+
     it 'removes previous bag if it exists' do
       FileUtils.mkdir_p(deposit_bag_pathname)
       FileUtils.touch(deposit_bag_pathname + 'bagit_file.txt')
@@ -47,6 +48,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
       xfer_obj.perform(druid)
       expect(deposit_bag_pathname.exist?).to be false
     end
+
     it 'raises an ItemError if previous bag is not removed' do
       FileUtils.mkdir_p(deposit_bag_pathname)
       FileUtils.touch(deposit_bag_pathname + 'bagit_file.txt')

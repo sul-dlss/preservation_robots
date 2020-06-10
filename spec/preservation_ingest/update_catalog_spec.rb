@@ -4,7 +4,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
   let(:bare_druid) { 'bj102hs9687' }
   let(:size) { 2342 }
   let(:version) { 1 }
-  let(:strg_root) { "some/storage/location/from/endpoint/table" }
+  let(:strg_root) { 'some/storage/location/from/endpoint/table' }
   let(:url) { 'http://localhost:3000' }
   let(:args) do
     {
@@ -31,15 +31,15 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
     context 'object is new' do
       context 'when the call is successful' do
         before do
-          stub_request(:post, "http://localhost:3000/v1/catalog")
+          stub_request(:post, 'http://localhost:3000/v1/catalog')
             .with(
               body: {
-                "checksums_validated" => "true", "druid" => "bj102hs9687",
-                "incoming_size" => "2342", "incoming_version" => "1",
-                "storage_location" => "some/storage/location/from/endpoint/table"
+                'checksums_validated' => 'true', 'druid' => 'bj102hs9687',
+                'incoming_size' => '2342', 'incoming_version' => '1',
+                'storage_location' => 'some/storage/location/from/endpoint/table'
               }
             )
-            .to_return(status: 200, body: "", headers: {})
+            .to_return(status: 200, body: '', headers: {})
         end
 
         it 'POST to /v1/catalog' do
@@ -49,18 +49,18 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
 
       context 'when HTTP fails twice' do
         before do
-          stub_request(:post, "http://localhost:3000/v1/catalog")
+          stub_request(:post, 'http://localhost:3000/v1/catalog')
             .with(
               body: {
-                "checksums_validated" => "true", "druid" => "bj102hs9687",
-                "incoming_size" => "2342", "incoming_version" => "1",
-                "storage_location" => "some/storage/location/from/endpoint/table"
+                'checksums_validated' => 'true', 'druid' => 'bj102hs9687',
+                'incoming_size' => '2342', 'incoming_version' => '1',
+                'storage_location' => 'some/storage/location/from/endpoint/table'
               }
             )
             .to_return(
-              { status: 500, body: "", headers: {} },
-              { status: 500, body: "", headers: {} },
-              status: 200, body: "", headers: {}
+              { status: 500, body: '', headers: {} },
+              { status: 500, body: '', headers: {} },
+              status: 200, body: '', headers: {}
             )
         end
 
@@ -72,18 +72,18 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
 
       context 'when HTTP fails thrice' do
         before do
-          stub_request(:post, "http://localhost:3000/v1/catalog")
+          stub_request(:post, 'http://localhost:3000/v1/catalog')
             .with(
               body: {
-                "checksums_validated" => "true", "druid" => "bj102hs9687",
-                "incoming_size" => "2342", "incoming_version" => "1",
-                "storage_location" => "some/storage/location/from/endpoint/table"
+                'checksums_validated' => 'true', 'druid' => 'bj102hs9687',
+                'incoming_size' => '2342', 'incoming_version' => '1',
+                'storage_location' => 'some/storage/location/from/endpoint/table'
               }
             )
             .to_return(
-              { status: 500, body: "", headers: {} },
-              { status: 500, body: "", headers: {} },
-              status: 500, body: "", headers: {}
+              { status: 500, body: '', headers: {} },
+              { status: 500, body: '', headers: {} },
+              status: 500, body: '', headers: {}
             )
         end
 
@@ -97,15 +97,15 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
       let(:version) { 3 }
 
       before do
-        stub_request(:patch, "http://localhost:3000/v1/catalog/bj102hs9687")
+        stub_request(:patch, 'http://localhost:3000/v1/catalog/bj102hs9687')
           .with(
             body: {
-              "checksums_validated" => "true", "druid" => "bj102hs9687",
-              "incoming_size" => "2342", "incoming_version" => "3",
-              "storage_location" => "some/storage/location/from/endpoint/table"
+              'checksums_validated' => 'true', 'druid' => 'bj102hs9687',
+              'incoming_size' => '2342', 'incoming_version' => '3',
+              'storage_location' => 'some/storage/location/from/endpoint/table'
             }
           )
-          .to_return(status: 200, body: "", headers: {})
+          .to_return(status: 200, body: '', headers: {})
       end
 
       it 'PATCH to /v1/catalog/:druid' do
