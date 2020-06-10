@@ -1,5 +1,5 @@
 # to let whenever access settings:
-require File.expand_path(File.dirname(__FILE__) + "/boot")
+require File.expand_path(File.dirname(__FILE__) + '/boot')
 
 every :sunday, at: '4am' do
   set :output, nil
