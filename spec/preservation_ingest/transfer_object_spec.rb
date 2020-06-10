@@ -17,7 +17,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
     allow(xfer_obj).to receive(:verify_accesssion_wf_step_completed)
     cmd_regex = Regexp.new(".*ssh #{Settings.transfer_object.from_host} test -e #{vm_file_path}.*")
     expect(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(a_string_matching(cmd_regex)).and_return('no')
-    exp_msg = "Error transferring bag from common-accessioning for #{druid}: #{vm_file_path} not found"
+    exp_msg = "Error transferring bag (via userid@dor-services-app) for #{druid}: #{vm_file_path} not found"
     expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
   end
 
@@ -52,7 +52,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
       FileUtils.touch(deposit_bag_pathname + 'bagit_file.txt')
       expect(deposit_bag_pathname.exist?).to be true
       expect(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, 'rmtree failed')
-      exp_msg = Regexp.escape("Error transferring bag from common-accessioning for #{druid}: Failed preparation of deposit dir #{deposit_bag_pathname}")
+      exp_msg = Regexp.escape("Error transferring bag (via userid@dor-services-app) for #{druid}: Failed preparation of deposit dir #{deposit_bag_pathname}")
       expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
       expect(deposit_bag_pathname.exist?).to be true
     end
@@ -69,7 +69,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
     tarpipe_cmd = xfer_obj.send(:tarpipe_command, deposit_dir_pathname)
     allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command)
       .with(tarpipe_cmd).and_raise(StandardError, 'tarpipe failed')
-    exp_msg = Regexp.escape("Error transferring bag from common-accessioning for #{druid}: tarpipe failed")
+    exp_msg = Regexp.escape("Error transferring bag (via userid@dor-services-app) for #{druid}: tarpipe failed")
     expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
   end
 
