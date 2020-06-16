@@ -31,7 +31,7 @@ druidlist.each_line { |line| druids.push line.chomp }
 
 druids.each do |druid|
   begin
-    druid = "druid:#{druid}" unless druid.start_with?('druid')
+    druid = druid.delete_prefix('druid:')
     storage_object = StorageServices.find_storage_object(druid)
     version_id = storage_object.current_version_id
     bag_dir = "#{ARGV[1]}/bags/#{druid}"
