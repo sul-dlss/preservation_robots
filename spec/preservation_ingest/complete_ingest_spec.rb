@@ -6,13 +6,14 @@ describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
   let(:mock_so) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
   let(:this_robot) { described_class.new }
 
-  context '#perform' do
+  describe '#perform' do
     before do
       allow(deposit_bag_pathname).to receive(:rmtree)
       allow(Moab::StorageServices).to receive(:find_storage_object).and_return(mock_so)
       FileUtils.mkdir_p(deposit_bag_pathname)
       FileUtils.touch(deposit_bag_pathname + 'bagit_file.txt')
     end
+
     after do
       deposit_dir_pathname.rmtree if deposit_dir_pathname.exist?
     end
@@ -31,7 +32,7 @@ describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
       end
 
       it 'raises ItemError' do
-        exp_msg = Regexp.escape("Error completing ingest for #{druid}: failed to update accessionWF:sdr-ingest-received to completed: ") + ".*foo"
+        exp_msg = Regexp.escape("Error completing ingest for #{druid}: failed to update accessionWF:sdr-ingest-received to completed: ") + '.*foo'
         expect { this_robot.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
       end
     end

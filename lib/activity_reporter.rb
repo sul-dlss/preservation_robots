@@ -2,10 +2,10 @@
 class ActivityReporter
   DRUID_REGEXP = '[[:lower:]]{2}\\d{3}[[:lower:]]{2}\\d{4}'.freeze
 
-  def output(log_files=default_log_files)
+  def output(log_files = default_log_files)
     today = Time.now.to_date.to_s
     counter = {}
-    puts "*" * 20
+    puts '*' * 20
     log_files.each do |file|
       unless File.exist?(file) && File.size(file).positive?
         puts "EMPTY or NON-EXISTENT: #{file}"

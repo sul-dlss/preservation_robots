@@ -8,7 +8,7 @@ module Robots
       class UpdateMoab < Base
         ROBOT_NAME = 'update-moab'.freeze
 
-        def initialize(opts={})
+        def initialize(opts = {})
           super(WORKFLOW_NAME, ROBOT_NAME, opts)
         end
 
@@ -24,6 +24,7 @@ module Robots
           new_version = moab_object.ingest_bag
           result = new_version.verify_version_storage
           return if result.verified
+
           LyberCore::Log.info result.to_json(false)
           raise(ItemError, "Failed verification for #{result.entity}")
         end

@@ -23,8 +23,8 @@ class StatsReporter
   end
 
   def ingest_wf_steps
-    ["start-ingest", "transfer-object", "validate-bag",
-     "update-moab", "update-catalog", "complete-ingest"]
+    %w[start-ingest transfer-object validate-bag
+       update-moab update-catalog complete-ingest]
   end
 
   private
@@ -56,22 +56,22 @@ class StatsReporter
     # https://github.com/sul-dlss/dor-workflow-client/pull/159 is merged and
     # released and made available in preservation_robots
     workflow_client.count_objects_in_step(ingest_wf, 'start-ingest', 'waiting', nil)
-  rescue Dor::WorkflowException => exception
-    "Error connecting to workflow service: #{exception.message}"
+  rescue Dor::WorkflowException => e
+    "Error connecting to workflow service: #{e.message}"
   end
 
   def erroring_count
     ingest_wf_steps.map do |step|
       workflow_client.count_objects_in_step(ingest_wf, step, 'error')
     end.sum
-  rescue Dor::WorkflowException => exception
-    "Error connecting to workflow service: #{exception.message}"
+  rescue Dor::WorkflowException => e
+    "Error connecting to workflow service: #{e.message}"
   end
 
   def completed_count
     workflow_client.count_objects_in_step(ingest_wf, 'complete-ingest', 'completed')
-  rescue Dor::WorkflowException => exception
-    "Error connecting to workflow service: #{exception.message}"
+  rescue Dor::WorkflowException => e
+    "Error connecting to workflow service: #{e.message}"
   end
 
   def workflow_report_lines

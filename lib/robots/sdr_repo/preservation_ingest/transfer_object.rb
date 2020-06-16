@@ -34,7 +34,7 @@ module Robots
           deposit_dir = prepare_deposit_dir
           self.class.execute_shell_command(tarpipe_command(deposit_dir))
         rescue StandardError => e
-          raise(ItemError, "Error transferring bag from common-accessioning for #{druid}: #{e.message}")
+          raise(ItemError, "Error transferring bag (via #{Settings&.transfer_object&.from_host}) for #{druid}: #{e.message}")
         end
 
         VERSION_METADATA_PATH_SUFFIX = '/data/metadata/versionMetadata.xml'.freeze

@@ -8,7 +8,7 @@ describe StatsReporter do
       # for example, this matches '5.0G  2.1G  2.6G  45% /'
       size_regex = '[0-9]+(\.[0-9]+)?[A-Za-z]'
       percent_regex = '[0-9]+\%'
-      regex = %r{#{size_regex}.+#{size_regex}.+#{size_regex}.+#{percent_regex}.*\s\/}
+      regex = %r{#{size_regex}.+#{size_regex}.+#{size_regex}.+#{percent_regex}.*\s/}
       expect(output).to match(regex)
     end
   end
@@ -78,9 +78,9 @@ describe StatsReporter do
 
   describe '.ingest_wf_steps' do
     it 'returns an array of process names from the preservationIngestWF xml' do
-      expect(stats_reporter.ingest_wf_steps).to eq(["start-ingest", "transfer-object",
-                                                    "validate-bag", "update-moab",
-                                                    "update-catalog", "complete-ingest"])
+      expect(stats_reporter.ingest_wf_steps).to eq(%w[start-ingest transfer-object
+                                                      validate-bag update-moab
+                                                      update-catalog complete-ingest])
     end
   end
 end
