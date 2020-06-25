@@ -29,7 +29,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
       allow(xfer_obj).to receive(:verify_version_metadata)
       mock_moab = instance_double(Moab::StorageObject)
       allow(mock_moab).to receive(:deposit_bag_pathname).and_return(deposit_bag_pathname)
-      allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
+      allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moab)
       xfer_obj.instance_variable_set(:@druid, druid)
       tarpipe_cmd = xfer_obj.send(:tarpipe_command, deposit_dir_pathname)
       allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(tarpipe_cmd)
@@ -65,7 +65,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
     allow(xfer_obj).to receive(:verify_version_metadata)
     mock_moab = instance_double(Moab::StorageObject)
     allow(mock_moab).to receive(:deposit_bag_pathname).and_return(deposit_bag_pathname)
-    allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
+    allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moab)
 
     xfer_obj.instance_variable_set(:@druid, druid)
     tarpipe_cmd = xfer_obj.send(:tarpipe_command, deposit_dir_pathname)
@@ -83,7 +83,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
 
     mock_moab = instance_double(Moab::StorageObject)
     expect(mock_moab).to receive(:deposit_bag_pathname).and_return(deposit_bag_pathname)
-    expect(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
+    expect(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moab)
 
     xfer_obj.instance_variable_set(:@druid, druid)
     tarpipe_cmd = xfer_obj.send(:tarpipe_command, deposit_dir_pathname)
