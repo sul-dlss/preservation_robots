@@ -20,7 +20,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
   end
 
   before do
-    allow(Moab::StorageServices).to receive(:find_storage_object).and_return(mock_so)
+    allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_so)
   end
 
   describe '#perform' do
