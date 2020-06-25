@@ -10,7 +10,7 @@ describe Robots::SdrRepo::PreservationIngest::ValidateBag do
                     current_version_id: 5)
   end
 
-  before { allow(Stanford::StorageServices).to receive(:find_storage_object).with(druid, true).and_return(mock_moab) }
+  before { allow(Stanford::StorageServices).to receive(:search_storage_objects).with(druid, true).and_return(mock_moab) }
 
   context 'when no validation errors' do
     let(:bare_druid) { 'cr123dt0367' }
