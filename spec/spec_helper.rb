@@ -7,9 +7,6 @@ require 'coveralls'
 require 'byebug'
 Coveralls.wear!
 
-# Setup basic storage roots for tests
-# Moab::Config.storage_roots = [File.join(File.dirname(__FILE__), "fixtures/deposit")]
-
 SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 SimpleCov.start do
   add_filter 'spec'
