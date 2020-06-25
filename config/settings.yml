@@ -23,9 +23,8 @@ ssl:
   key_pass: ''
 
 moab:
-  # storage_roots:
-  #   - '/services-disk/store1'
-  #   - '/services-disk/store2'
+  storage_roots:
+    - './spec/fixtures'
   storage_trunk: 'sdr2objects'
   deposit_trunk: 'deposit'
   path_method: 'druid_tree'

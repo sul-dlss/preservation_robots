@@ -35,7 +35,10 @@ module Robots
         private
 
         def moab_object
-          @moab_object ||= Stanford::StorageServices.find_storage_object(druid, true)
+          # @moab_object ||= PreservationClient::Client.objects.primary_moab_location(druid: druid)
+          # search_storage_objects
+          # byebug
+          @moab_object ||= Stanford::StorageServices.search_storage_objects(druid, true)
         end
 
         def deposit_bag_pathname
