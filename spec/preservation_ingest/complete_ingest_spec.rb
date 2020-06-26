@@ -3,7 +3,7 @@ describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
   let(:druid) { "druid:#{bare_druid}" }
   let(:deposit_dir_pathname) { Pathname(File.join(File.dirname(__FILE__), '..', 'fixtures', 'deposit', 'complete-ingest')) }
   let(:deposit_bag_pathname) { Pathname(File.join(deposit_dir_pathname, bare_druid)) }
-  let(:mock_so) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
+  let(:mock_so) { [instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname)] }
   let(:this_robot) { described_class.new }
 
   describe '#perform' do

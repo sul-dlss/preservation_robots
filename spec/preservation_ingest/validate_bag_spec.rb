@@ -5,9 +5,9 @@ describe Robots::SdrRepo::PreservationIngest::ValidateBag do
   let(:deposit_bag_pathname) { Pathname(File.join(deposit_dir_pathname, bare_druid)) }
   let(:druid) { "druid:#{bare_druid}" }
   let(:mock_moab) do
-    instance_double(Moab::StorageObject,
+    [instance_double(Moab::StorageObject,
                     deposit_bag_pathname: deposit_bag_pathname,
-                    current_version_id: 5)
+                    current_version_id: 5)]
   end
 
   before { allow(Stanford::StorageServices).to receive(:search_storage_objects).with(druid, true).and_return(mock_moab) }

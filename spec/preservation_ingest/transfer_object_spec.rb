@@ -28,8 +28,9 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
       allow(xfer_obj).to receive(:verify_accesssion_wf_step_completed)
       allow(xfer_obj).to receive(:verify_version_metadata)
       mock_moab = instance_double(Moab::StorageObject)
+      mock_moabs = [mock_moab]
       allow(mock_moab).to receive(:deposit_bag_pathname).and_return(deposit_bag_pathname)
-      allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moab)
+      allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moabs)
       xfer_obj.instance_variable_set(:@druid, druid)
       tarpipe_cmd = xfer_obj.send(:tarpipe_command, deposit_dir_pathname)
       allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(tarpipe_cmd)
@@ -64,8 +65,9 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
     allow(xfer_obj).to receive(:verify_accesssion_wf_step_completed)
     allow(xfer_obj).to receive(:verify_version_metadata)
     mock_moab = instance_double(Moab::StorageObject)
+    mock_moabs = [mock_moab]
     allow(mock_moab).to receive(:deposit_bag_pathname).and_return(deposit_bag_pathname)
-    allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moab)
+    allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moabs)
 
     xfer_obj.instance_variable_set(:@druid, druid)
     tarpipe_cmd = xfer_obj.send(:tarpipe_command, deposit_dir_pathname)
@@ -82,8 +84,9 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
     expect(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(a_string_matching(cmd_regex)).and_return('yes')
 
     mock_moab = instance_double(Moab::StorageObject)
+    mock_moabs = [mock_moab]
     expect(mock_moab).to receive(:deposit_bag_pathname).and_return(deposit_bag_pathname)
-    expect(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moab)
+    expect(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moabs)
 
     xfer_obj.instance_variable_set(:@druid, druid)
     tarpipe_cmd = xfer_obj.send(:tarpipe_command, deposit_dir_pathname)

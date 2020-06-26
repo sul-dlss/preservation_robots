@@ -16,7 +16,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
     }
   end
   let(:mock_so) do
-    instance_double(Moab::StorageObject, object_pathname: instance_double(Pathname), size: size, storage_root: strg_root, current_version_id: version)
+    [ instance_double(Moab::StorageObject, object_pathname: instance_double(Pathname), size: size, storage_root: strg_root, current_version_id: version) ]
   end
 
   before do
