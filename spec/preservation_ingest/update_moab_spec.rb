@@ -2,20 +2,20 @@ describe Robots::SdrRepo::PreservationIngest::UpdateMoab do
   let(:pres_update_moab) { described_class.new }
   let(:full_druid) { 'druid:bj102hs9687' }
   let(:mock_path) { instance_double(Pathname) }
-  let(:mock_so) { instance_double(Moab::StorageObject, object_pathname: mock_path) }
-  let(:mock_sos) { [mock_so] }
+  let(:mock_storage_object) { instance_double(Moab::StorageObject, object_pathname: mock_path) }
+  let(:mock_storage_objects) { [mock_storage_object] }
   let(:mock_new_version) { instance_double(Moab::StorageObjectVersion) }
   let(:verification_result) { instance_double(Moab::VerificationResult) }
 
   describe '#perform' do
     before do
-      allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_sos)
-      allow(mock_sos).to receive(:filter!).and_return(mock_so)
+      allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_storage_objects)
+      allow(mock_storage_objects).to receive(:filter!).and_return(mock_storage_object)
     end
 
     it 'calls #ingest_bag and verify_version_storage on Moab::StorageObjectVersion' do
       allow(LyberCore::Log).to receive(:debug).with('update-moab druid:bj102hs9687 starting')
-      expect(mock_so).to receive(:ingest_bag).and_return(mock_new_version)
+      expect(mock_storage_object).to receive(:ingest_bag).and_return(mock_new_version)
       allow(verification_result).to receive(:verified).and_return(true)
       expect(mock_new_version).to receive(:verify_version_storage).and_return(verification_result)
       pres_update_moab.perform(full_druid)
@@ -24,7 +24,7 @@ describe Robots::SdrRepo::PreservationIngest::UpdateMoab do
     it 'raises ItemError when new version does not pass verification' do
       full_druid_vers = "#{full_druid}-v0003"
       error_message = "Failed verification for #{full_druid_vers}"
-      expect(mock_so).to receive(:ingest_bag).and_return(mock_new_version)
+      expect(mock_storage_object).to receive(:ingest_bag).and_return(mock_new_version)
       allow(verification_result).to receive(:verified).and_return(false)
       expect(mock_new_version).to receive(:verify_version_storage).and_return(verification_result)
       allow(verification_result).to receive(:to_json).and_return('some_json')

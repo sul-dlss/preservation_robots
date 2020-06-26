@@ -17,14 +17,14 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
       checksums_validated: true
     }
   end
-  let(:mock_so) do
+  let(:mock_storage_object) do
     instance_double(Moab::StorageObject, object_pathname: instance_double(Pathname), size: size, storage_root: strg_root, current_version_id: version)
   end
-  let(:mock_sos) { [mock_so] }
+  let(:mock_storage_objects) { [mock_storage_object] }
 
   before do
-    allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_sos)
-    allow(mock_sos).to receive(:filter!).and_return(mock_so)
+    allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_storage_objects)
+    allow(mock_storage_objects).to receive(:filter!).and_return(mock_storage_object)
   end
 
   describe '#perform' do

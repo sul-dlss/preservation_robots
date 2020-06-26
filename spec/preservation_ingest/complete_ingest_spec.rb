@@ -3,15 +3,15 @@ describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
   let(:druid) { "druid:#{bare_druid}" }
   let(:deposit_dir_pathname) { Pathname(File.join(File.dirname(__FILE__), '..', 'fixtures', 'deposit', 'complete-ingest')) }
   let(:deposit_bag_pathname) { Pathname(File.join(deposit_dir_pathname, bare_druid)) }
-  let(:mock_so) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
-  let(:mock_sos) { [mock_so] }
+  let(:mock_storage_object) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
+  let(:mock_storage_objects) { [mock_storage_object] }
   let(:this_robot) { described_class.new }
 
   describe '#perform' do
     before do
       allow(deposit_bag_pathname).to receive(:rmtree)
-      allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_sos)
-      allow(mock_sos).to receive(:filter!).and_return(mock_so)
+      allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_storage_objects)
+      allow(mock_storage_objects).to receive(:filter!).and_return(mock_storage_object)
       FileUtils.mkdir_p(deposit_bag_pathname)
       FileUtils.touch(deposit_bag_pathname + 'bagit_file.txt')
     end
