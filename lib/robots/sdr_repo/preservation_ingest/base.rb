@@ -48,7 +48,6 @@ module Robots
               # if we see more than one among the storage roots, ask pres cat to choose a primary
               existing_moabs.find { |moab| moab.object_pathname.to_s.start_with?(primary_moab_location) }
             else
-              byebug
               Stanford::StorageServices.find_storage_object(druid, true)
             end
         rescue Preservation::Client::NotFoundError

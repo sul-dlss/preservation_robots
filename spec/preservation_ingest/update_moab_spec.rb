@@ -10,7 +10,7 @@ describe Robots::SdrRepo::PreservationIngest::UpdateMoab do
   describe '#perform' do
     before do
       allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_storage_objects)
-      allow(mock_storage_objects).to receive(:filter!).and_return(mock_storage_object)
+      allow(Moab::StorageServices).to receive(:find_storage_object).and_return(mock_storage_object)
     end
 
     it 'calls #ingest_bag and verify_version_storage on Moab::StorageObjectVersion' do

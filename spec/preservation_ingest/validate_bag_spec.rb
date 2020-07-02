@@ -12,8 +12,8 @@ describe Robots::SdrRepo::PreservationIngest::ValidateBag do
   let(:mock_moabs) { [mock_moab] }
 
   before do
-    allow(Stanford::StorageServices).to receive(:search_storage_objects).with(druid, true).and_return(mock_moabs)
-    allow(mock_moabs).to receive(:filter!).and_return(mock_moab)
+    allow(Stanford::StorageServices).to receive(:search_storage_objects).with(druid).and_return(mock_moabs)
+    allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
   end
 
   context 'when no validation errors' do

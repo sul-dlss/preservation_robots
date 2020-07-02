@@ -11,7 +11,7 @@ describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
     before do
       allow(deposit_bag_pathname).to receive(:rmtree)
       allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_storage_objects)
-      allow(mock_storage_objects).to receive(:filter!).and_return(mock_storage_object)
+      allow(Moab::StorageServices).to receive(:find_storage_object).and_return(mock_storage_object)
       FileUtils.mkdir_p(deposit_bag_pathname)
       FileUtils.touch(deposit_bag_pathname + 'bagit_file.txt')
     end
