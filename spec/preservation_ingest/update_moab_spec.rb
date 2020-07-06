@@ -6,12 +6,15 @@ describe Robots::SdrRepo::PreservationIngest::UpdateMoab do
   let(:verification_result) { instance_double(Moab::VerificationResult) }
 
   describe '#perform' do
+    before do
+      allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_storage_objects)
+    end
+
     context 'with a single moab' do
       let(:mock_storage_object) { instance_double(Moab::StorageObject, object_pathname: mock_path) }
       let(:mock_storage_objects) { [mock_storage_object] }
 
       before do
-        allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_storage_objects)
         allow(Moab::StorageServices).to receive(:find_storage_object).and_return(mock_storage_object)
       end
 
@@ -42,7 +45,6 @@ describe Robots::SdrRepo::PreservationIngest::UpdateMoab do
       let(:mock_storage_objects) { [mock_storage_object_1, mock_storage_object_2] }
 
       before do
-        allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_storage_objects)
         allow(Preservation::Client.objects).to receive(:primary_moab_location).and_return(mock_path.to_s)
       end
 
