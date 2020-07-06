@@ -1,3 +1,5 @@
+# rubocop:disable Metrics/BlockLength
+
 RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
   subject(:update_catalog_obj) { described_class.new }
 
@@ -15,12 +17,14 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
       checksums_validated: true
     }
   end
-  let(:mock_so) do
+  let(:mock_storage_object) do
     instance_double(Moab::StorageObject, object_pathname: instance_double(Pathname), size: size, storage_root: strg_root, current_version_id: version)
   end
+  let(:mock_storage_objects) { [mock_storage_object] }
 
   before do
-    allow(Moab::StorageServices).to receive(:find_storage_object).and_return(mock_so)
+    allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_storage_objects)
+    allow(Moab::StorageServices).to receive(:find_storage_object).and_return(mock_storage_object)
   end
 
   describe '#perform' do
@@ -114,3 +118,4 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

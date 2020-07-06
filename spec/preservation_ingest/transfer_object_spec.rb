@@ -28,7 +28,9 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
       allow(xfer_obj).to receive(:verify_accesssion_wf_step_completed)
       allow(xfer_obj).to receive(:verify_version_metadata)
       mock_moab = instance_double(Moab::StorageObject)
+      mock_moabs = [mock_moab]
       allow(mock_moab).to receive(:deposit_bag_pathname).and_return(deposit_bag_pathname)
+      allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moabs)
       allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
       xfer_obj.instance_variable_set(:@druid, druid)
       tarpipe_cmd = xfer_obj.send(:tarpipe_command, deposit_dir_pathname)
@@ -64,7 +66,9 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
     allow(xfer_obj).to receive(:verify_accesssion_wf_step_completed)
     allow(xfer_obj).to receive(:verify_version_metadata)
     mock_moab = instance_double(Moab::StorageObject)
+    mock_moabs = [mock_moab]
     allow(mock_moab).to receive(:deposit_bag_pathname).and_return(deposit_bag_pathname)
+    allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moabs)
     allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
 
     xfer_obj.instance_variable_set(:@druid, druid)
@@ -75,6 +79,7 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
     expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
   end
 
+  # rubocop:disable RSpec/MultipleExpectations
   it 'executes the tarpipe command to transfer the object when no errors are raised' do
     expect(deposit_bag_pathname.exist?).to be false
 
@@ -82,7 +87,9 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
     expect(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(a_string_matching(cmd_regex)).and_return('yes')
 
     mock_moab = instance_double(Moab::StorageObject)
+    mock_moabs = [mock_moab]
     expect(mock_moab).to receive(:deposit_bag_pathname).and_return(deposit_bag_pathname)
+    expect(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moabs)
     expect(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
 
     xfer_obj.instance_variable_set(:@druid, druid)
@@ -91,4 +98,5 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
 
     xfer_obj.perform(druid)
   end
+  # rubocop:enable RSpec/MultipleExpectations
 end
