@@ -1,5 +1,6 @@
-[![Build Status](https://travis-ci.org/sul-dlss/preservation_robots.svg?branch=master)](https://travis-ci.org/sul-dlss/preservation_robots)
-[![Coverage Status](https://coveralls.io/repos/github/sul-dlss/preservation_robots/badge.svg)](https://coveralls.io/github/sul-dlss/preservation_robots)
+[![CircleCI](https://circleci.com/gh/sul-dlss/preservation_robots.svg?style=svg)](https://circleci.com/gh/sul-dlss/preservation_robots)
+[![Code Climate](https://codeclimate.com/github/sul-dlss/preservation_robots/badges/gpa.svg)](https://codeclimate.com/github/sul-dlss/preservation_robots)
+[![Code Climate Test Coverage](https://codeclimate.com/github/sul-dlss/preservation_robots/badges/coverage.svg)](https://codeclimate.com/github/sul-dlss/
 [![GitHub version](https://badge.fury.io/gh/sul-dlss%2Fpreservation_robots.svg)](https://badge.fury.io/gh/sul-dlss%2Fpreservation_robots)
 
 # preservation_robots
