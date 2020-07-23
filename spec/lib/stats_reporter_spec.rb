@@ -16,31 +16,19 @@ describe StatsReporter do
   describe '.storage_report_text' do
     it 'constructs a table from the linux df command output' do
       df_shell_output = <<-SHELL
-      Filesystem            Size  Used Avail Use% Mounted on
-      /dev/mapper/rootvg-slash
-                            5.0G  2.1G  2.6G  45% /
-      tmpfs                 2.4G     0  2.4G   0% /dev/shm
-      /dev/sda1             490M   64M  401M  14% /boot
-      /dev/mapper/rootvg-app
-                            5.0G  338M  4.4G   8% /opt/app
-      /dev/mapper/rootvg-tmp
-                            2.0G   68M  1.9G   4% /tmp
-      /dev/mapper/rootvg-afscache
-                           1008M   37M  921M   4% /usr/vice/cache
-      /dev/mapper/rootvg-var
-                            5.0G  3.0G  1.8G  64% /var
-      AFS                   8.6G     0  8.6G   0% /afs
-      sf5-restrict-dev:/sdr_services_test_01
-                            2.0T  458G  1.6T  23% /services-disk
-
+      Filesystem                                       Size  Used Avail Use% Mounted on
+      /dev/mapper/rootvg-app                           4.8G  148M  4.5G   4% /opt/app
+      ceph-ips:/volumes/preservation/pres-01/ceph-id   1.3P  711T  575T  56% /pres-01
+      sf5-sdr:/sdr_services_25                          60T   16T   45T  27% /services-disk25
       SHELL
 
       table_output = <<-TABLE.strip_heredoc
-  +----------------+-------+------+----------+------+----------+
-  |   filesystem   | total | used | pct_used | free | pct_free |
-  +----------------+-------+------+----------+------+----------+
-  | /services-disk | 2.0T  | 458G | 23%      | 1.6T | 77%      |
-  +----------------+-------+------+----------+------+----------+
+    +------------------+-------+------+----------+------+----------+
+    |    filesystem    | total | used | pct_used | free | pct_free |
+    +------------------+-------+------+----------+------+----------+
+    | /pres-01         | 1.3P  | 711T | 56%      | 575T | 44%      |
+    | /services-disk25 | 60T   | 16T  | 27%      | 45T  | 73%      |
+    +------------------+-------+------+----------+------+----------+
       TABLE
       allow(stats_reporter).to receive(:df_output).and_return(df_shell_output)
       expect(stats_reporter.storage_report_text).to eq table_output
