@@ -30,16 +30,18 @@ class StatsReporter
   private
 
   def storage_mount_lines
-    df_output.split("\n").select { |line| line.include?('services-disk') }
+    df_output.split("\n").select do |line|
+      line.include?('services-disk') || line.include?('pres')
+    end
   end
 
   def parsed_storage_mount_lines
     storage_mount_lines.map do |line|
       split_line = line.split
       {
-        total: split_line[0], used: split_line[1],
-        remaining: split_line[2], percent_used: split_line[3],
-        filesystem: split_line[4], percent_free: "#{(100 - split_line[3].chop.to_i)}%"
+        total: split_line[1], used: split_line[2],
+        remaining: split_line[3], percent_used: split_line[4],
+        filesystem: split_line[5], percent_free: "#{(100 - split_line[4].chop.to_i)}%"
       }
     end
   end
