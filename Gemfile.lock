@@ -115,7 +115,7 @@ GEM
     dry-equalizer (0.3.0)
     dry-inflector (0.2.0)
     dry-initializer (3.0.3)
-    dry-logic (1.0.6)
+    dry-logic (1.0.7)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.2)
       dry-equalizer (~> 0.2)
@@ -153,7 +153,7 @@ GEM
       temple (>= 0.8.0)
       tilt
     hashdiff (1.0.1)
-    honeybadger (4.7.0)
+    honeybadger (4.7.1)
     hooks (0.4.1)
       uber (~> 0.0.14)
     htmlentities (4.3.4)
