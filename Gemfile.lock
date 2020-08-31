@@ -77,9 +77,9 @@ GEM
     docile (1.3.2)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
-    dor-rights-auth (1.4.0)
+    dor-rights-auth (1.5.0)
       nokogiri
-    dor-services (9.6.0)
+    dor-services (9.6.1)
       active-fedora (>= 8.7.0, < 9)
       activesupport (~> 5.1)
       deprecation (~> 0)
