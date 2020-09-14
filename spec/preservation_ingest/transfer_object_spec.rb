@@ -79,7 +79,6 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
     expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
   end
 
-  # rubocop:disable RSpec/MultipleExpectations
   it 'executes the tarpipe command to transfer the object when no errors are raised' do
     expect(deposit_bag_pathname.exist?).to be false
 
@@ -98,5 +97,4 @@ describe Robots::SdrRepo::PreservationIngest::TransferObject do
 
     xfer_obj.perform(druid)
   end
-  # rubocop:enable RSpec/MultipleExpectations
 end
