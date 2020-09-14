@@ -21,8 +21,8 @@ gem 'zeitwerk', '~> 2.1'
 
 group :development, :test do
   gem 'pry-byebug'
-  gem 'rubocop', '~> 0.85.1' # avoid code churn due to rubocop changes
-  gem 'rubocop-rspec', '~> 1.39.0' # avoid code churn due to rubocop-rspec changes
+  gem 'rubocop', '~> 0.90.0' # avoid code churn due to rubocop changes
+  gem 'rubocop-rspec', '~> 1.43.2' # avoid code churn due to rubocop-rspec changes
 end
 
 group :test do
