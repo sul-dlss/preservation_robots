@@ -14,7 +14,7 @@ require 'bundler/setup'
 require 'moab/stanford'
 require 'yaml'
 
-include Stanford # rubocop:disable Style/MixinUsage
+include Stanford
 
 settings = YAML.load_file('../config/environments/prod.yml')
 
