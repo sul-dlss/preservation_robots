@@ -42,7 +42,7 @@ module Robots
           end
         end
 
-        # sleep for a configured amount of time, including a random additional delay to help ensure staggering.
+        # sleep for a configured amount of time.
         #
         # BUT WHY? at present we're having an issue with Ceph backed preservation storage that plays out something like:
         # * a preservation_robots worker finishes writing a new version of a Moab to its druid tree in the storage trunk, from a bag
@@ -60,8 +60,7 @@ module Robots
         #     inescapable interplay here between pres robots and pres cat anyway.
         # we hope to figure out a way to further tune our Ceph setup so that this delay is no longer needed.
         def wait_as_needed
-          additional_delay = rand(0.0..Settings.hacks.update_catalog_sleep.max_stagger)
-          sleep(Settings.hacks.update_catalog_sleep.base_time + additional_delay)
+          sleep(Settings.hacks.update_catalog_delay_seconds)
         end
       end
     end
