@@ -20,6 +20,7 @@ set :deploy_to, "/opt/app/pres/#{fetch(:application)}"
 # Default value for :linked_files is []
 # append :linked_files, "config/database.yml", "config/secrets.yml"
 # append :linked_files, %w(config/honeybadger.yml)
+append :linked_files, 'tmp/resque-pool.lock'
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
@@ -47,5 +48,3 @@ set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 
 # update shared_configs before restarting app
 before 'deploy:publishing', 'shared_configs:update'
-
-after 'deploy:publishing', 'resque:pool:hot_swap'

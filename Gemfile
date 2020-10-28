@@ -34,5 +34,4 @@ end
 group :deployment do
   gem 'capistrano-bundler'
   gem 'dlss-capistrano'
-  gem 'capistrano-resque-pool'
 end
