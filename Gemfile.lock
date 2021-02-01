@@ -275,10 +275,10 @@ GEM
     rspec-expectations (3.10.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
-    rspec-mocks (3.10.1)
+    rspec-mocks (3.10.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
-    rspec-support (3.10.1)
+    rspec-support (3.10.2)
     rubocop (0.90.0)
       parallel (~> 1.10)
       parser (>= 2.7.1.1)
@@ -348,7 +348,7 @@ GEM
     unicode-display_width (1.7.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
-    webmock (3.11.1)
+    webmock (3.11.2)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -388,4 +388,4 @@ DEPENDENCIES
   zeitwerk (~> 2.1)
 
 BUNDLED WITH
-   2.2.6
+   2.2.7
