@@ -41,7 +41,7 @@ class StatsReporter
       {
         total: split_line[1], used: split_line[2],
         remaining: split_line[3], percent_used: split_line[4],
-        filesystem: split_line[5], percent_free: "#{(100 - split_line[4].chop.to_i)}%"
+        filesystem: split_line[5], percent_free: "#{100 - split_line[4].chop.to_i}%"
       }
     end
   end
