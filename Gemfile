@@ -5,11 +5,11 @@ gem 'rake'
 gem 'pry' # useful for production environment
 
 # Stanford DLSS gems
-gem 'moab-versioning', '>= 4.2.0' # work with Moab Objects; 4.2.0 has DepositBagValidator
+gem 'moab-versioning', '~> 4.2' # work with Moab Objects
 gem 'dor-workflow-client', '~> 3.21'
 gem 'honeybadger' # for error reporting / tracking / notifications
 gem 'lyber-core', '~> 6.1' # robot code
-gem 'preservation-client', '>= 3.1' # 3.x or greater is needed for token auth
+gem 'preservation-client', '~> 3.1' # 3.x or greater is needed for token auth
 gem 'resque'
 gem 'resque-pool'
 gem 'retries'
@@ -20,8 +20,8 @@ gem 'zeitwerk', '~> 2.1'
 
 group :development, :test do
   gem 'pry-byebug'
-  gem 'rubocop', '~> 0.90.0' # avoid code churn due to rubocop changes
-  gem 'rubocop-rspec', '~> 1.43.2' # avoid code churn due to rubocop-rspec changes
+  gem 'rubocop'
+  gem 'rubocop-rspec'
 end
 
 group :test do
