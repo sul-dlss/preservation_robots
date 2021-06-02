@@ -33,6 +33,7 @@ module Robots
         end
 
         def update_catalog
+          remove_deposit_bag
           wait_as_needed # give Ceph MDS some breathing room on the pres cat side, see comment on method
           with_retries(max_tries: 3, handler: handler, rescue: Preservation::Client::Error) do
             Preservation::Client.update(druid: druid,
@@ -61,6 +62,28 @@ module Robots
         # we hope to figure out a way to further tune our Ceph setup so that this delay is no longer needed.
         def wait_as_needed
           sleep(Settings.hacks.update_catalog_delay_seconds)
+        end
+
+        def remove_deposit_bag
+          rm_deposit_bag_safely_for_ceph
+        rescue StandardError => e
+          errmsg = "Error completing ingest for #{druid}: failed to remove deposit bag (#{deposit_bag_pathname}): " \
+            "#{e.message}\n + e.backtrace.join('\n')"
+          LyberCore::Log.error(errmsg)
+          raise(ItemError, errmsg)
+        end
+
+        # we stat all the files in the Moab in hopes of preventing issues when reading metadata about
+        # files in the newly created Moab version.  this addresses what we suspect to be interplay between
+        # Ceph backed storage and our use of hardlinking (instead of e.g. copying) to get content from the
+        # deposit bag to the new Moab version.  see https://github.com/sul-dlss/preservation_catalog/issues/1633
+        def rm_deposit_bag_safely_for_ceph
+          deposit_bag_pathname.rmtree
+          stat_moab_dir_contents
+        end
+
+        def stat_moab_dir_contents
+          Find.find(moab_object.object_pathname) { |path| File.stat(path) }
         end
       end
     end
