@@ -43,5 +43,6 @@ sul-robots-host-example:
   - sdr_preservationIngestWF_transfer-object
   - sdr_preservationIngestWF_validate-bag
   - sdr_preservationIngestWF_update-moab
+  - sdr_preservationIngestWF_validate-moab
   - sdr_preservationIngestWF_update-catalog
   - sdr_preservationIngestWF_complete-ingest
