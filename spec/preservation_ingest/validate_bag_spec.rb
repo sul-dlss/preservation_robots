@@ -1,4 +1,4 @@
-describe Robots::SdrRepo::PreservationIngest::ValidateBag do
+RSpec.describe Robots::SdrRepo::PreservationIngest::ValidateBag do
   subject(:validate_bag_obj) { described_class.new }
 
   let(:deposit_dir_pathname) { Pathname(File.join(File.dirname(__FILE__), '..', 'fixtures', 'deposit')) }

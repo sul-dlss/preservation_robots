@@ -1,5 +1,3 @@
-# rubocop:disable Metrics/BlockLength
-
 RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
   subject(:update_catalog_obj) { described_class.new }
 
@@ -213,4 +211,3 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

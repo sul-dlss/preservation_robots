@@ -1,5 +1,4 @@
-# rubocop:disable Metrics/BlockLength
-describe Robots::SdrRepo::PreservationIngest::ValidateMoab do
+RSpec.describe Robots::SdrRepo::PreservationIngest::ValidateMoab do
   subject(:this_robot) { described_class.new }
 
   let(:bare_druid) { 'bj102hs9687' }
@@ -40,4 +39,3 @@ describe Robots::SdrRepo::PreservationIngest::ValidateMoab do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

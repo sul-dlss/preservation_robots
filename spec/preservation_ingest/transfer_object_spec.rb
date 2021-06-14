@@ -1,4 +1,4 @@
-describe Robots::SdrRepo::PreservationIngest::TransferObject do
+RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
   let(:bare_druid) { 'jc837rq9922' }
   let(:druid) { "druid:#{bare_druid}" }
   let(:vm_file_path) do

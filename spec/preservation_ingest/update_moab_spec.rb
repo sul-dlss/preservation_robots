@@ -1,4 +1,4 @@
-describe Robots::SdrRepo::PreservationIngest::UpdateMoab do
+RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateMoab do
   let(:pres_update_moab) { described_class.new }
   let(:storage_root_and_trunk) { 'storage_root1/sdr2objects' }
   let(:full_druid) { 'druid:bj102hs9687' }

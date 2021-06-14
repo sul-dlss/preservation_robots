@@ -24,18 +24,10 @@ module Robots
 
         private
 
-        def handler
-          update_cat_msg = "Updating preservation catalog for #{druid}"
-          proc do |exception, attempt_number, _total_delay|
-            LyberCore::Log.warn("#{update_cat_msg}: try #{attempt_number} failed: #{exception.message}")
-            raise exception if attempt_number == 3
-          end
-        end
-
         def update_catalog
           remove_deposit_bag
           wait_as_needed # give Ceph MDS some breathing room on the pres cat side, see comment on method
-          with_retries(max_tries: 3, handler: handler, rescue: Preservation::Client::Error) do
+          with_retries(max_tries: 3, handler: handler("Updating preservation catalog for #{druid}"), rescue: Preservation::Client::Error) do
             Preservation::Client.update(druid: druid,
                                         version: moab_object.current_version_id,
                                         size: moab_object.size,

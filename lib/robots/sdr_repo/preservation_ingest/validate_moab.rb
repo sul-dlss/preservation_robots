@@ -21,16 +21,9 @@ module Robots
 
         def validate_moab
           LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
-          with_retries(max_tries: 3, handler: handler, rescue: Preservation::Client::Error) do
+          with_retries(max_tries: 3, handler: handler("Validating moab for #{druid}"),
+                       rescue: Preservation::Client::Error) do
             Preservation::Client.objects.validate_moab(druid: druid)
-          end
-        end
-
-        def handler
-          msg = "Validating moab for #{druid}"
-          proc do |exception, attempt_number, _total_delay|
-            LyberCore::Log.warn("#{msg}: try #{attempt_number} failed: #{exception.message}")
-            raise exception if attempt_number == 3
           end
         end
       end
