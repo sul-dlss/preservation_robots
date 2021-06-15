@@ -144,7 +144,7 @@ GEM
     parallel (1.20.1)
     parser (3.0.1.1)
       ast (~> 2.4.1)
-    preservation-client (3.3.0)
+    preservation-client (3.4.0)
       activesupport (>= 4.2, < 7)
       faraday (>= 0.15, < 2.0)
       moab-versioning (~> 4.3)
@@ -254,7 +254,7 @@ DEPENDENCIES
   honeybadger
   lyber-core (~> 6.1)
   moab-versioning (~> 4.2)
-  preservation-client (~> 3.1)
+  preservation-client (~> 3.4)
   pry
   pry-byebug
   rake

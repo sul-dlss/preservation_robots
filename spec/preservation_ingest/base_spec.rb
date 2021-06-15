@@ -1,4 +1,4 @@
-describe Robots::SdrRepo::PreservationIngest::Base do
+RSpec.describe Robots::SdrRepo::PreservationIngest::Base do
   describe '.execute_shell_command' do
     it 'returns stdout for success' do
       cmd = 'echo "hello world!"'

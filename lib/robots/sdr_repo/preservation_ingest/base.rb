@@ -34,6 +34,14 @@ module Robots
 
         private
 
+        # handle retries errors
+        def handler(msg)
+          proc do |exception, attempt_number, _total_delay|
+            LyberCore::Log.warn("#{msg}: try #{attempt_number} failed: #{exception.message}")
+            raise exception if attempt_number == 3
+          end
+        end
+
         def moab_object
           # StorageServices.search_storage_objects won't return us what we want if the object version is
           # still mid-deposit in the preservation workflow -- see https://github.com/sul-dlss/moab-versioning/issues/167

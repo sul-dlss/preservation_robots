@@ -6,10 +6,16 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   TargetRubyVersion: 2.7
   DisplayCopNames: true
+  SuggestExtensions: false
 
 Bundler/OrderedGems:
   Exclude:
     - 'Gemfile'
+
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - spec/**/*
 
 Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true
@@ -175,3 +181,17 @@ Style/StringChars: # (new in 1.12)
   Enabled: true
 Style/SwapValues: # (new in 1.1)
   Enabled: true
+Lint/EmptyInPattern: # (new in 1.16)
+  Enabled: true
+Style/InPatternThen: # (new in 1.16)
+  Enabled: true
+Style/MultilineInPatternThen: # (new in 1.16)
+  Enabled: true
+Style/QuotedSymbols: # (new in 1.16)
+  Enabled: true
+RSpec/IdenticalEqualityAssertion: # (new in 2.4)
+  Enabled: true
+RSpec/Rails/AvoidSetupHook: # (new in 2.4)
+  Enabled: true
+RSpec/FilePath:
+  Enabled: false

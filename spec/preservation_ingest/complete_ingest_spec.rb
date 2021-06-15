@@ -1,4 +1,4 @@
-describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
+RSpec.describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
   let(:this_robot) { described_class.new }
   let(:druid) { 'druid:jc837rq9922' }
 
