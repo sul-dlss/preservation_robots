@@ -29,9 +29,11 @@ There are 5 robots:
 
 3. `update-moab`: create/add a version to Moab object from deposit bag
 
-4. `update-catalog`: create/update Preservation Catalog entry for this Moab
+4. `validate-moab`: verify the Moab on local disk passes validation, including checksums for latest content
 
-5. `complete-ingest`: removes deposit bag created by transfer-object robot, then transfers control back to accessioning
+5. `update-catalog`: create/update Preservation Catalog entry for this Moab
+
+6. `complete-ingest`: removes deposit bag created by transfer-object robot, then transfers control back to accessioning
 
 # Testing
 

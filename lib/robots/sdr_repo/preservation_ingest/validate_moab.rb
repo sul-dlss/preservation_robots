@@ -15,6 +15,7 @@ module Robots
         def perform(druid)
           @druid = druid # for base class attr_accessor
           validate_moab
+          # workflow logging done in PreservationCatalog (by ValidateMoabJob)
           LyberCore::Robot::ReturnState.new(status: :noop, note: 'Initiated validate-moab API call.')
         end
 
