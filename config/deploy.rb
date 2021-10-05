@@ -48,3 +48,6 @@ set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 
 # update shared_configs before restarting app
 before 'deploy:publishing', 'shared_configs:update'
+
+# for ubuntu to perform resque:pool:hot_swap
+set :pty, true
