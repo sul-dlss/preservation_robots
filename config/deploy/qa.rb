@@ -1,4 +1,5 @@
 server 'preservation-robots1-qa.stanford.edu', user: 'pres', roles: %w[web app db]
+server 'preservation-robots2-qa.stanford.edu', user: 'pres', roles: %w[web app db]
 
 Capistrano::OneTimeKey.generate_one_time_key!
 
