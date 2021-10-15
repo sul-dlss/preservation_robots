@@ -1,4 +1,5 @@
-server 'preservation-robots1-stage.stanford.edu', user: 'pres', roles: %w[web app db]
+# robots1-stage is temporarily out of service, robots2-stage picks up the slack
+# server 'preservation-robots1-stage.stanford.edu', user: 'pres', roles: %w[web app db]
 server 'preservation-robots2-stage.stanford.edu', user: 'pres', roles: %w[web app db]
 
 Capistrano::OneTimeKey.generate_one_time_key!
