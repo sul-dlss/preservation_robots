@@ -7,11 +7,11 @@ gem 'rake'
 gem 'pry' # useful for production environment
 
 # Stanford DLSS gems
-gem 'moab-versioning', '~> 4.2' # work with Moab Objects
-gem 'dor-workflow-client', '~> 3.21'
+gem 'moab-versioning', '~> 5.0' # work with Moab Objects
+gem 'dor-workflow-client', '~> 4.0'
 gem 'honeybadger' # for error reporting / tracking / notifications
 gem 'lyber-core', '~> 6.1' # robot code
-gem 'preservation-client', '~> 3.4' # 3.x or greater is needed for token auth
+gem 'preservation-client', '~> 4.0'
 gem 'resque'
 gem 'resque-pool'
 gem 'retries'
