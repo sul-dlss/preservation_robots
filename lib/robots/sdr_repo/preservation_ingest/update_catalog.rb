@@ -60,7 +60,7 @@ module Robots
           rm_deposit_bag_safely_for_ceph
         rescue StandardError => e
           errmsg = "Error completing ingest for #{druid}: failed to remove deposit bag (#{deposit_bag_pathname}): " \
-            "#{e.message}\n + e.backtrace.join('\n')"
+            "#{e.message}\n #{e.backtrace.join('\n')}"
           LyberCore::Log.error(errmsg)
           raise(ItemError, errmsg)
         end
