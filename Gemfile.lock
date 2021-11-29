@@ -149,7 +149,7 @@ GEM
     nokogiri-happymapper (0.8.1)
       nokogiri (~> 1.5)
     parallel (1.21.0)
-    parser (3.0.2.0)
+    parser (3.0.3.0)
       ast (~> 2.4.1)
     preservation-client (3.4.0)
       activesupport (>= 4.2, < 7)
