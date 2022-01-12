@@ -22,6 +22,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rubocop'
   gem 'rubocop-rspec'
+  gem 'rspec_junit_formatter' # For circleCI
 end
 
 group :test do
