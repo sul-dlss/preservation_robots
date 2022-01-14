@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Robot package to run under multiplexing infrastructure
 module Robots
   # Use DorRepo/SdrRepo to match the workflow repo (and avoid name collision with Dor module)
@@ -8,7 +10,7 @@ module Robots
       class Base
         include LyberCore::Robot
 
-        WORKFLOW_NAME = 'preservationIngestWF'.freeze
+        WORKFLOW_NAME = 'preservationIngestWF'
 
         attr_reader :druid
 

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # generates text for a report on druid count and logs
 class ActivityReporter
-  DRUID_REGEXP = '[[:lower:]]{2}\\d{3}[[:lower:]]{2}\\d{4}'.freeze
+  DRUID_REGEXP = '[[:lower:]]{2}\\d{3}[[:lower:]]{2}\\d{4}'
 
   def output(log_files = default_log_files)
     today = Time.now.to_date.to_s

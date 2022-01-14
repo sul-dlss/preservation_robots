@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Robot package to run under multiplexing infrastructure
 module Robots
   # Use DorRepo/SdrRepo to match the workflow repo (and avoid name collision with Dor module)
@@ -6,7 +8,7 @@ module Robots
     module PreservationIngest
       # Clean up workspace; transfer control back to accessioning by updating accessionWF sdr-ingest-received step
       class CompleteIngest < Base
-        ROBOT_NAME = 'complete-ingest'.freeze
+        ROBOT_NAME = 'complete-ingest'
 
         def initialize
           super(WORKFLOW_NAME, ROBOT_NAME)
@@ -35,7 +37,7 @@ module Robots
                                          note: "#{WORKFLOW_NAME} completed on #{Socket.gethostname}")
         rescue Dor::WorkflowException => e
           errmsg = "Error completing ingest for #{druid}: failed to update " \
-            "accessionWF:sdr-ingest-received to completed: #{e.message}\n#{e.backtrace.join('\n')}"
+                   "accessionWF:sdr-ingest-received to completed: #{e.message}\n#{e.backtrace.join('\n')}"
           LyberCore::Log.error(errmsg)
           raise(ItemError, errmsg)
         end

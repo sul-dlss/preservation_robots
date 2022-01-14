@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Build and return a workflow client instance
 class WorkflowClientFactory
   def self.build

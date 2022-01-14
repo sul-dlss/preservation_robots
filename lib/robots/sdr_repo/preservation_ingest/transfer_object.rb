@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Robot package to run under multiplexing infrastructure
 module Robots
   # Use DorRepo/SdrRepo to match the workflow repo (and avoid name collision with Dor module)
@@ -6,7 +8,7 @@ module Robots
     module PreservationIngest
       # Robot transfers deposit bags from the DOR export area to the Moab object deposit area
       class TransferObject < Base
-        ROBOT_NAME = 'transfer-object'.freeze
+        ROBOT_NAME = 'transfer-object'
 
         def initialize
           super(WORKFLOW_NAME, ROBOT_NAME)
@@ -37,7 +39,7 @@ module Robots
           raise(ItemError, "Error transferring bag (via #{Settings&.transfer_object&.from_host}) for #{druid}: #{e.message}")
         end
 
-        VERSION_METADATA_PATH_SUFFIX = '/data/metadata/versionMetadata.xml'.freeze
+        VERSION_METADATA_PATH_SUFFIX = '/data/metadata/versionMetadata.xml'
 
         def verify_version_metadata
           vm_path = File.join(Settings.transfer_object.from_dir, bare_druid, VERSION_METADATA_PATH_SUFFIX)
@@ -64,8 +66,8 @@ module Robots
         #  translated into real files by use of --dereference
         def tarpipe_command(deposit_dir)
           "ssh #{Settings.transfer_object.from_host} " \
-            '"tar -C ' + "#{Settings.transfer_object.from_dir} --dereference -cf - #{bare_druid}" + ' "' \
-            " | tar -C #{deposit_dir} -xf -"
+          '"tar -C ' + "#{Settings.transfer_object.from_dir} --dereference -cf - #{bare_druid}" + ' "' \
+                                                                                                  " | tar -C #{deposit_dir} -xf -"
         end
 
         def bare_druid

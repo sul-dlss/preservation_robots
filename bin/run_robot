@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 #
 # Will run one robot as specified, either for a druid or a file containing one druid per line
 #
@@ -25,7 +27,7 @@ robot = ARGV.shift
 opts = slop.to_h
 
 ENV['ROBOT_ENVIRONMENT'] = opts[:environment] unless opts[:environment].nil?
-require File.expand_path(File.dirname(__FILE__) + '/../config/boot')
+require File.expand_path("#{File.dirname(__FILE__)}/../config/boot")
 
 # instantiate a Robot object using the name
 klazz = robot.split('::').inject(Robots::SdrRepo) { |o, c| o.const_get c }
@@ -33,7 +35,7 @@ bot = klazz.new
 bot.check_queued_status = false # skipping the queued workflow status check
 
 druids = if opts[:file]
-           IO.readlines(opts[:file]).map(&:strip)
+           File.readlines(opts[:file]).map(&:strip)
          else
            [opts[:druid]]
          end

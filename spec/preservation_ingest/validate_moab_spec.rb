@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Robots::SdrRepo::PreservationIngest::ValidateMoab do
   subject(:this_robot) { described_class.new }
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Robots::SdrRepo::PreservationIngest::ValidateBag do
   subject(:validate_bag_obj) { described_class.new }
 

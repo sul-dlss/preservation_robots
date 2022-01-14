@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'reporter'
 describe Reporter do
   let(:base_path) { "#{Dir.pwd}/spec/fixtures" }

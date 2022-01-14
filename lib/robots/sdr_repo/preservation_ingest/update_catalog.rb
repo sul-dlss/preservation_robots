@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'retries'
 
@@ -10,7 +12,7 @@ module Robots
       # sends ReST Create or Update Version request to PreservationCatalog, depending on whether this
       # is a new Moab or an update to an existing Moab
       class UpdateCatalog < Base
-        ROBOT_NAME = 'update-catalog'.freeze
+        ROBOT_NAME = 'update-catalog'
 
         def initialize
           super(WORKFLOW_NAME, ROBOT_NAME)
@@ -60,7 +62,7 @@ module Robots
           rm_deposit_bag_safely_for_ceph
         rescue StandardError => e
           errmsg = "Error completing ingest for #{druid}: failed to remove deposit bag (#{deposit_bag_pathname}): " \
-            "#{e.message}\n #{e.backtrace.join('\n')}"
+                   "#{e.message}\n #{e.backtrace.join('\n')}"
           LyberCore::Log.error(errmsg)
           raise(ItemError, errmsg)
         end
