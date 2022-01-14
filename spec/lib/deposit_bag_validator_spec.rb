@@ -97,7 +97,7 @@ RSpec.describe DepositBagValidator do
 
       let(:vdn_errors) { described_class.new(@storage_obj).validation_errors }
       let(:exp_code) { described_class::CHECKSUM_TYPE_UNRECOGNIZED }
-      let(:err_msg_prefix) { Regexp.escape("Checksum type unrecognized: sha666; file: ") }
+      let(:err_msg_prefix) { Regexp.escape('Checksum type unrecognized: sha666; file: ') }
 
       it 'tagmanifest file of unrecognized checksum type' do
         expect(vdn_errors.size).to eq 2
@@ -124,7 +124,7 @@ RSpec.describe DepositBagValidator do
       from_file = '6666666666666666666666666666666666666666666666666666666666666666'
       generated = '4227e88364c1f99ceb6aa9da763f5a9db345cb56d4a97ea56e5fb4e34e5123fd'
       exp_msg = "Failed tagmanifest verification. Differences:.*#{Regexp.escape('bagit.txt')}" \
-        ".*sha256.*manifest.*#{from_file}.*generated.*#{generated}.*"
+                ".*sha256.*manifest.*#{from_file}.*generated.*#{generated}.*"
       expect(dbv.validation_errors).to match([{ code => a_string_matching(/#{exp_msg}/m) }])
     end
 
@@ -146,7 +146,7 @@ RSpec.describe DepositBagValidator do
       from_file = '6666666666666666666666666666666666666666666666666666666666666666'
       generated = 'c5410a4bb014d9d65371a0335d06483626ce35115124270ce08b01432c80e4b0'
       exp_msg = "Failed manifest verification. Differences:.*#{Regexp.escape('data/metadata/versionMetadata.xml')}" \
-        ".*sha256.*manifest.*#{from_file}.*generated.*#{generated}.*"
+                ".*sha256.*manifest.*#{from_file}.*generated.*#{generated}.*"
       expect(dbv.validation_errors).to match([{ code => a_string_matching(/#{exp_msg}/m) }])
     end
   end

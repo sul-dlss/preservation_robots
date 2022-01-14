@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
   subject(:update_catalog_obj) { described_class.new }
 
@@ -54,7 +56,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
       expect(deposit_bag_pathname.exist?).to be true
     end
 
-    context 'object is new' do
+    context 'when object is new' do
       context 'when the call is successful' do
         before do
           stub_request(:post, 'http://localhost:3000/v1/catalog')
@@ -74,7 +76,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         end
       end
 
-      context 'removes the deposit bag and when HTTP fails twice' do
+      context 'when it removes the deposit bag and when HTTP fails twice' do
         before do
           stub_request(:post, 'http://localhost:3000/v1/catalog')
             .with(
@@ -122,7 +124,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
       end
     end
 
-    context 'object already exists' do
+    context 'when object already exists' do
       let(:version) { 3 }
 
       before do
@@ -143,7 +145,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
       end
     end
 
-    context 'attempts to stat the contents of the moab directory' do
+    context 'when it attempts to stat the contents of the moab directory' do
       let(:bare_druid) { 'bz514sm9647' }
 
       let(:moab_file_and_dir_list) do

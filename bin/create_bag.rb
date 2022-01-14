@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 # This script can be used to pull objects from preservation, if we need to re-accession it into DOR.
 #

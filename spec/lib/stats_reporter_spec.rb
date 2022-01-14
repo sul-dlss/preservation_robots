@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'stats_reporter'
 describe StatsReporter do
   let(:stats_reporter) { described_class.new }

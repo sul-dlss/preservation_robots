@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 set :application, 'preservation_robots'
 set :repo_url, 'https://github.com/sul-dlss/preservation_robots.git'
 

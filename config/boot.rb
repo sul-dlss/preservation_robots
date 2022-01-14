@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Ensure subsequent requires search the correct local paths
 require 'logger'
 require 'rubygems'
@@ -6,7 +8,7 @@ Bundler.require(:default)
 
 # Load the environment file based on Environment.  Default to development
 environment = ENV['ROBOT_ENVIRONMENT'] ||= 'development'
-ROBOT_ROOT = File.expand_path(File.dirname(__FILE__) + '/..')
+ROBOT_ROOT = File.expand_path("#{File.dirname(__FILE__)}/..")
 ROBOT_LOG = Logger.new(File.join(ROBOT_ROOT, "log/#{environment}.log"))
 ROBOT_LOG.level = Logger::SEV_LABEL.index(ENV['ROBOT_LOG_LEVEL']) || Logger::INFO
 

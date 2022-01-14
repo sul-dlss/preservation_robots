@@ -21,14 +21,14 @@ class DepositBagValidator
   VERSION_MISSING_FROM_FILE = :version_missing_from_file
 
   ERROR_CODE_TO_MESSAGES = {
-    BAG_DIR_NOT_FOUND => "Deposit bag directory %{bag_dir} does not exist",
+    BAG_DIR_NOT_FOUND => 'Deposit bag directory %{bag_dir} does not exist',
     CHECKSUM_MISMATCH => "Failed %{manifest_type} verification. Differences: \n%{diffs}",
-    CHECKSUM_TYPE_UNRECOGNIZED => "Checksum type unrecognized: %{checksum_type}; file: %{filename}",
-    INVALID_VERSION_XXX_XML => "Unable to parse %{file_pathname}: %{err_info}",
-    PAYLOAD_SIZE_MISMATCH => "Failed payload size verification. Expected: %{bag_info_sizes}; found: %{generated_sizes}",
-    REQUIRED_FILE_NOT_FOUND => "Deposit bag required file %{file_pathname} not found",
-    VERSION_MISMATCH_TO_MOAB => "Version mismatch in %{file_pathname}: Moab expected %{new_version}; found %{file_version}",
-    VERSION_MISSING_FROM_FILE => "Version xml file %{version_file} missing data at %{xpath} containing version id"
+    CHECKSUM_TYPE_UNRECOGNIZED => 'Checksum type unrecognized: %{checksum_type}; file: %{filename}',
+    INVALID_VERSION_XXX_XML => 'Unable to parse %{file_pathname}: %{err_info}',
+    PAYLOAD_SIZE_MISMATCH => 'Failed payload size verification. Expected: %{bag_info_sizes}; found: %{generated_sizes}',
+    REQUIRED_FILE_NOT_FOUND => 'Deposit bag required file %{file_pathname} not found',
+    VERSION_MISMATCH_TO_MOAB => 'Version mismatch in %{file_pathname}: Moab expected %{new_version}; found %{file_version}',
+    VERSION_MISSING_FROM_FILE => 'Version xml file %{version_file} missing data at %{xpath} containing version id'
   }.freeze
 
   REQUIRED_MANIFEST_CHECKSUM_TYPE = 'sha256'
@@ -40,7 +40,7 @@ class DepositBagValidator
   BAG_INFO_TXT_BASENAME = 'bag-info.txt'
   VERSION_ADDITIONS_BASENAME = 'versionAdditions.xml'
   VERSION_INVENTORY_BASENAME = 'versionInventory.xml'
-  VERSION_METADATA_PATH = "#{DATA_DIR_BASENAME}/metadata/versionMetadata.xml"
+  VERSION_METADATA_PATH = "#{DATA_DIR_BASENAME}/metadata/versionMetadata.xml".freeze
 
   REQUIRED_BAG_FILES = [
     DATA_DIR_BASENAME,
@@ -162,23 +162,23 @@ class DepositBagValidator
   def checksums_hash_from_manifest_files(manifest_type)
     checksums_hash = {}
     deposit_bag_pathname.children.each do |child_pathname|
-      if child_pathname.file?
-        child_fname = child_pathname.basename.to_s
-        match_result = child_fname.match("^#{manifest_type}-(.*).txt")
-        if match_result
-          checksum_type = match_result.captures.first.to_sym
-          if RECOGNIZED_CHECKSUM_ALGORITHMS.include?(checksum_type)
-            child_pathname.readlines.each do |line|
-              line.chomp!.strip!
-              checksum, file_name = line.split(/[\s*]+/, 2)
-              file_checksums = checksums_hash[file_name] || {}
-              file_checksums[checksum_type] = checksum
-              checksums_hash[file_name] = file_checksums
-            end
-          else
-            result_array << single_error_hash(CHECKSUM_TYPE_UNRECOGNIZED, checksum_type: checksum_type, filename: child_pathname)
-          end
+      next unless child_pathname.file?
+
+      child_fname = child_pathname.basename.to_s
+      match_result = child_fname.match("^#{manifest_type}-(.*).txt")
+      next unless match_result
+
+      checksum_type = match_result.captures.first.to_sym
+      if RECOGNIZED_CHECKSUM_ALGORITHMS.include?(checksum_type)
+        child_pathname.readlines.each do |line|
+          line.chomp!.strip!
+          checksum, file_name = line.split(/[\s*]+/, 2)
+          file_checksums = checksums_hash[file_name] || {}
+          file_checksums[checksum_type] = checksum
+          checksums_hash[file_name] = file_checksums
         end
+      else
+        result_array << single_error_hash(CHECKSUM_TYPE_UNRECOGNIZED, checksum_type: checksum_type, filename: child_pathname)
       end
     end
     checksums_hash
@@ -271,7 +271,9 @@ class DepositBagValidator
     checksum_types_to_compare.each do |type|
       left_checksum = left_checksums[type]
       right_checksum = right_checksums[type]
-      diff_hash[type] = { left_label => left_checksum, right_label => right_checksum } if left_checksum != right_checksum
+      if left_checksum != right_checksum
+        diff_hash[type] = { left_label => left_checksum, right_label => right_checksum }
+      end
     end
     diff_hash.empty? ? nil : diff_hash
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # generates text for a report on errors and warning in robot
 class ErrorReporter
   require 'text-table'

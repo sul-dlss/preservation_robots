@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Robot package to run under multiplexing infrastructure
 module Robots
   # Use DorRepo/SdrRepo to match the workflow repo (and avoid name collision with Dor module)
@@ -6,7 +8,7 @@ module Robots
     module PreservationIngest
       # Robot for ingesting deposit bag into Moab object (creating a new version)
       class UpdateMoab < Base
-        ROBOT_NAME = 'update-moab'.freeze
+        ROBOT_NAME = 'update-moab'
 
         def initialize
           super(WORKFLOW_NAME, ROBOT_NAME)

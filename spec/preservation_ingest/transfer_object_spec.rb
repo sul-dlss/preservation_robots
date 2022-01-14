@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
   let(:bare_druid) { 'jc837rq9922' }
   let(:druid) { "druid:#{bare_druid}" }
@@ -45,7 +47,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
 
     it 'removes previous bag if it exists' do
       FileUtils.mkdir_p(deposit_bag_pathname)
-      FileUtils.touch(deposit_bag_pathname + 'bagit_file.txt')
+      FileUtils.touch("#{deposit_bag_pathname}bagit_file.txt")
       expect(deposit_bag_pathname.exist?).to be true
       xfer_obj.perform(druid)
       expect(deposit_bag_pathname.exist?).to be false
@@ -53,7 +55,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
 
     it 'raises an ItemError if previous bag is not removed' do
       FileUtils.mkdir_p(deposit_bag_pathname)
-      FileUtils.touch(deposit_bag_pathname + 'bagit_file.txt')
+      FileUtils.touch("#{deposit_bag_pathname}bagit_file.txt")
       expect(deposit_bag_pathname.exist?).to be true
       expect(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, 'rmtree failed')
       exp_msg = Regexp.escape("Error transferring bag (via userid@dor-services-app) for #{druid}: Failed preparation of deposit dir #{deposit_bag_pathname}")
