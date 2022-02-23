@@ -35,6 +35,6 @@ end
 
 group :deployment do
   gem 'capistrano-bundler'
-  gem 'dlss-capistrano', '~> 3.11'
+  gem 'dlss-capistrano', require: false
   gem 'capistrano-rvm'
 end
