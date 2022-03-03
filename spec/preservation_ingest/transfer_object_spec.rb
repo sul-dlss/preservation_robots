@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'fileutils'
+
 RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
   let(:bare_druid) { 'jc837rq9922' }
   let(:druid) { "druid:#{bare_druid}" }
@@ -11,32 +13,36 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
   let(:deposit_bag_pathname) { Pathname(File.join(deposit_dir_pathname, bare_druid)) }
   let(:xfer_obj) { described_class.new }
 
+  before do
+    allow(Open3).to receive(:pipeline_r)
+  end
+
   after do
     deposit_dir_pathname.rmtree if deposit_dir_pathname.exist?
   end
 
-  it 'raises ItemError if versionMetadata.xml file for druid does not exist' do
-    allow(xfer_obj).to receive(:verify_accesssion_wf_step_completed)
-    cmd_regex = Regexp.new(".*ssh #{Settings.transfer_object.from_host} test -e #{vm_file_path}.*")
-    expect(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(a_string_matching(cmd_regex)).and_return('no')
-    exp_msg = "Error transferring bag (via userid@dor-services-app) for #{druid}: #{vm_file_path} not found"
-    expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, exp_msg)
-  end
-
-  describe 'deposit bag path' do
-    require 'fileutils'
+  context 'when versionMetadata.xml file does not exist' do
+    let(:cmd_regex) { Regexp.new(".*ssh #{Settings.transfer_object.from_host} test -e #{vm_file_path}.*") }
 
     before do
-      allow(xfer_obj).to receive(:verify_accesssion_wf_step_completed)
+      allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).and_return('no')
+    end
+
+    it 'raises ItemError if versionMetadata.xml file for druid does not exist' do
+      expect { xfer_obj.perform(druid) }.to raise_error Robots::SdrRepo::PreservationIngest::ItemError,
+                                                        "Error transferring bag (via userid@dor-services-app) for #{druid}: #{vm_file_path} not found"
+      expect(Robots::SdrRepo::PreservationIngest::Base).to have_received(:execute_shell_command).with(a_string_matching(cmd_regex))
+    end
+  end
+
+  describe 'creating a path for the deposit bag' do
+    let(:mock_moab) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
+    let(:mock_moabs) { [mock_moab] }
+
+    before do
       allow(xfer_obj).to receive(:verify_version_metadata)
-      mock_moab = instance_double(Moab::StorageObject)
-      mock_moabs = [mock_moab]
-      allow(mock_moab).to receive(:deposit_bag_pathname).and_return(deposit_bag_pathname)
       allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moabs)
       allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
-      xfer_obj.instance_variable_set(:@druid, druid)
-      tarpipe_cmd = xfer_obj.send(:tarpipe_command, deposit_dir_pathname)
-      allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(tarpipe_cmd)
     end
 
     it 'ensures the deposit_dir_pathname is created if it does not exist' do
@@ -59,44 +65,52 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
       expect(deposit_bag_pathname.exist?).to be true
       expect(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, 'rmtree failed')
       exp_msg = Regexp.escape("Error transferring bag (via userid@dor-services-app) for #{druid}: Failed preparation of deposit dir #{deposit_bag_pathname}")
-      expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
+      expect do
+        xfer_obj.perform(druid)
+      end.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
       expect(deposit_bag_pathname.exist?).to be true
     end
   end
 
-  it 'raises ItemError if there is a StandardError while executing the tarpipe command' do
-    allow(xfer_obj).to receive(:verify_accesssion_wf_step_completed)
-    allow(xfer_obj).to receive(:verify_version_metadata)
-    mock_moab = instance_double(Moab::StorageObject)
-    mock_moabs = [mock_moab]
-    allow(mock_moab).to receive(:deposit_bag_pathname).and_return(deposit_bag_pathname)
-    allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moabs)
-    allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
+  context 'when there is an error executing the transfer' do
+    let(:mock_moab) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
+    let(:mock_moabs) { [mock_moab] }
+    let(:exp_msg) { Regexp.escape("Error transferring bag (via userid@dor-services-app) for #{druid}: tarpipe failed") }
 
-    xfer_obj.instance_variable_set(:@druid, druid)
-    tarpipe_cmd = xfer_obj.send(:tarpipe_command, deposit_dir_pathname)
-    allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command)
-      .with(tarpipe_cmd).and_raise(StandardError, 'tarpipe failed')
-    exp_msg = Regexp.escape("Error transferring bag (via userid@dor-services-app) for #{druid}: tarpipe failed")
-    expect { xfer_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
+    before do
+      allow(xfer_obj).to receive(:verify_version_metadata)
+      allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moabs)
+      allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
+      allow(Open3).to receive(:pipeline_r).and_raise(StandardError, 'tarpipe failed')
+    end
+
+    it 'raises ItemError if there is a StandardError while executing the tarpipe command' do
+      expect do
+        xfer_obj.perform(druid)
+      end.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
+    end
   end
 
-  it 'executes the tarpipe command to transfer the object when no errors are raised' do
-    expect(deposit_bag_pathname.exist?).to be false
+  context 'when no errors are raised' do
+    let(:mock_moab) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
+    let(:mock_moabs) { [mock_moab] }
+    let(:cmd_regex) { Regexp.new("if ssh #{Settings.transfer_object.from_host} test -e #{vm_file_path}.*") }
 
-    cmd_regex = Regexp.new("if ssh #{Settings.transfer_object.from_host} test -e #{vm_file_path}.*")
-    expect(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(a_string_matching(cmd_regex)).and_return('yes')
+    before do
+      allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).and_return('yes')
+      allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moabs)
+      allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
+    end
 
-    mock_moab = instance_double(Moab::StorageObject)
-    mock_moabs = [mock_moab]
-    expect(mock_moab).to receive(:deposit_bag_pathname).and_return(deposit_bag_pathname)
-    expect(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moabs)
-    expect(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
-
-    xfer_obj.instance_variable_set(:@druid, druid)
-    tarpipe_cmd = xfer_obj.send(:tarpipe_command, deposit_dir_pathname)
-    expect(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).with(tarpipe_cmd)
-
-    xfer_obj.perform(druid)
+    it 'transfers the object' do
+      expect(deposit_bag_pathname.exist?).to be false
+      xfer_obj.perform(druid)
+      expect(Open3).to have_received(:pipeline_r).with(
+        'ssh userid@dor-services-app "tar -C /dor/export/ --dereference -cf - jc837rq9922 "', /^tar -C/
+      )
+      expect(Robots::SdrRepo::PreservationIngest::Base).to have_received(:execute_shell_command).with(a_string_matching(cmd_regex))
+      expect(Stanford::StorageServices).to have_received(:search_storage_objects)
+      expect(Stanford::StorageServices).to have_received(:find_storage_object)
+    end
   end
 end

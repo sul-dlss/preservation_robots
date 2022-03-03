@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'open3'
+
 # Robot package to run under multiplexing infrastructure
 module Robots
   # Use DorRepo/SdrRepo to match the workflow repo (and avoid name collision with Dor module)
@@ -33,45 +35,61 @@ module Robots
         def transfer_object
           LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
           verify_version_metadata
-          deposit_dir = prepare_deposit_dir
-          self.class.execute_shell_command(tarpipe_command(deposit_dir))
+          prepare_deposit_dir
+          transfer_bag
         rescue StandardError => e
           raise(ItemError, "Error transferring bag (via #{Settings&.transfer_object&.from_host}) for #{druid}: #{e.message}")
         end
 
         VERSION_METADATA_PATH_SUFFIX = '/data/metadata/versionMetadata.xml'
 
+        # Check to see if the bag exists in the workspace directory before starting
         def verify_version_metadata
-          vm_path = File.join(Settings.transfer_object.from_dir, bare_druid, VERSION_METADATA_PATH_SUFFIX)
-          cmd = "if ssh #{Settings.transfer_object.from_host} test -e #{vm_path}; then echo yes; else echo no; fi"
-          raise(ItemError, "#{vm_path} not found") if self.class.execute_shell_command(cmd) == 'no'
+          version_metadata_path = File.join(from_dir, bare_druid, VERSION_METADATA_PATH_SUFFIX)
+          cmd = "if ssh #{from_host} test -e #{version_metadata_path}; then echo yes; else echo no; fi"
+          raise(ItemError, "#{version_metadata_path} not found") if self.class.execute_shell_command(cmd) == 'no'
         end
 
         def prepare_deposit_dir
           LyberCore::Log.debug("deposit bag pathname is: #{deposit_bag_pathname}")
-          deposit_dir = deposit_bag_pathname.parent
           if deposit_bag_pathname.exist?
             deposit_bag_pathname.rmtree
           else
             deposit_dir.mkpath
           end
-          deposit_dir
         rescue StandardError => e
           raise(ItemError, "Failed preparation of deposit dir #{deposit_bag_pathname}: #{e.message}")
+        end
+
+        def deposit_dir
+          deposit_bag_pathname.parent
+        end
+
+        def from_host
+          Settings.transfer_object.from_host
+        end
+
+        def from_dir
+          Settings.transfer_object.from_dir
         end
 
         # @see http://en.wikipedia.org/wiki/User:Chdev/tarpipe
         # ssh user@remotehost "tar -cf - srcdir | tar -C destdir -xf -
         # Note that symbolic links from /dor/export to /dor/workspace get
         #  translated into real files by use of --dereference
-        def tarpipe_command(deposit_dir)
-          "ssh #{Settings.transfer_object.from_host} " \
-          '"tar -C ' + "#{Settings.transfer_object.from_dir} --dereference -cf - #{bare_druid}" + ' "' \
-                                                                                                  " | tar -C #{deposit_dir} -xf -"
+        # if command doesn't exit with 0, grabs stdout and stderr and puts them in ruby exception message
+        def transfer_bag
+          ssh = "ssh #{from_host} \"tar -C #{from_dir} --dereference -cf - #{bare_druid} \""
+          untar = "tar -C #{deposit_dir} -xf -"
+
+          Open3.pipeline_r(ssh, untar) do |last_stdout, wait_threads|
+            stdout = last_stdout.read # Blocks until complete
+            raise "Transfering bag for #{druid} to preservation failed. STDOUT = #{stdout}" unless wait_threads.map(&:value).all?(&:success?)
+          end
         end
 
         def bare_druid
-          druid.sub('druid:', '')
+          druid.delete_prefix('druid:')
         end
       end
     end

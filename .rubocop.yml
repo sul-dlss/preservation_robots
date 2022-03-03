@@ -19,6 +19,13 @@ Metrics/BlockLength:
   Exclude:
     - spec/**/*
 
+RSpec/MessageSpies:
+  EnforcedStyle: have_received
+RSpec/MultipleExpectations:
+  Max: 5
+RSpec/MultipleMemoizedHelpers:
+  Max: 15
+
 Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true
 
