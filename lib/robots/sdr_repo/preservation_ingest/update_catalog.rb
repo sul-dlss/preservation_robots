@@ -2,6 +2,7 @@
 
 require 'faraday'
 require 'retries'
+require 'find'
 
 # Robot package to run under multiplexing infrastructure
 module Robots
