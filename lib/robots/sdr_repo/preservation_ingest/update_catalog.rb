@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'faraday'
 require 'retries'
 
 # Robot package to run under multiplexing infrastructure
