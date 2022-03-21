@@ -130,7 +130,7 @@ GEM
       racc (~> 1.4)
     nokogiri-happymapper (0.9.0)
       nokogiri (~> 1.5)
-    parallel (1.21.0)
+    parallel (1.22.0)
     parser (3.1.1.0)
       ast (~> 2.4.1)
     preservation-client (4.0.0)
