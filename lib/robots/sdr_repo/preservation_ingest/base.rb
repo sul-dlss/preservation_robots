@@ -45,11 +45,17 @@ module Robots
         end
 
         def moab_object
+          # overview:
+          # * if there are multiple copies among the storage roots, ask pres cat which one is the primary
+          # * if there's only one copy, that's implicitly the primary
+          # * if a primary can't be determined from the above operations, that's an unexpected error
+          #   state and a human should intervene and figure things out (and the WF step should fail).
+          #
           # StorageServices.search_storage_objects won't return us what we want if the object version is
           # still mid-deposit in the preservation workflow -- see https://github.com/sul-dlss/moab-versioning/issues/167
-          # as such, use it to see if there are multiple copies already preserved among different storage roots.
-          # if there are, use the location for the primary according to pres cat to pick the storage location to update.
-          # if there are not multiple copies already preserved, use find_storage_object and include the deposit
+          # As such, use it to see if there are multiple copies already preserved among different storage roots.
+          # If there are, use the location for the primary according to pres cat to pick the storage location to update.
+          # If there are not multiple copies already preserved, use find_storage_object and include the deposit
           # folders -- this will return a storage object pointing to the correct storage root (which will be the last one
           # listed in the configs if this is the first version being preserved).
           existing_moabs = Stanford::StorageServices.search_storage_objects(druid)
