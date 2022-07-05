@@ -55,11 +55,7 @@ class StatsReporter
   end
 
   def waiting_count
-    # 4th argument is passed from the workflow client to the service which
-    # ignores it completely. Can remove once
-    # https://github.com/sul-dlss/dor-workflow-client/pull/159 is merged and
-    # released and made available in preservation_robots
-    workflow_client.count_objects_in_step(ingest_wf, 'start-ingest', 'waiting', nil)
+    workflow_client.count_objects_in_step(ingest_wf, 'start-ingest', 'waiting')
   rescue Dor::WorkflowException => e
     "Error connecting to workflow service: #{e.message}"
   end

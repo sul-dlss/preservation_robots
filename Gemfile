@@ -24,12 +24,12 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rubocop'
   gem 'rubocop-rspec'
+  gem 'simplecov', require: 'false'
   gem 'rspec_junit_formatter' # For circleCI
 end
 
 group :test do
   gem 'rspec'
-  gem 'coveralls', require: false
   gem 'webmock'
 end
 
