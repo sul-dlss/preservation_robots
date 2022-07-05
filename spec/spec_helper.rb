@@ -5,11 +5,8 @@ ENV['ROBOT_ENVIRONMENT'] = 'test'
 
 require 'webmock/rspec'
 require 'simplecov'
-require 'coveralls'
 require 'byebug'
-Coveralls.wear!
 
-SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 SimpleCov.start do
   add_filter 'spec'
   add_filter 'config'
