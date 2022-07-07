@@ -23,7 +23,7 @@ module Robots
 
         def update_moab
           LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
-          new_version = moab_object.ingest_bag
+          new_version = moab_object.ingest_bag(use_links: false)
           result = new_version.verify_version_storage
           return if result.verified
 
