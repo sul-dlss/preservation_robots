@@ -9,6 +9,7 @@ AllCops:
   SuggestExtensions: false
   Exclude:
     - bin/console
+    - vendor/**/*
 
 Bundler/OrderedGems:
   Exclude:
