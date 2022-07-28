@@ -82,6 +82,15 @@ module Robots
           ssh = "ssh #{from_host} \"tar -C #{from_dir} --dereference -cf - #{bare_druid} \""
           untar = "tar -C #{deposit_dir} -xf -"
 
+          # If you get an error here it might be a firewall issue between
+          # your preservation robots app and the configured
+          # Settings.transfer.from_host (dor-services-worker)
+          #
+          # This has also been known to fail when the ssh keys in
+          # ~/.ssh/known_hosts includes an invalid public key for the
+          # dor-services-worker, or if a user is required to authorize
+          # the addition of the new public key.
+
           Open3.pipeline_r(ssh, untar) do |last_stdout, wait_threads|
             stdout = last_stdout.read # Blocks until complete
             raise "Transfering bag for #{druid} to preservation failed. STDOUT = #{stdout}" unless wait_threads.map(&:value).all?(&:success?)
