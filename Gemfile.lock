@@ -50,7 +50,7 @@ GEM
       capistrano-one_time_key
       capistrano-shared_configs
     docile (1.4.0)
-    dor-workflow-client (4.1.0)
+    dor-workflow-client (5.0.0)
       activesupport (>= 3.2.1, < 8)
       deprecation (>= 0.99.0)
       faraday (~> 2.0)
@@ -227,7 +227,7 @@ DEPENDENCIES
   capistrano-rvm
   config
   dlss-capistrano
-  dor-workflow-client (~> 4.0)
+  dor-workflow-client (~> 5.0)
   honeybadger
   lyber-core (~> 6.1)
   moab-versioning (~> 5.1)
