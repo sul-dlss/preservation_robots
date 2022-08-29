@@ -12,6 +12,7 @@ gem 'dor-workflow-client', '~> 5.0'
 gem 'honeybadger' # for error reporting / tracking / notifications
 gem 'lyber-core', '~> 6.1' # robot code
 gem 'preservation-client', '~> 4.0'
+gem 'redis', '~> 4.0' # redis 5.x has breaking changes with resque, see https://github.com/resque/resque/issues/1821
 gem 'resque'
 gem 'resque-pool'
 gem 'retries'
