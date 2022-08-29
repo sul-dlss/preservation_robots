@@ -28,7 +28,7 @@ redis_url = Settings.redis.url || "localhost:6379/resque:#{environment}"
 if defined? Settings.redis.timeout
   server, namespace = redis_url.split('/', 2)
   host, port, db = server.split(':')
-  redis = Redis.new(host: host, port: port, thread_safe: true, db: db, timeout: Settings.redis.timeout.to_f)
+  redis = Redis.new(host: host, port: port, db: db, timeout: Settings.redis.timeout.to_f)
   Resque.redis = Redis::Namespace.new(namespace, redis: redis)
 else
   Resque.redis = redis_url
