@@ -90,12 +90,9 @@ RSpec.describe DepositBagValidator do
     end
 
     describe 'when unrecognized checksum, result array has CHECKSUM_TYPE_UNRECOGNIZED result hash' do
-      before do
-        bag_pathname = Pathname(File.join(deposit_dir_pathname, 'unknown-checksum-alg'))
-        @storage_obj = instance_double(Moab::StorageObject, deposit_bag_pathname: bag_pathname, current_version_id: 0)
-      end
-
-      let(:vdn_errors) { described_class.new(@storage_obj).validation_errors }
+      let(:bag_pathname) { Pathname(File.join(deposit_dir_pathname, 'unknown-checksum-alg')) }
+      let(:storage_obj) { instance_double(Moab::StorageObject, deposit_bag_pathname: bag_pathname, current_version_id: 0) }
+      let(:vdn_errors) { described_class.new(storage_obj).validation_errors }
       let(:exp_code) { described_class::CHECKSUM_TYPE_UNRECOGNIZED }
       let(:err_msg_prefix) { Regexp.escape('Checksum type unrecognized: sha666; file: ') }
 

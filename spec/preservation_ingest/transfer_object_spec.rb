@@ -61,7 +61,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
       FileUtils.mkdir_p(deposit_bag_pathname)
       FileUtils.touch("#{deposit_bag_pathname}bagit_file.txt")
       expect(deposit_bag_pathname.exist?).to be true
-      expect(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, 'rmtree failed')
+      allow(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, 'rmtree failed')
       exp_msg = Regexp.escape("Error transferring bag (via userid@dor-services-app) for #{druid}: Failed preparation of deposit dir #{deposit_bag_pathname}")
       expect do
         xfer_obj.perform(druid)

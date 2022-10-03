@@ -17,22 +17,27 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateMoab do
 
       it 'calls #ingest_bag and verify_version_storage on Moab::StorageObjectVersion' do
         allow(LyberCore::Log).to receive(:debug).with('update-moab druid:bj102hs9687 starting')
-        expect(mock_storage_object).to receive(:ingest_bag).and_return(mock_new_version)
+        allow(mock_storage_object).to receive(:ingest_bag).and_return(mock_new_version)
         allow(verification_result).to receive(:verified).and_return(true)
-        expect(mock_new_version).to receive(:verify_version_storage).and_return(verification_result)
+        allow(mock_new_version).to receive(:verify_version_storage).and_return(verification_result)
         pres_update_moab.perform(full_druid)
+        expect(mock_storage_object).to have_received(:ingest_bag)
+        expect(mock_new_version).to have_received(:verify_version_storage)
       end
 
       it 'raises ItemError when new version does not pass verification' do
         full_druid_vers = "#{full_druid}-v0003"
         error_message = "Failed verification for #{full_druid_vers}"
-        expect(mock_storage_object).to receive(:ingest_bag).and_return(mock_new_version)
+        allow(mock_storage_object).to receive(:ingest_bag).and_return(mock_new_version)
         allow(verification_result).to receive(:verified).and_return(false)
-        expect(mock_new_version).to receive(:verify_version_storage).and_return(verification_result)
+        allow(mock_new_version).to receive(:verify_version_storage).and_return(verification_result)
         allow(verification_result).to receive(:to_json).and_return('some_json')
         allow(verification_result).to receive(:entity).and_return(full_druid_vers)
-        expect(LyberCore::Log).to receive(:info).with('some_json')
+        allow(LyberCore::Log).to receive(:info).with('some_json')
         expect { pres_update_moab.perform(full_druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, error_message)
+        expect(mock_storage_object).to have_received(:ingest_bag)
+        expect(mock_new_version).to have_received(:verify_version_storage)
+        expect(LyberCore::Log).to have_received(:info).with('some_json')
       end
     end
   end

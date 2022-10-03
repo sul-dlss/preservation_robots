@@ -17,7 +17,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
     end
 
     it 'updates the accessionWF when no errors are raised' do
-      expect(this_robot.workflow_service).to receive(:update_status)
+      allow(this_robot.workflow_service).to receive(:update_status)
         .with(druid: druid,
               workflow: 'accessionWF',
               process: 'sdr-ingest-received',
@@ -25,6 +25,13 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
               elapsed: 1,
               note: String)
       expect { this_robot.perform(druid) }.not_to raise_error
+      expect(this_robot.workflow_service).to have_received(:update_status)
+        .with(druid: druid,
+              workflow: 'accessionWF',
+              process: 'sdr-ingest-received',
+              status: 'completed',
+              elapsed: 1,
+              note: String)
     end
   end
 end

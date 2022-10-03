@@ -10,19 +10,19 @@ describe ActivityReporter do
   let(:dbl_date) { instance_double(Time, to_date: date) }
   let(:output) { activity_reporter.output }
 
-  describe '#output' do
-    before do
-      allow($stdout).to receive(:puts).with('********************')
-    end
+  before do
+    allow($stdout).to receive(:puts)
+  end
 
+  describe '#output' do
     context 'when file does not exist' do
       before do
         allow(activity_reporter).to receive(:default_log_files).and_return(['/fake/file/path'])
       end
 
       it 'prints out expected message' do
-        expect($stdout).to receive(:puts).with('EMPTY or NON-EXISTENT: /fake/file/path')
         output
+        expect($stdout).to have_received(:puts).with('EMPTY or NON-EXISTENT: /fake/file/path')
       end
     end
 
@@ -38,8 +38,8 @@ describe ActivityReporter do
 
         context 'when file contains /bundle/ruby|/usr/local/rvm|resque-signals/' do
           it 'prints out expected message' do
-            expect($stdout).to receive(:puts).with("No activity 2017-04-27, DRUID count: 0\n")
             output
+            expect($stdout).to have_received(:puts).with("No activity 2017-04-27, DRUID count: 0\n")
           end
         end
 
@@ -50,8 +50,8 @@ describe ActivityReporter do
 
           context 'when number of druids are returned' do
             it 'prints out expected message w/ only unique druids' do
-              expect($stdout).to receive(:puts).with("DRUID count: 2 for #{date}\n")
               output
+              expect($stdout).to have_received(:puts).with("DRUID count: 2 for #{date}\n")
             end
           end
         end
@@ -63,8 +63,8 @@ describe ActivityReporter do
         end
 
         it 'prints out expected message' do
-          expect($stdout).to receive(:puts).with("No activity 2017-05-01, DRUID count: 0\n")
           output
+          expect($stdout).to have_received(:puts).with("No activity 2017-05-01, DRUID count: 0\n")
         end
       end
     end
