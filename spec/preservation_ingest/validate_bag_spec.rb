@@ -11,10 +11,8 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::ValidateBag do
                     deposit_bag_pathname: deposit_bag_pathname,
                     current_version_id: 5)
   end
-  let(:mock_moabs) { [mock_moab] }
 
   before do
-    allow(Stanford::StorageServices).to receive(:search_storage_objects).with(druid).and_return(mock_moabs)
     allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
   end
 

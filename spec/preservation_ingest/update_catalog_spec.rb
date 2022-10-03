@@ -20,25 +20,22 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
     }
   end
   let(:mock_storage_object) do
-    instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname, object_pathname: mock_moab_pathname, size: size, storage_root: strg_root, current_version_id: version)
+    instance_double(Moab::StorageObject,
+                    deposit_bag_pathname: deposit_bag_pathname,
+                    object_pathname: mock_moab_pathname,
+                    size: size,
+                    storage_root: strg_root,
+                    current_version_id: version)
   end
-  let(:mock_storage_objects) { [mock_storage_object] }
-
   let(:spec_dir) { File.join(File.dirname(__FILE__), '..') }
   let(:deposit_dir_pathname) { Pathname(File.join(spec_dir, 'fixtures', 'deposit', 'update-catalog')) }
   let(:deposit_bag_pathname) { Pathname(File.join(deposit_dir_pathname, bare_druid)) }
   let(:mock_moab_pathname) { Pathname(File.realpath(File.join(spec_dir, 'fixtures', 'sdr2objects', 'bz', '514', 'sm', '9647', 'bz514sm9647'))) }
 
-  before do
-    allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_storage_objects)
-    allow(Moab::StorageServices).to receive(:find_storage_object).and_return(mock_storage_object)
-  end
-
   describe '#perform' do
     before do
       allow(LyberCore::Log).to receive(:debug).with(any_args)
       allow(deposit_bag_pathname).to receive(:rmtree)
-      allow(Moab::StorageServices).to receive(:search_storage_objects).and_return(mock_storage_objects)
       allow(Moab::StorageServices).to receive(:find_storage_object).and_return(mock_storage_object)
       FileUtils.mkdir_p(deposit_bag_pathname)
       FileUtils.touch("#{deposit_bag_pathname}bagit_file.txt")

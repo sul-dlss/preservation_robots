@@ -37,11 +37,9 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
 
   describe 'creating a path for the deposit bag' do
     let(:mock_moab) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
-    let(:mock_moabs) { [mock_moab] }
 
     before do
       allow(xfer_obj).to receive(:verify_version_metadata)
-      allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moabs)
       allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
     end
 
@@ -74,12 +72,10 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
 
   context 'when there is an error executing the transfer' do
     let(:mock_moab) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
-    let(:mock_moabs) { [mock_moab] }
     let(:exp_msg) { Regexp.escape("Error transferring bag (via userid@dor-services-app) for #{druid}: tarpipe failed") }
 
     before do
       allow(xfer_obj).to receive(:verify_version_metadata)
-      allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moabs)
       allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
       allow(Open3).to receive(:pipeline_r).and_raise(StandardError, 'tarpipe failed')
     end
@@ -93,12 +89,10 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
 
   context 'when no errors are raised' do
     let(:mock_moab) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
-    let(:mock_moabs) { [mock_moab] }
     let(:cmd_regex) { Regexp.new("if ssh #{Settings.transfer_object.from_host} test -e #{vm_file_path}.*") }
 
     before do
       allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).and_return('yes')
-      allow(Stanford::StorageServices).to receive(:search_storage_objects).and_return(mock_moabs)
       allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
     end
 
@@ -109,7 +103,6 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
         'ssh userid@dor-services-app "tar -C /dor/export/ --dereference -cf - jc837rq9922 "', /^tar -C/
       )
       expect(Robots::SdrRepo::PreservationIngest::Base).to have_received(:execute_shell_command).with(a_string_matching(cmd_regex))
-      expect(Stanford::StorageServices).to have_received(:search_storage_objects)
       expect(Stanford::StorageServices).to have_received(:find_storage_object)
     end
   end
