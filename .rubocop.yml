@@ -13,7 +13,7 @@ AllCops:
 
 Bundler/OrderedGems:
   Exclude:
-    - 'Gemfile'
+    - "Gemfile"
 
 Metrics/BlockLength:
   Enabled: true
@@ -245,4 +245,53 @@ RSpec/ExcessiveDocstringSpacing: # new in 2.5
 RSpec/SubjectDeclaration: # new in 2.5
   Enabled: true
 RSpec/FactoryBot/SyntaxMethods: # new in 2.7
+  Enabled: true
+
+Layout/LineContinuationLeadingSpace: # new in 1.31
+  Enabled: true
+Layout/LineContinuationSpacing: # new in 1.31
+  Enabled: true
+Lint/ConstantOverwrittenInRescue: # new in 1.31
+  Enabled: true
+Lint/NonAtomicFileOperation: # new in 1.31
+  Enabled: true
+Lint/RefinementImportMethods: # new in 1.27
+  Enabled: true
+Security/CompoundHash: # new in 1.28
+  Enabled: true
+Style/EnvHome: # new in 1.29
+  Enabled: true
+Style/FetchEnvVar: # new in 1.28
+  Enabled: true
+Style/MapCompactWithConditionalBlock: # new in 1.30
+  Enabled: true
+Style/NestedFileDirname: # new in 1.26
+  Enabled: true
+Style/ObjectThen: # new in 1.28
+  Enabled: true
+Style/RedundantInitialize: # new in 1.27
+  Enabled: true
+RSpec/BeEq: # new in 2.9.0
+  Enabled: true
+RSpec/BeNil: # new in 2.9.0
+  Enabled: true
+RSpec/ChangeByZero: # new in 2.11.0
+  Enabled: true
+RSpec/VerifiedDoubleReference: # new in 2.10.0
+  Enabled: true
+RSpec/Capybara/SpecificMatcher: # new in 2.12
+  Enabled: true
+RSpec/Rails/HaveHttpStatus: # new in 2.12
+  Enabled: true
+Lint/RequireRangeParentheses: # new in 1.32
+  Enabled: true
+Style/EmptyHeredoc: # new in 1.32
+  Enabled: true
+Style/MagicCommentFormat: # new in 1.35
+  Enabled: true
+RSpec/ClassCheck: # new in 2.13
+  Enabled: true
+RSpec/NoExpectationExample: # new in 2.13
+  Enabled: true
+RSpec/Capybara/SpecificFinders: # new in 2.13
   Enabled: true
