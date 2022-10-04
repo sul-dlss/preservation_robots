@@ -3,14 +3,14 @@
 source 'https://rubygems.org'
 
 gem 'config'
-gem 'rake'
 gem 'pry' # useful for production environment
+gem 'rake'
 
 # Stanford DLSS gems
-gem 'moab-versioning', '~> 5.1' # work with Moab Objects
 gem 'dor-workflow-client', '~> 5.0'
 gem 'honeybadger' # for error reporting / tracking / notifications
 gem 'lyber-core', '~> 6.1' # robot code
+gem 'moab-versioning', '~> 5.1' # work with Moab Objects
 gem 'preservation-client', '~> 4.0'
 gem 'redis', '~> 4.0' # redis 5.x has breaking changes with resque, see https://github.com/resque/resque/issues/1821
 gem 'resque'
@@ -23,10 +23,10 @@ gem 'zeitwerk', '~> 2.1'
 
 group :development, :test do
   gem 'pry-byebug'
+  gem 'rspec_junit_formatter' # For circleCI
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'simplecov', require: 'false'
-  gem 'rspec_junit_formatter' # For circleCI
 end
 
 group :test do
