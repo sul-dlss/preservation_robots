@@ -47,13 +47,17 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
 
     it 'raises ItemError if it fails to remove the deposit bag' do
       expect(deposit_bag_pathname.exist?).to be true
-      expect(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, 'rmtree failed')
+      allow(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, 'rmtree failed')
       exp_msg = Regexp.escape("Error completing ingest for #{druid}: failed to remove deposit bag (#{deposit_bag_pathname}): rmtree failed")
       expect { update_catalog_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
       expect(deposit_bag_pathname.exist?).to be true
     end
 
     context 'when object is new' do
+      before do
+        allow(deposit_bag_pathname).to receive(:rmtree)
+      end
+
       context 'when the call is successful' do
         before do
           stub_request(:post, 'http://localhost:3000/v1/catalog')
@@ -68,8 +72,8 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         end
 
         it 'removes the deposit bag and POST to /v1/catalog' do
-          expect(deposit_bag_pathname).to receive(:rmtree)
           update_catalog_obj.perform(bare_druid)
+          expect(deposit_bag_pathname).to have_received(:rmtree)
         end
       end
 
@@ -92,8 +96,8 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
 
         it 'succeeds' do
           allow(LyberCore::Log).to receive(:warn).twice
-          expect(deposit_bag_pathname).to receive(:rmtree)
           update_catalog_obj.perform(bare_druid)
+          expect(deposit_bag_pathname).to have_received(:rmtree)
         end
       end
 
@@ -115,8 +119,8 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         end
 
         it 'removes the deposit bag and fails' do
-          expect(deposit_bag_pathname).to receive(:rmtree)
           expect { update_catalog_obj.perform(bare_druid) }.to raise_error(Preservation::Client::UnexpectedResponseError)
+          expect(deposit_bag_pathname).to have_received(:rmtree)
         end
       end
     end
@@ -125,6 +129,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
       let(:version) { 3 }
 
       before do
+        allow(deposit_bag_pathname).to receive(:rmtree)
         stub_request(:patch, 'http://localhost:3000/v1/catalog/bj102hs9687')
           .with(
             body: {
@@ -137,8 +142,8 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
       end
 
       it 'removes the deposit bag and PATCH to /v1/catalog/:druid' do
-        expect(deposit_bag_pathname).to receive(:rmtree)
         update_catalog_obj.perform(bare_druid)
+        expect(deposit_bag_pathname).to have_received(:rmtree)
       end
     end
 
@@ -186,15 +191,18 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
       it 'walks the moab directory and stats each file and dir contained within the moab' do
         # using #ordered is typically to be avoided, but we want to make sure walking the moab happens
         # after removing the deposit bag
-        expect(deposit_bag_pathname).to receive(:rmtree).ordered
-        expect(Find).to receive(:find).with(mock_moab_pathname).ordered.and_call_original
+        allow(deposit_bag_pathname).to receive(:rmtree).ordered
+        allow(Find).to receive(:find).with(mock_moab_pathname).ordered.and_call_original
 
         # File.realpath will return a string representing "the real (absolute) pathname of pathname in the actual filesystem
         # not containing symlinks or useless dots" (see File class ruby docs).  this makes it easier to match the exact path
         # without worrying about absolute path differences between different dev laptops or laptops and CI (while also allowing
         # an exact match on path without just matching a substring).
-        moab_file_and_dir_list.each { |path_str| expect(File).to receive(:stat).with(File.realpath(File.join(spec_dir, path_str))) }
+        moab_file_and_dir_list.each { |path_str| allow(File).to receive(:stat).with(File.realpath(File.join(spec_dir, path_str))) }
         update_catalog_obj.perform(bare_druid)
+        expect(deposit_bag_pathname).to have_received(:rmtree).ordered
+        expect(Find).to have_received(:find).with(mock_moab_pathname).ordered
+        moab_file_and_dir_list.each { |path_str| expect(File).to have_received(:stat).with(File.realpath(File.join(spec_dir, path_str))) }
       end
 
       it 'raises an error if one of the files or directories in the moab is unreadable at the moment it is checked' do
