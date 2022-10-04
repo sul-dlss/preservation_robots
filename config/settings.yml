@@ -1,33 +1,33 @@
 redis:
-  url: "localhost:6379/resque:test"
+  url: 'localhost:6379/resque:test'
   timeout: 10 # seconds
 
-lybercore_log: "log/lybercore.log"
+lybercore_log: 'log/lybercore.log'
 
 # for workflows
 workflow:
-  url: "https://workflows.example.org"
-  logfile: "log/workflow_service.log"
-  shift_age: "weekly"
+  url: 'https://workflows.example.org'
+  logfile: 'log/workflow_service.log'
+  shift_age: 'weekly'
   timeout: 60 # seconds
 
 # where to find the deposit bag to be preserved
 transfer_object:
-  from_host: "userid@dor-services-app"
-  from_dir: "/dor/export/"
+  from_host: 'userid@dor-services-app'
+  from_dir: '/dor/export/'
 
 moab:
   # storage_roots:
   #   - '/services-disk/store1'
   #   - '/services-disk/store2'
-  storage_trunk: "sdr2objects"
-  deposit_trunk: "deposit"
-  path_method: "druid_tree"
+  storage_trunk: 'sdr2objects'
+  deposit_trunk: 'deposit'
+  path_method: 'druid_tree'
 
 preservation_catalog:
-  url: "http://localhost:3000"
-  token: "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcmVzZXJ2YXRpb25fcm9ib3RzIn0.cUW_P2o1eQFImKT4zVSJ9NrctVaE7h8TuBoSEpzPUVH0kQshz6S7XasotboxdmtEJj8kmCwXgr_ZZ6aUCTSCRg"
+  url: 'http://localhost:3000'
+  token: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcmVzZXJ2YXRpb25fcm9ib3RzIn0.cUW_P2o1eQFImKT4zVSJ9NrctVaE7h8TuBoSEpzPUVH0kQshz6S7XasotboxdmtEJj8kmCwXgr_ZZ6aUCTSCRg'
 
 email_addresses:
-  discussion_list: "user@discussion_list.org"
-  user_list: "user@user_list.org"
+  discussion_list: 'user@discussion_list.org'
+  user_list: 'user@user_list.org'
