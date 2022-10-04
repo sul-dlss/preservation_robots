@@ -14,10 +14,6 @@ AllCops:
     - spec/spec_helper.rb
     - vendor/**/*
 
-Bundler/OrderedGems:
-  Exclude:
-    - "Gemfile"
-
 Metrics/BlockLength:
   Enabled: true
   Exclude:
