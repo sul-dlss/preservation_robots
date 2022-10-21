@@ -15,6 +15,7 @@ workflow:
 transfer_object:
   from_host: 'userid@dor-services-app'
   from_dir: '/dor/export/'
+  via_scp: false # keep feature flag off for now
 
 moab:
   # storage_roots:

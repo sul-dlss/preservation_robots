@@ -73,12 +73,20 @@ module Robots
           Settings.transfer_object.from_dir
         end
 
+        def transfer_bag
+          if Settings.transfer_object.via_scp
+            transfer_bag_via_scp
+          else
+            transfer_bag_via_tarpipe
+          end
+        end
+
         # @see http://en.wikipedia.org/wiki/User:Chdev/tarpipe
         # ssh user@remotehost "tar -cf - srcdir | tar -C destdir -xf -
         # Note that symbolic links from /dor/export to /dor/workspace get
         #  translated into real files by use of --dereference
         # if command doesn't exit with 0, grabs stdout and stderr and puts them in ruby exception message
-        def transfer_bag
+        def transfer_bag_via_tarpipe
           ssh = "ssh #{from_host} \"tar -C #{from_dir} --dereference -cf - #{bare_druid} \""
           untar = "tar -C #{deposit_dir} -xf -"
 
@@ -95,6 +103,19 @@ module Robots
             stdout = last_stdout.read # Blocks until complete
             raise "Transfering bag for #{druid} to preservation failed. STDOUT = #{stdout}" unless wait_threads.map(&:value).all?(&:success?)
           end
+        end
+
+        def transfer_bag_via_scp
+          Open3.popen2e(scp_command) do |_stdin, stdout_and_stderr, wait_thr|
+            output = stdout_and_stderr.read
+            status = wait_thr.value
+
+            raise "Transfering bag for #{druid} to preservation failed. STDOUT = #{output}" if status.nil? || !status.success?
+          end
+        end
+
+        def scp_command
+          "scp -pqr #{from_host}:#{from_dir}#{bare_druid} #{deposit_dir}"
         end
 
         def bare_druid
