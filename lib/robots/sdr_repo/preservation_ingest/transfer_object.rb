@@ -65,16 +65,16 @@ module Robots
         end
 
         def transfer_bag
+          # Why shell out instead of using a Ruby FileUtils-based approach?
+          # FileUtils.cp_r only allows for dereferencing the root of what's copied; it
+          # doesn't recursively dereference symlinks, which is the expected behavior.
+          transfer_command = "cp -rL #{File.join(from_dir, bare_druid)} #{deposit_dir}"
           Open3.popen2e(transfer_command) do |_stdin, stdout_and_stderr, wait_thr|
             output = stdout_and_stderr.read
             status = wait_thr.value
 
             raise "Transfering bag for #{druid} to preservation failed. STDOUT = #{output}" if status.nil? || !status.success?
           end
-        end
-
-        def transfer_command
-          "cp -rL #{File.join(from_dir, bare_druid)} #{deposit_dir}"
         end
 
         def bare_druid
