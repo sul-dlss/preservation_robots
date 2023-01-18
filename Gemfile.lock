@@ -102,7 +102,7 @@ GEM
     method_source (1.0.0)
     mini_portile2 (2.8.1)
     minitest (5.17.0)
-    moab-versioning (5.2.0)
+    moab-versioning (6.0.0.alpha)
       druid-tools (>= 1.0.0)
       json
       nokogiri
@@ -230,7 +230,7 @@ DEPENDENCIES
   dor-workflow-client (~> 5.0)
   honeybadger
   lyber-core (~> 6.1)
-  moab-versioning (~> 5.1)
+  moab-versioning (~> 6.0.0.alpha)
   preservation-client (~> 5.0)
   pry
   pry-byebug
