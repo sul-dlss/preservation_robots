@@ -13,33 +13,29 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
   let(:deposit_bag_pathname) { Pathname(File.join(deposit_dir_pathname, bare_druid)) }
   let(:xfer_obj) { described_class.new }
 
-  before do
-    allow(Open3).to receive(:pipeline_r)
-  end
-
   after do
     deposit_dir_pathname.rmtree if deposit_dir_pathname.exist?
   end
 
   context 'when versionMetadata.xml file does not exist' do
-    let(:cmd_regex) { Regexp.new(".*ssh #{Settings.transfer_object.from_host} test -e #{vm_file_path}.*") }
-
-    before do
-      allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).and_return('no')
-    end
-
     it 'raises ItemError if versionMetadata.xml file for druid does not exist' do
-      expect { test_perform(xfer_obj, druid) }.to raise_error Robots::SdrRepo::PreservationIngest::ItemError,
-                                                              "Error transferring bag (via userid@dor-services-app) for #{druid}: #{vm_file_path} not found"
-      expect(Robots::SdrRepo::PreservationIngest::Base).to have_received(:execute_shell_command).with(a_string_matching(cmd_regex))
+      expect { test_perform(xfer_obj, druid) }.to raise_error(
+        Robots::SdrRepo::PreservationIngest::ItemError,
+        "Error transferring bag (via #{Settings.transfer_object.from_dir}) for #{druid}: #{vm_file_path} not found"
+      )
     end
   end
 
   describe 'creating a path for the deposit bag' do
+    let(:expected_message) do
+      Regexp.escape("Error transferring bag (via #{Settings.transfer_object.from_dir}) for #{druid}: " \
+                    "Failed preparation of deposit dir #{deposit_bag_pathname}")
+    end
     let(:mock_moab) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
 
     before do
       allow(xfer_obj).to receive(:verify_version_metadata)
+      allow(xfer_obj).to receive(:transfer_bag)
       allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
     end
 
@@ -60,49 +56,49 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
     it 'raises an ItemError if previous bag is not removed' do
       FileUtils.mkdir_p(deposit_bag_pathname)
       FileUtils.touch("#{deposit_bag_pathname}bagit_file.txt")
-      expect(deposit_bag_pathname.exist?).to be true
+      expect(deposit_bag_pathname).to exist
       allow(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, 'rmtree failed')
-      exp_msg = Regexp.escape("Error transferring bag (via userid@dor-services-app) for #{druid}: Failed preparation of deposit dir #{deposit_bag_pathname}")
       expect do
         test_perform(xfer_obj, druid)
-      end.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
+      end.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(expected_message))
       expect(deposit_bag_pathname.exist?).to be true
     end
   end
 
   context 'when there is an error executing the transfer' do
     let(:mock_moab) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
-    let(:exp_msg) { Regexp.escape("Error transferring bag (via userid@dor-services-app) for #{druid}: tarpipe failed") }
+    let(:expected_message) do
+      Regexp.escape("Error transferring bag (via #{Settings.transfer_object.from_dir}) for #{druid}: tarpipe failed")
+    end
 
     before do
       allow(xfer_obj).to receive(:verify_version_metadata)
       allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
-      allow(Open3).to receive(:pipeline_r).and_raise(StandardError, 'tarpipe failed')
+      allow(Open3).to receive(:popen2e).and_raise(StandardError, 'tarpipe failed')
     end
 
     it 'raises ItemError if there is a StandardError while executing the tarpipe command' do
       expect do
         test_perform(xfer_obj, druid)
-      end.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
+      end.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(expected_message))
     end
   end
 
   context 'when no errors are raised' do
     let(:mock_moab) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
-    let(:cmd_regex) { Regexp.new("if ssh #{Settings.transfer_object.from_host} test -e #{vm_file_path}.*") }
 
     before do
-      allow(Robots::SdrRepo::PreservationIngest::Base).to receive(:execute_shell_command).and_return('yes')
+      allow(xfer_obj).to receive(:verify_version_metadata)
       allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
+      allow(Open3).to receive(:popen2e)
     end
 
     it 'transfers the object' do
       expect(deposit_bag_pathname.exist?).to be false
       test_perform(xfer_obj, druid)
-      expect(Open3).to have_received(:pipeline_r).with(
-        'ssh userid@dor-services-app "tar -C /dor/export/ --dereference -cf - jc837rq9922 "', /^tar -C/
+      expect(Open3).to have_received(:popen2e).with(
+        %r{cp -rL /dor/export/jc837rq9922 .+/spec/preservation_ingest/../fixtures/deposit/foo}
       )
-      expect(Robots::SdrRepo::PreservationIngest::Base).to have_received(:execute_shell_command).with(a_string_matching(cmd_regex))
       expect(Stanford::StorageServices).to have_received(:find_storage_object)
     end
   end
