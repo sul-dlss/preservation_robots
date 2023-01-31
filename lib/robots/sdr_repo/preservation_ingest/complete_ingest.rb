@@ -14,9 +14,8 @@ module Robots
           super(WORKFLOW_NAME, ROBOT_NAME)
         end
 
-        def perform(druid)
-          LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
-          @druid = druid # for base class attr_accessor
+        def perform_work
+          logger.debug("#{ROBOT_NAME} #{druid} starting")
           complete_ingest
         end
 
@@ -38,7 +37,7 @@ module Robots
         rescue Dor::WorkflowException => e
           errmsg = "Error completing ingest for #{druid}: failed to update " \
                    "accessionWF:sdr-ingest-received to completed: #{e.message}\n#{e.backtrace.join('\n')}"
-          LyberCore::Log.error(errmsg)
+          logger.error(errmsg)
           raise(ItemError, errmsg)
         end
       end

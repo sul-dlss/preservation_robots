@@ -1,4 +1,0 @@
-# 2022-JUL-14 Julian said: Unless there’s specific performance guarantees we’re busting, we have queues for a reason and I’d rather it worked nights
-#                          and weekends a bit, than spiking hard. If it’s still growing after several days then maybe start expanding the worker pool.
-#                          I’d keep to 1 core-per-worker, plus a little extra, so with the current hardware it could go to 8 workers without problem.
-"preservationIngestWF_default,preservationIngestWF_low": 5

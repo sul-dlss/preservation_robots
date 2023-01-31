@@ -16,8 +16,7 @@ module Robots
           super(WORKFLOW_NAME, ROBOT_NAME)
         end
 
-        def perform(druid)
-          @druid = druid # for base class attr_accessor
+        def perform_work
           transfer_object
         end
 
@@ -33,7 +32,7 @@ module Robots
         #     regarding the handling of vendor extended attributes.
         #     See: http://xorl.wordpress.com/2012/05/15/admin-mistakes-gnu-bsd-tar-and-posix-compatibility/
         def transfer_object
-          LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
+          logger.debug("#{ROBOT_NAME} #{druid} starting")
           verify_version_metadata
           prepare_deposit_dir
           transfer_bag
@@ -51,7 +50,7 @@ module Robots
         end
 
         def prepare_deposit_dir
-          LyberCore::Log.debug("deposit bag pathname is: #{deposit_bag_pathname}")
+          logger.debug("deposit bag pathname is: #{deposit_bag_pathname}")
           if deposit_bag_pathname.exist?
             deposit_bag_pathname.rmtree
           else

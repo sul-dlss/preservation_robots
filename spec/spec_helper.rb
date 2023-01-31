@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
-# Make sure specs run with the definitions from test.rb
-ENV['ROBOT_ENVIRONMENT'] = 'test'
-
-require 'webmock/rspec'
 require 'simplecov'
-require 'byebug'
 
 SimpleCov.start do
   add_filter 'spec'
   add_filter 'config'
 end
 
-require File.join(File.dirname(__FILE__), '..', 'config/boot')
+ENV['ROBOT_ENVIRONMENT'] = 'test'
+require File.expand_path("#{__dir__}/../config/boot")
+
+require 'webmock/rspec'
+require 'simplecov'
+require 'byebug'
+include LyberCore::Rspec # rubocop:disable Style/MixinUsage
 
 Retries.sleep_enabled = false # skip delays during testing

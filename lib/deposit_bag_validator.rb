@@ -111,7 +111,7 @@ class DepositBagValidator
   end
 
   def last_version_id_from_xml(pathname, xpath)
-    doc = Nokogiri::XML(File.open(pathname.to_s), &:strict)
+    doc = Nokogiri::XML(File.read(pathname.to_s), &:strict)
     version_id = doc.xpath(xpath).last.text unless doc.xpath(xpath).empty?
     return version_id.to_i if version_id
 

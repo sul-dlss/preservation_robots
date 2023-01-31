@@ -29,8 +29,8 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
     end
 
     it 'raises ItemError if versionMetadata.xml file for druid does not exist' do
-      expect { xfer_obj.perform(druid) }.to raise_error Robots::SdrRepo::PreservationIngest::ItemError,
-                                                        "Error transferring bag (via userid@dor-services-app) for #{druid}: #{vm_file_path} not found"
+      expect { test_perform(xfer_obj, druid) }.to raise_error Robots::SdrRepo::PreservationIngest::ItemError,
+                                                              "Error transferring bag (via userid@dor-services-app) for #{druid}: #{vm_file_path} not found"
       expect(Robots::SdrRepo::PreservationIngest::Base).to have_received(:execute_shell_command).with(a_string_matching(cmd_regex))
     end
   end
@@ -45,7 +45,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
 
     it 'ensures the deposit_dir_pathname is created if it does not exist' do
       expect(deposit_dir_pathname.exist?).to be false
-      xfer_obj.perform(druid)
+      test_perform(xfer_obj, druid)
       expect(deposit_dir_pathname.exist?).to be true
     end
 
@@ -53,7 +53,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
       FileUtils.mkdir_p(deposit_bag_pathname)
       FileUtils.touch("#{deposit_bag_pathname}bagit_file.txt")
       expect(deposit_bag_pathname.exist?).to be true
-      xfer_obj.perform(druid)
+      test_perform(xfer_obj, druid)
       expect(deposit_bag_pathname.exist?).to be false
     end
 
@@ -64,7 +64,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
       allow(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, 'rmtree failed')
       exp_msg = Regexp.escape("Error transferring bag (via userid@dor-services-app) for #{druid}: Failed preparation of deposit dir #{deposit_bag_pathname}")
       expect do
-        xfer_obj.perform(druid)
+        test_perform(xfer_obj, druid)
       end.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
       expect(deposit_bag_pathname.exist?).to be true
     end
@@ -82,7 +82,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
 
     it 'raises ItemError if there is a StandardError while executing the tarpipe command' do
       expect do
-        xfer_obj.perform(druid)
+        test_perform(xfer_obj, druid)
       end.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
     end
   end
@@ -98,7 +98,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
 
     it 'transfers the object' do
       expect(deposit_bag_pathname.exist?).to be false
-      xfer_obj.perform(druid)
+      test_perform(xfer_obj, druid)
       expect(Open3).to have_received(:pipeline_r).with(
         'ssh userid@dor-services-app "tar -C /dor/export/ --dereference -cf - jc837rq9922 "', /^tar -C/
       )

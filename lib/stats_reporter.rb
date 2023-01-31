@@ -84,6 +84,6 @@ class StatsReporter
   end
 
   def workflow_client
-    @workflow_client ||= WorkflowClientFactory.build
+    @workflow_client ||= LyberCore::WorkflowClientFactory.build(logger: Logger.new($stdout))
   end
 end

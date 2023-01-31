@@ -12,7 +12,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
 
       it 'raises ItemError' do
         exp_msg = "#{Regexp.escape("Error completing ingest for #{druid}: failed to update accessionWF:sdr-ingest-received to completed: ")}.*foo"
-        expect { this_robot.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
+        expect { test_perform(this_robot, druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
       end
     end
 
@@ -24,7 +24,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
               status: 'completed',
               elapsed: 1,
               note: String)
-      expect { this_robot.perform(druid) }.not_to raise_error
+      test_perform(this_robot, druid)
       expect(this_robot.workflow_service).to have_received(:update_status)
         .with(druid: druid,
               workflow: 'accessionWF',
