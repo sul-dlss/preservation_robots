@@ -78,7 +78,8 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         allow(Honeybadger).to receive(:notify)
         expect { update_catalog_obj.perform(druid) }.not_to raise_error
         hb_notify_msg = "Deposit bag was missing. This is unusual; it's likely that the workflow step ran once before, and " \
-                        "failed on the network call to preservation_catalog. Please confirm that all is well with #{druid}."
+                        "failed on the network call to preservation_catalog. Please confirm that #{druid} passes checksum " \
+                        'validation in preservation_catalog, and that its preserved version matches the Cocina in dor-services-app.'
         expect(Honeybadger).to have_received(:notify).with(hb_notify_msg)
       end
     end
