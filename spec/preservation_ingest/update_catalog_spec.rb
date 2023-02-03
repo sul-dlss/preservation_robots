@@ -45,12 +45,42 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
       deposit_dir_pathname.rmtree if deposit_dir_pathname.exist?
     end
 
-    it 'raises ItemError if it fails to remove the deposit bag' do
-      expect(deposit_bag_pathname.exist?).to be true
-      allow(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, 'rmtree failed')
-      exp_msg = Regexp.escape("Error completing ingest for #{druid}: failed to remove deposit bag (#{deposit_bag_pathname}): rmtree failed")
-      expect { update_catalog_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
-      expect(deposit_bag_pathname.exist?).to be true
+    context 'when the deposit bag still exists' do
+      it 'raises ItemError if it fails to remove the deposit bag' do
+        expect(deposit_bag_pathname.exist?).to be true
+        rmtree_err_msg = 'rmtree failed with some weird permission error or something'
+        allow(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, rmtree_err_msg)
+        base_err_msg = "Error completing ingest for #{druid}: failed to remove deposit bag (#{deposit_bag_pathname})"
+        exp_msg_regexp = Regexp.escape("#{base_err_msg}: #{rmtree_err_msg}")
+        expect { update_catalog_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg_regexp))
+        expect(deposit_bag_pathname.exist?).to be true
+      end
+    end
+
+    context 'when the deposit bag has already been removed' do
+      before do
+        allow(deposit_bag_pathname).to receive(:rmtree).and_call_original
+        deposit_bag_pathname.rmtree
+
+        stub_request(:post, 'http://localhost:3000/v1/catalog')
+          .with(
+            body: {
+              'checksums_validated' => 'true', 'druid' => 'druid:bj102hs9687',
+              'incoming_size' => '2342', 'incoming_version' => '1',
+              'storage_location' => 'some/storage/location/from/endpoint/table'
+            }
+          )
+          .to_return(status: 200, body: '', headers: {})
+      end
+
+      it 'sends a honeybadger alert' do
+        expect(deposit_bag_pathname.exist?).to be false
+        allow(Honeybadger).to receive(:notify)
+        expect { update_catalog_obj.perform(druid) }.not_to raise_error
+        hb_notify_msg = "Deposit bag was missing. This is unusual; it's likely that the workflow step ran once before, and " \
+                        "failed on the network call to preservation_catalog. Please confirm that all is well with #{druid}."
+        expect(Honeybadger).to have_received(:notify).with(hb_notify_msg)
+      end
     end
 
     context 'when object is new' do
