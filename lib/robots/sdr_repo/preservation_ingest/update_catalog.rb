@@ -50,7 +50,13 @@ module Robots
         # Ceph backed storage and our use of hardlinking (instead of e.g. copying) to get content from the
         # deposit bag to the new Moab version.  see https://github.com/sul-dlss/preservation_catalog/issues/1633
         def rm_deposit_bag_safely_for_ceph
-          deposit_bag_pathname.rmtree
+          if deposit_bag_pathname.exist?
+            deposit_bag_pathname.rmtree
+          else
+            Honeybadger.notify("Deposit bag was missing. This is unusual; it's likely that the workflow step ran once before, and " \
+                               "failed on the network call to preservation_catalog. Please confirm that all is well with #{druid}.")
+          end
+
           stat_moab_dir_contents
         end
 
