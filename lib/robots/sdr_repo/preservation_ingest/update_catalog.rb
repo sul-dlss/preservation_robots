@@ -54,7 +54,8 @@ module Robots
             deposit_bag_pathname.rmtree
           else
             Honeybadger.notify("Deposit bag was missing. This is unusual; it's likely that the workflow step ran once before, and " \
-                               "failed on the network call to preservation_catalog. Please confirm that all is well with #{druid}.")
+                               "failed on the network call to preservation_catalog. Please confirm that #{druid} passes checksum " \
+                               'validation in preservation_catalog, and that its preserved version matches the Cocina in dor-services-app.')
           end
 
           stat_moab_dir_contents
