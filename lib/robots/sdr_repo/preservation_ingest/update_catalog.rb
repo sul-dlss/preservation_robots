@@ -28,11 +28,15 @@ module Robots
 
         def update_catalog
           remove_deposit_bag
-          with_retries(max_tries: 3, handler: handler("Updating preservation catalog for #{druid}"), rescue: Preservation::Client::Error) do
+          with_retries(max_tries: 3, handler: handler("Updating preservation catalog for #{druid}"), rescue: Preservation::Client::ConnectionFailedError) do
             Preservation::Client.update(druid: druid,
                                         version: moab_object.current_version_id,
                                         size: moab_object.size,
                                         storage_location: moab_object.storage_root)
+          rescue Preservation::Client::ConflictError
+            Honeybadger.notify("preservation_catalog has already ingested this object version.  This is unusual, but it's likely that a " \
+                               'regularly scheduled preservation_catalog audit detected it after this workflow step was left in a failed state. ' \
+                               'Please confirm that the preserved version matches the Cocina in dor-services-app.')
           end
         end
 
