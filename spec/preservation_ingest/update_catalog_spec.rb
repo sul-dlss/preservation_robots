@@ -108,8 +108,20 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         end
       end
 
-      context 'when it removes the deposit bag and when HTTP fails twice' do
+      context 'when it removes the deposit bag and when HTTP fails twice with a retriable error' do
         before do
+          2.times do
+            stub_request(:post, 'http://localhost:3000/v1/catalog')
+              .with(
+                body: {
+                  'checksums_validated' => true, 'druid' => 'bj102hs9687',
+                  'incoming_size' => 2342, 'incoming_version' => 1,
+                  'storage_location' => 'some/storage/location/from/endpoint/table'
+                }
+              )
+              .to_timeout
+          end
+
           stub_request(:post, 'http://localhost:3000/v1/catalog')
             .with(
               body: {
@@ -118,11 +130,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
                 'storage_location' => 'some/storage/location/from/endpoint/table'
               }
             )
-            .to_return(
-              { status: 500, body: '', headers: {} },
-              { status: 500, body: '', headers: {} },
-              status: 200, body: '', headers: {}
-            )
+            .to_return(status: 200, body: '', headers: {})
         end
 
         it 'succeeds' do
@@ -132,7 +140,28 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         end
       end
 
-      context 'when HTTP fails thrice' do
+      context 'when HTTP fails thrice with a retriable error' do
+        before do
+          3.times do
+            stub_request(:post, 'http://localhost:3000/v1/catalog')
+              .with(
+                body: {
+                  'checksums_validated' => true, 'druid' => 'bj102hs9687',
+                  'incoming_size' => 2342, 'incoming_version' => 1,
+                  'storage_location' => 'some/storage/location/from/endpoint/table'
+                }
+              )
+              .to_timeout
+          end
+        end
+
+        it 'removes the deposit bag and fails' do
+          expect { update_catalog_obj.perform(bare_druid) }.to raise_error(Preservation::Client::ConnectionFailedError)
+          expect(deposit_bag_pathname).to have_received(:rmtree)
+        end
+      end
+
+      context 'when HTTP fails with a non-retriable error' do
         before do
           stub_request(:post, 'http://localhost:3000/v1/catalog')
             .with(
@@ -142,11 +171,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
                 'storage_location' => 'some/storage/location/from/endpoint/table'
               }
             )
-            .to_return(
-              { status: 500, body: '', headers: {} },
-              { status: 500, body: '', headers: {} },
-              status: 500, body: '', headers: {}
-            )
+            .to_return(status: 500, body: '', headers: {})
         end
 
         it 'removes the deposit bag and fails' do
@@ -159,22 +184,49 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
     context 'when object already exists' do
       let(:version) { 3 }
 
-      before do
-        allow(deposit_bag_pathname).to receive(:rmtree)
-        stub_request(:patch, 'http://localhost:3000/v1/catalog/bj102hs9687')
-          .with(
-            body: {
-              'checksums_validated' => 'true', 'druid' => 'bj102hs9687',
-              'incoming_size' => '2342', 'incoming_version' => '3',
-              'storage_location' => 'some/storage/location/from/endpoint/table'
-            }
-          )
-          .to_return(status: 200, body: '', headers: {})
+      context 'when preservation_catalog is not yet aware of the new version' do
+        before do
+          allow(deposit_bag_pathname).to receive(:rmtree)
+          stub_request(:patch, 'http://localhost:3000/v1/catalog/bj102hs9687')
+            .with(
+              body: {
+                'checksums_validated' => true, 'druid' => 'bj102hs9687',
+                'incoming_size' => 2342, 'incoming_version' => 3,
+                'storage_location' => 'some/storage/location/from/endpoint/table'
+              }
+            )
+            .to_return(status: 200, body: '', headers: {})
+        end
+
+        it 'removes the deposit bag and PATCH to /v1/catalog/:druid' do
+          update_catalog_obj.perform(bare_druid)
+          expect(deposit_bag_pathname).to have_received(:rmtree)
+        end
       end
 
-      it 'removes the deposit bag and PATCH to /v1/catalog/:druid' do
-        update_catalog_obj.perform(bare_druid)
-        expect(deposit_bag_pathname).to have_received(:rmtree)
+      context 'when preservation_catalog is already aware of the new version' do
+        before do
+          allow(deposit_bag_pathname).to receive(:rmtree)
+          allow(Honeybadger).to receive(:notify)
+          stub_request(:patch, 'http://localhost:3000/v1/catalog/bj102hs9687')
+            .with(
+              body: {
+                'checksums_validated' => true, 'druid' => 'bj102hs9687',
+                'incoming_size' => 2342, 'incoming_version' => 3,
+                'storage_location' => 'some/storage/location/from/endpoint/table'
+              }
+            )
+            .to_return(status: 409, body: '', headers: {})
+        end
+
+        it 'removes the deposit bag, PATCH to /v1/catalog/:druid, and notifies due to the response' do
+          update_catalog_obj.perform(bare_druid)
+          expect(deposit_bag_pathname).to have_received(:rmtree)
+          hb_notify_msg = "preservation_catalog has already ingested this object version.  This is unusual, but it's likely that a " \
+                          'regularly scheduled preservation_catalog audit detected it after this workflow step was left in a failed state. ' \
+                          'Please confirm that the preserved version matches the Cocina in dor-services-app.'
+          expect(Honeybadger).to have_received(:notify).with(hb_notify_msg)
+        end
       end
     end
 
