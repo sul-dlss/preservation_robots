@@ -26,7 +26,7 @@ module Robots
         def validate_moab
           LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
           with_retries(max_tries: 3, handler: handler("Validating moab for #{druid}"),
-                       rescue: Preservation::Client::Error) do
+                       rescue: Preservation::Client::ConnectionFailedError) do
             Preservation::Client.objects.validate_moab(druid: druid)
           end
         end
