@@ -8,17 +8,13 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::ValidateMoab do
   let(:args) { { druid: bare_druid } }
 
   describe '#perform' do
-    before do
-      allow(LyberCore::Log).to receive(:debug).with(any_args)
-    end
-
     context 'when the HTTP call is successful' do
       before do
         stub_request(:get, get_url).to_return(status: 200, body: 'ok', headers: {})
       end
 
       it 'calls GET to /v1/objects/DRUID/validate_moab' do
-        expect { this_robot.perform(bare_druid) }.not_to raise_error
+        expect { test_perform(this_robot, bare_druid) }.not_to raise_error
       end
     end
 
@@ -33,7 +29,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::ValidateMoab do
       end
 
       it 'fails' do
-        expect { this_robot.perform(bare_druid) }.to raise_error(Preservation::Client::UnexpectedResponseError)
+        expect { test_perform(this_robot, bare_druid) }.to raise_error(Preservation::Client::UnexpectedResponseError)
       end
     end
   end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-server 'preservation-robots1-prod.stanford.edu', user: 'pres', roles: %w[web app db monitor]
+server 'preservation-robots1-prod.stanford.edu', user: 'pres', roles: %w[web app db monitor worker]
 # # robots2-prod is a warm standby - no resque-pool up but ready to deploy to if needed
-# server 'preservation-robots2-prod.stanford.edu', user: 'pres', roles: %w[web app db monitor]
+# server 'preservation-robots2-prod.stanford.edu', user: 'pres', roles: %w[web app db monitor worker]
 
 Capistrano::OneTimeKey.generate_one_time_key!
 

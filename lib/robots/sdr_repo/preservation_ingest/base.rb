@@ -7,12 +7,8 @@ module Robots
     # The workflow package name - match the actual workflow name, minus ending WF (using CamelCase)
     module PreservationIngest
       # Base class for all preservation robots
-      class Base
-        include LyberCore::Robot
-
+      class Base < LyberCore::Robot
         WORKFLOW_NAME = 'preservationIngestWF'
-
-        attr_reader :druid
 
         # if command doesn't exit with 0, grabs stdout and stderr and puts them in ruby exception message
         def self.execute_shell_command(command)
@@ -30,16 +26,12 @@ module Robots
           raise(StandardError, msg)
         end
 
-        def workflow_service
-          @workflow_service ||= WorkflowClientFactory.build
-        end
-
         private
 
         # handle retries errors
         def handler(msg)
           proc do |exception, attempt_number, _total_delay|
-            LyberCore::Log.warn("#{msg}: try #{attempt_number} failed: #{exception.message}")
+            logger.warn("#{msg}: try #{attempt_number} failed: #{exception.message}")
             raise exception if attempt_number == 3
           end
         end

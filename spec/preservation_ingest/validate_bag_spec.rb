@@ -20,7 +20,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::ValidateBag do
     let(:bare_druid) { 'cr123dt0367' }
 
     it 'no error is raised' do
-      expect { validate_bag_obj.perform(druid) }.not_to raise_error
+      expect { test_perform(validate_bag_obj, druid) }.not_to raise_error
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::ValidateBag do
     it 'raises ItemError' do
       missing_file_regex_str = Regexp.escape('/oo000oo0000/data/metadata/versionMetadata.xml')
       exp_msg = "Bag validation failure.*required_file_not_found.*#{missing_file_regex_str} not found"
-      expect { validate_bag_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
+      expect { test_perform(validate_bag_obj, druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
     end
   end
 end

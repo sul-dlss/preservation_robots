@@ -34,7 +34,6 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
 
   describe '#perform' do
     before do
-      allow(LyberCore::Log).to receive(:debug).with(any_args)
       allow(deposit_bag_pathname).to receive(:rmtree)
       allow(Moab::StorageServices).to receive(:find_storage_object).and_return(mock_storage_object)
       FileUtils.mkdir_p(deposit_bag_pathname)
@@ -52,7 +51,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         allow(deposit_bag_pathname).to receive(:rmtree).and_raise(StandardError, rmtree_err_msg)
         base_err_msg = "Error completing ingest for #{druid}: failed to remove deposit bag (#{deposit_bag_pathname})"
         exp_msg_regexp = Regexp.escape("#{base_err_msg}: #{rmtree_err_msg}")
-        expect { update_catalog_obj.perform(druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg_regexp))
+        expect { test_perform(update_catalog_obj, druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg_regexp))
         expect(deposit_bag_pathname.exist?).to be true
       end
     end
@@ -76,7 +75,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
       it 'sends a honeybadger alert' do
         expect(deposit_bag_pathname.exist?).to be false
         allow(Honeybadger).to receive(:notify)
-        expect { update_catalog_obj.perform(druid) }.not_to raise_error
+        expect { test_perform(update_catalog_obj, druid) }.not_to raise_error
         hb_notify_msg = "Deposit bag was missing. This is unusual; it's likely that the workflow step ran once before, and " \
                         "failed on the network call to preservation_catalog. Please confirm that #{druid} passes checksum " \
                         'validation in preservation_catalog, and that its preserved version matches the Cocina in dor-services-app.'
@@ -103,7 +102,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         end
 
         it 'removes the deposit bag and POST to /v1/catalog' do
-          update_catalog_obj.perform(bare_druid)
+          test_perform(update_catalog_obj, bare_druid)
           expect(deposit_bag_pathname).to have_received(:rmtree)
         end
       end
@@ -134,8 +133,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         end
 
         it 'succeeds' do
-          allow(LyberCore::Log).to receive(:warn).twice
-          update_catalog_obj.perform(bare_druid)
+          test_perform(update_catalog_obj, bare_druid)
           expect(deposit_bag_pathname).to have_received(:rmtree)
         end
       end
@@ -156,7 +154,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         end
 
         it 'removes the deposit bag and fails' do
-          expect { update_catalog_obj.perform(bare_druid) }.to raise_error(Preservation::Client::ConnectionFailedError)
+          expect { test_perform(update_catalog_obj, bare_druid) }.to raise_error(Preservation::Client::ConnectionFailedError)
           expect(deposit_bag_pathname).to have_received(:rmtree)
         end
       end
@@ -175,7 +173,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         end
 
         it 'removes the deposit bag and fails' do
-          expect { update_catalog_obj.perform(bare_druid) }.to raise_error(Preservation::Client::UnexpectedResponseError)
+          expect { test_perform(update_catalog_obj, bare_druid) }.to raise_error(Preservation::Client::UnexpectedResponseError)
           expect(deposit_bag_pathname).to have_received(:rmtree)
         end
       end
@@ -199,7 +197,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         end
 
         it 'removes the deposit bag and PATCH to /v1/catalog/:druid' do
-          update_catalog_obj.perform(bare_druid)
+          test_perform(update_catalog_obj, bare_druid)
           expect(deposit_bag_pathname).to have_received(:rmtree)
         end
       end
@@ -220,7 +218,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         end
 
         it 'removes the deposit bag, PATCH to /v1/catalog/:druid, and notifies due to the response' do
-          update_catalog_obj.perform(bare_druid)
+          test_perform(update_catalog_obj, bare_druid)
           expect(deposit_bag_pathname).to have_received(:rmtree)
           hb_notify_msg = "preservation_catalog has already ingested this object version.  This is unusual, but it's likely that a " \
                           'regularly scheduled preservation_catalog audit detected it after this workflow step was left in a failed state. ' \
@@ -282,7 +280,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         # without worrying about absolute path differences between different dev laptops or laptops and CI (while also allowing
         # an exact match on path without just matching a substring).
         moab_file_and_dir_list.each { |path_str| allow(File).to receive(:stat).with(File.realpath(File.join(spec_dir, path_str))) }
-        update_catalog_obj.perform(bare_druid)
+        test_perform(update_catalog_obj, bare_druid)
         expect(deposit_bag_pathname).to have_received(:rmtree).ordered
         expect(Find).to have_received(:find).with(mock_moab_pathname).ordered
         moab_file_and_dir_list.each { |path_str| expect(File).to have_received(:stat).with(File.realpath(File.join(spec_dir, path_str))) }
@@ -296,7 +294,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
         allow(File).to receive(:stat)
         allow(File).to receive(:stat).with(File.realpath(File.join(spec_dir, v1_version_md_path_str))).and_raise(Errno::EACCES, read_err_msg)
 
-        expect { update_catalog_obj.perform(bare_druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
+        expect { test_perform(update_catalog_obj, bare_druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(exp_msg))
       end
     end
   end

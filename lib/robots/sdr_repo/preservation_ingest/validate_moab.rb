@@ -14,17 +14,16 @@ module Robots
           super(WORKFLOW_NAME, ROBOT_NAME)
         end
 
-        def perform(druid)
-          @druid = druid # for base class attr_accessor
+        def perform_work
           validate_moab
           # workflow logging done in PreservationCatalog (by ValidateMoabJob)
-          LyberCore::Robot::ReturnState.new(status: :noop, note: 'Initiated validate-moab API call.')
+          LyberCore::ReturnState.new(status: :noop, note: 'Initiated validate-moab API call.')
         end
 
         private
 
         def validate_moab
-          LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
+          logger.debug("#{ROBOT_NAME} #{druid} starting")
           with_retries(max_tries: 3, handler: handler("Validating moab for #{druid}"),
                        rescue: Preservation::Client::ConnectionFailedError) do
             Preservation::Client.objects.validate_moab(druid: druid)

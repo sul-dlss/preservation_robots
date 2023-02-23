@@ -18,9 +18,8 @@ module Robots
           super(WORKFLOW_NAME, ROBOT_NAME)
         end
 
-        def perform(druid)
-          LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
-          @druid = druid # for base class attr_accessor
+        def perform_work
+          logger.debug("#{ROBOT_NAME} #{druid} starting")
           update_catalog
         end
 
@@ -45,7 +44,7 @@ module Robots
         rescue StandardError => e
           errmsg = "Error completing ingest for #{druid}: failed to remove deposit bag (#{deposit_bag_pathname}): " \
                    "#{e.message}\n #{e.backtrace.join('\n')}"
-          LyberCore::Log.error(errmsg)
+          logger.error(errmsg)
           raise(ItemError, errmsg)
         end
 

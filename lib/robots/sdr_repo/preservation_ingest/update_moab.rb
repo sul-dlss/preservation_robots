@@ -14,20 +14,19 @@ module Robots
           super(WORKFLOW_NAME, ROBOT_NAME)
         end
 
-        def perform(druid)
-          @druid = druid # for base class attr_accessor
+        def perform_work
           update_moab
         end
 
         private
 
         def update_moab
-          LyberCore::Log.debug("#{ROBOT_NAME} #{druid} starting")
+          logger.debug("#{ROBOT_NAME} #{druid} starting")
           new_version = moab_object.ingest_bag(use_links: false)
           result = new_version.verify_version_storage
           return if result.verified
 
-          LyberCore::Log.info result.to_json(false)
+          logger.info result.to_json(false)
           raise(ItemError, "Failed verification for #{result.entity}")
         end
       end

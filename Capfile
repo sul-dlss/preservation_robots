@@ -12,7 +12,6 @@ install_plugin Capistrano::SCM::Git
 require 'capistrano/bundler'
 
 require 'dlss/capistrano'
-require 'dlss/capistrano/resque_pool'
 require 'capistrano/honeybadger'
 require 'whenever/capistrano'
 
