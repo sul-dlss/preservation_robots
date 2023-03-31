@@ -9,11 +9,11 @@ gem 'rake'
 # Stanford DLSS gems
 gem 'dor-workflow-client', '~> 5.0'
 gem 'honeybadger' # for error reporting / tracking / notifications
-gem 'lyber-core', '~> 7.0'
+gem 'lyber-core', '~> 7.1'
 gem 'moab-versioning', '~> 6.0' # work with Moab Objects
 gem 'preservation-client', '~> 6.0'
 gem 'retries'
-gem 'sidekiq', '~> 6.4'
+gem 'sidekiq', '~> 7.0'
 gem 'slop'
 gem 'text-table' # to generate tables for StatsReporter
 gem 'whenever' # manage cron for robots and monitoring
