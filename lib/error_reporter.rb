@@ -7,7 +7,7 @@ class ErrorReporter
   require 'date'
 
   def output
-    table_generator.each { |table| puts table.to_s unless table.rows.empty? }
+    table_generator.each { |table| puts table unless table.rows.empty? }
   end
 
   def table_generator(log_files = default_log_files)
