@@ -16,7 +16,7 @@ gem 'retries'
 gem 'sidekiq', '~> 7.0'
 gem 'slop'
 gem 'text-table' # to generate tables for StatsReporter
-gem 'whenever' # manage cron for robots and monitoring
+gem 'whenever', require: false # Work around https://github.com/javan/whenever/issues/831
 gem 'zeitwerk', '~> 2.1'
 
 source 'https://gems.contribsys.com/' do
