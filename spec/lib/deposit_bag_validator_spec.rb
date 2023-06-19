@@ -98,18 +98,18 @@ RSpec.describe DepositBagValidator do
 
       it 'tagmanifest file of unrecognized checksum type' do
         expect(vdn_errors.size).to eq 2
-        expect(vdn_errors).to include(exp_code => a_string_matching("#{err_msg_prefix}.*\/tagmanifest-sha666.txt"))
+        expect(vdn_errors).to include(exp_code => a_string_matching("#{err_msg_prefix}.*/tagmanifest-sha666.txt"))
       end
 
       it 'manifest file of unrecognized checksum type' do
         expect(vdn_errors.size).to eq 2
-        expect(vdn_errors).to include(exp_code => a_string_matching("#{err_msg_prefix}.*\/manifest-sha666.txt"))
+        expect(vdn_errors).to include(exp_code => a_string_matching("#{err_msg_prefix}.*/manifest-sha666.txt"))
       end
 
       it 'in version_xxx.xml file' do
         # NOTE:  bad checksum types within files that are NOT part of bag structure will NOT be flagged here
-        expect(vdn_errors).not_to include(exp_code => "#{err_msg_prefix}.*\/versionAdditions.xml")
-        expect(vdn_errors).not_to include(exp_code => "#{err_msg_prefix}.*\/versionInventory.xml")
+        expect(vdn_errors).not_to include(exp_code => "#{err_msg_prefix}.*/versionAdditions.xml")
+        expect(vdn_errors).not_to include(exp_code => "#{err_msg_prefix}.*/versionInventory.xml")
       end
     end
 
