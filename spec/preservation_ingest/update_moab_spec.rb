@@ -28,10 +28,8 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateMoab do
         full_druid_vers = "#{full_druid}-v0003"
         error_message = "Failed verification for #{full_druid_vers}"
         allow(mock_storage_object).to receive(:ingest_bag).and_return(mock_new_version)
-        allow(verification_result).to receive(:verified).and_return(false)
+        allow(verification_result).to receive_messages(verified: false, to_json: 'some_json', entity: full_druid_vers)
         allow(mock_new_version).to receive(:verify_version_storage).and_return(verification_result)
-        allow(verification_result).to receive(:to_json).and_return('some_json')
-        allow(verification_result).to receive(:entity).and_return(full_druid_vers)
         expect { test_perform(pres_update_moab, full_druid) }.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, error_message)
         expect(mock_storage_object).to have_received(:ingest_bag)
         expect(mock_new_version).to have_received(:verify_version_storage)
