@@ -38,3 +38,7 @@ There are 5 robots:
 # Testing
 
 See https://docs.google.com/document/d/1d1GmSkam5_mR8NkbUQIf-Ztneu82zWChSqVSo6yUDVY
+
+# Resetting preservation robots
+
+This only makes sense as part of a reset of the preservation environment and its associated SDR environment as a whole.  See the preservation_catalog README for detailed instructions.
