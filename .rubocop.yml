@@ -207,8 +207,6 @@ RSpec/IdenticalEqualityAssertion: # (new in 2.4)
   Enabled: true
 RSpec/Rails/AvoidSetupHook: # (new in 2.4)
   Enabled: true
-RSpec/FilePath:
-  Enabled: false
 
 Gemspec/RequireMFA: # new in 1.23
   Enabled: true
@@ -404,4 +402,15 @@ Style/YAMLFileRead: # new in 1.53
 RSpec/ReceiveMessages: # new in 2.23
   Enabled: true
 RSpec/Rails/NegationBeValid: # new in 2.23
+  Enabled: true
+
+RSpec/EmptyMetadata: # new in 2.24
+  Enabled: true
+RSpec/Eq: # new in 2.24
+  Enabled: true
+RSpec/MetadataStyle: # new in 2.24
+  Enabled: true
+RSpec/SpecFilePathFormat: # new in 2.24
+  Enabled: false
+RSpec/SpecFilePathSuffix: # new in 2.24
   Enabled: true
