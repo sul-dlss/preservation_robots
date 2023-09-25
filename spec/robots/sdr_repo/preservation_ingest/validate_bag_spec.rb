@@ -3,7 +3,7 @@
 RSpec.describe Robots::SdrRepo::PreservationIngest::ValidateBag do
   subject(:validate_bag_obj) { described_class.new }
 
-  let(:deposit_dir_pathname) { Pathname(File.join(File.dirname(__FILE__), '..', 'fixtures', 'deposit')) }
+  let(:deposit_dir_pathname) { Pathname(File.join(File.dirname(__FILE__), '..', '..', '..', 'fixtures', 'deposit')) }
   let(:deposit_bag_pathname) { Pathname(File.join(deposit_dir_pathname, bare_druid)) }
   let(:druid) { "druid:#{bare_druid}" }
   let(:mock_moab) do

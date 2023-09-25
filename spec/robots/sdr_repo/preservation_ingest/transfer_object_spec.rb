@@ -97,7 +97,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
       expect(deposit_bag_pathname.exist?).to be false
       test_perform(xfer_obj, druid)
       expect(Open3).to have_received(:popen2e).with(
-        %r{cp -rL /dor/export/jc837rq9922 .+/spec/preservation_ingest/../fixtures/deposit/foo}
+        %r{cp -rL /dor/export/jc837rq9922 .+/spec/robots/sdr_repo/preservation_ingest/../fixtures/deposit/foo}
       )
       expect(Stanford::StorageServices).to have_received(:find_storage_object)
     end

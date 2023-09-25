@@ -27,7 +27,7 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::UpdateCatalog do
                     storage_root: strg_root,
                     current_version_id: version)
   end
-  let(:spec_dir) { File.join(File.dirname(__FILE__), '..') }
+  let(:spec_dir) { File.join(File.dirname(__FILE__), '..', '..', '..') }
   let(:deposit_dir_pathname) { Pathname(File.join(spec_dir, 'fixtures', 'deposit', 'update-catalog')) }
   let(:deposit_bag_pathname) { Pathname(File.join(deposit_dir_pathname, bare_druid)) }
   let(:mock_moab_pathname) { Pathname(File.realpath(File.join(spec_dir, 'fixtures', 'sdr2objects', 'bz', '514', 'sm', '9647', 'bz514sm9647'))) }
