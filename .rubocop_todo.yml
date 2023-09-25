@@ -50,10 +50,10 @@ Style/HashSyntax:
     - 'lib/robots/sdr_repo/preservation_ingest/update_catalog.rb'
     - 'lib/robots/sdr_repo/preservation_ingest/validate_moab.rb'
     - 'lib/stats_reporter.rb'
-    - 'spec/preservation_ingest/complete_ingest_spec.rb'
-    - 'spec/preservation_ingest/transfer_object_spec.rb'
-    - 'spec/preservation_ingest/update_catalog_spec.rb'
-    - 'spec/preservation_ingest/validate_bag_spec.rb'
+    - 'spec/robots/sdr_repo/preservation_ingest/complete_ingest_spec.rb'
+    - 'spec/robots/sdr_repo/preservation_ingest/transfer_object_spec.rb'
+    - 'spec/robots/sdr_repo/preservation_ingest/update_catalog_spec.rb'
+    - 'spec/robots/sdr_repo/preservation_ingest/validate_bag_spec.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
