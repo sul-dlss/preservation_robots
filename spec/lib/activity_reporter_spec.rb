@@ -36,14 +36,14 @@ describe ActivityReporter do
           allow(Time).to receive(:now).and_return(dbl_date)
         end
 
-        context 'when file contains /bundle/ruby|/usr/local/rvm|resque-signals/' do
+        context 'when file contains /bundle/ruby|/usr/local/rvm/' do
           it 'prints out expected message' do
             output
             expect($stdout).to have_received(:puts).with("No activity 2017-04-27, DRUID count: 0\n")
           end
         end
 
-        context 'when file does not contain /bundle/ruby|/usr/local/rvm|resque-signals/' do
+        context 'when file does not contain /bundle/ruby|/usr/local/rvm/' do
           before do
             allow(activity_reporter).to receive(:default_log_files).and_return([happy_path])
           end

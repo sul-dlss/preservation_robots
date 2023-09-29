@@ -28,11 +28,7 @@ class ErrorReporter
           error_table.rows << [file, line, today]
           next
         end
-        if line.match?('WARN')
-          next if line.match?('resque-signals')
-
-          warning_table.rows << [file, line, today]
-        end
+        warning_table.rows << [file, line, today] if line.match?('WARN')
         stack.pop if stack.size > 2
       end
     end
