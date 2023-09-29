@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 require 'rake'
-require 'resque/pool/tasks'
 
 task :environment do
   require_relative 'config/boot'
 end
-
-task 'resque:setup' => :environment
 
 task default: :ci
 

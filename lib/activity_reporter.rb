@@ -26,7 +26,7 @@ class ActivityReporter
   def extract_druid(file, today, counter)
     File.readlines(file).each do |line|
       line =~ /#{today}/ || next
-      line =~ %r{/bundle/ruby|/usr/local/rvm|resque-signals/} && next
+      line =~ %r{/bundle/ruby|/usr/local/rvm/} && next
       druid = line.match(/Finished.*(#{DRUID_REGEXP})/) || next
       counter[druid] = 1
     end

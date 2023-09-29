@@ -1,6 +1,4 @@
-redis:
-  url: 'localhost:6379/resque:test'
-  timeout: 10 # seconds
+redis_url: redis://localhost:6379/
 
 lybercore_log: 'log/lybercore.log'
 
