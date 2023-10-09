@@ -41,8 +41,6 @@ set :bundle_without, %w[development deployment test].join(' ')
 set :stages, %w[stage prod]
 
 set :honeybadger_env, fetch(:stage)
-# for robot-controller's verify command
-set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 
 # update shared_configs before restarting app
 before 'deploy:publishing', 'shared_configs:update'
