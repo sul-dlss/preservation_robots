@@ -37,7 +37,6 @@ GEM
     capistrano-one_time_key (0.1.0)
       capistrano (~> 3.0)
     capistrano-shared_configs (0.2.2)
-    chronic (0.10.2)
     cocina-models (0.91.2)
       activesupport
       deprecation
@@ -263,7 +262,6 @@ GEM
       attr_extras (>= 6.2.4)
       diff-lcs
       patience_diff
-    text-table (1.2.4)
     thor (1.2.2)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -272,8 +270,6 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    whenever (1.0.0)
-      chronic (>= 0.6.3)
     zeitwerk (2.6.12)
 
 PLATFORMS
@@ -301,9 +297,7 @@ DEPENDENCIES
   sidekiq-pro!
   simplecov
   slop
-  text-table
   webmock
-  whenever
   zeitwerk (~> 2.1)
 
 BUNDLED WITH
