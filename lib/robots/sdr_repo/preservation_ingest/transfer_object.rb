@@ -29,7 +29,7 @@ module Robots
           prepare_deposit_dir
           transfer_bag
         rescue StandardError => e
-          raise ItemError, "Error transferring bag (via #{Settings&.transfer_object&.from_dir}) for #{druid}: #{e.message}"
+          raise ItemError, "Error transferring bag (via #{Settings.transfer_object&.from_dir}) for #{druid}: #{e.message}"
         end
 
         VERSION_METADATA_PATH_SUFFIX = '/data/metadata/versionMetadata.xml'
