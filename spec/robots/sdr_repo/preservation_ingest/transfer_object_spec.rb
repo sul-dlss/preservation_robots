@@ -68,16 +68,16 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
   context 'when there is an error executing the transfer' do
     let(:mock_moab) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
     let(:expected_message) do
-      Regexp.escape("Error transferring bag (via #{Settings.transfer_object.from_dir}) for #{druid}: tarpipe failed")
+      Regexp.escape("Error transferring bag (via #{Settings.transfer_object.from_dir}) for #{druid}: permission denied")
     end
 
     before do
       allow(xfer_obj).to receive(:verify_version_metadata)
       allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
-      allow(Open3).to receive(:popen2e).and_raise(StandardError, 'tarpipe failed')
+      allow(Open3).to receive(:popen2e).and_raise(StandardError, 'permission denied')
     end
 
-    it 'raises ItemError if there is a StandardError while executing the tarpipe command' do
+    it 'raises ItemError if there is a StandardError while executing the transfer command' do
       expect do
         test_perform(xfer_obj, druid)
       end.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(expected_message))
