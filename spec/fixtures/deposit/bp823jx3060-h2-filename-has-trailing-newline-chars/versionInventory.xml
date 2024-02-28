@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileInventory type="version" objectId="druid:bp823jx3060" versionId="1" inventoryDatetime="2024-02-28T04:47:11Z" fileCount="4" byteCount="12990" blockCount="14">
+  <fileGroup groupId="content" dataSource="contentMetadata-preserve" fileCount="1" byteCount="0" blockCount="0">
+    <file>
+      <fileSignature size="0" md5="d41d8cd98f00b204e9800998ecf8427e" sha1="da39a3ee5e6b4b0d3255bfef95601890afd80709" sha256="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"/>
+      <fileInstance path="Icon&#13;&#10;" datetime=""/>
+    </file>
+  </fileGroup>
+  <fileGroup groupId="metadata" dataSource="/dor/workspace/bp/823/jx/3060/bp823jx3060/metadata" fileCount="3" byteCount="12990" blockCount="14">
+    <file>
+      <fileSignature size="12260" md5="435b3e6a8b74ac5669094256497c6532" sha1="f7b2b8a39349180e56bd2fdb5449120faab02ec2" sha256="a3b6de75ee782c4e803829687fe0dfce9395a41273f00af73dac022da9907922"/>
+      <fileInstance path="cocina.json" datetime="2024-02-28T04:47:11Z"/>
+    </file>
+    <file>
+      <fileSignature size="527" md5="5d84de5fb8a5eda4fde29875f9109693" sha1="ce6a1980eada9db6320c93bcfcb00cd5458b4d6d" sha256="ac1a5f86e6d920318bfe709edb3225e1e9e50aa0390a85c9a6b177c92e742603"/>
+      <fileInstance path="contentMetadata.xml" datetime="2024-02-28T04:47:11Z"/>
+    </file>
+    <file>
+      <fileSignature size="203" md5="7993919443e4a4363aa722c1fa7eb64a" sha1="2930f6cc717f21f360c7c820fb4f814e695abedb" sha256="e6346f3b251bd12e5d498d8cd0dc7cc8c2ec572a87ff689f57ee289e724fe8d3"/>
+      <fileInstance path="versionMetadata.xml" datetime="2024-02-28T04:47:11Z"/>
+    </file>
+  </fileGroup>
+</fileInventory>

@@ -1,0 +1,3 @@
+External-Identifier: druid:bp823jx3060-v1
+Payload-Oxum: 12990.4
+Bag-Size: 12.69 KB

@@ -1,0 +1,4 @@
+da39a3ee5e6b4b0d3255bfef95601890afd80709 data/content/Icon
+f7b2b8a39349180e56bd2fdb5449120faab02ec2 data/metadata/cocina.json
+ce6a1980eada9db6320c93bcfcb00cd5458b4d6d data/metadata/contentMetadata.xml
+2930f6cc717f21f360c7c820fb4f814e695abedb data/metadata/versionMetadata.xml

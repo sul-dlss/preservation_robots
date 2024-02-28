@@ -1,0 +1,686 @@
+{
+  "cocinaVersion": "0.95.0",
+  "type": "https://cocina.sul.stanford.edu/models/object",
+  "externalIdentifier": "druid:bp823jx3060",
+  "label": "Return of Carriage In Civil Asset Forfeiture Cases",
+  "version": 1,
+  "access": {
+    "view": "citation-only",
+    "download": "none",
+    "controlledDigitalLending": false,
+    "embargo": {
+      "view": "world",
+      "download": "world",
+      "controlledDigitalLending": false,
+      "releaseDate": "2024-08-28T00:00:00+00:00"
+    },
+    "useAndReproductionStatement": "User agrees that, where applicable, content will not be used to identify or to otherwise infringe the privacy or confidentiality rights of individuals. Content distributed via the Stanford Digital Repository may be subject to additional license and use restrictions applied by the depositor.",
+    "license": "https://creativecommons.org/publicdomain/zero/1.0/legalcode"
+  },
+  "administrative": {
+    "hasAdminPolicy": "druid:zw306xn5593",
+    "releaseTags": [
+
+    ]
+  },
+  "description": {
+    "title": [
+      {
+        "structuredValue": [
+
+        ],
+        "parallelValue": [
+
+        ],
+        "groupedValue": [
+
+        ],
+        "value": "Return of Carriage In Civil Asset Forfeiture Cases",
+        "identifier": [
+
+        ],
+        "note": [
+
+        ],
+        "appliesTo": [
+
+        ]
+      }
+    ],
+    "contributor": [
+      {
+        "name": [
+          {
+            "structuredValue": [
+              {
+                "structuredValue": [
+
+                ],
+                "parallelValue": [
+
+                ],
+                "groupedValue": [
+
+                ],
+                "value": "Johnathan",
+                "type": "forename",
+                "identifier": [
+
+                ],
+                "note": [
+
+                ],
+                "appliesTo": [
+
+                ]
+              },
+              {
+                "structuredValue": [
+
+                ],
+                "parallelValue": [
+
+                ],
+                "groupedValue": [
+
+                ],
+                "value": "Martin",
+                "type": "surname",
+                "identifier": [
+
+                ],
+                "note": [
+
+                ],
+                "appliesTo": [
+
+                ]
+              }
+            ],
+            "parallelValue": [
+
+            ],
+            "groupedValue": [
+
+            ],
+            "identifier": [
+
+            ],
+            "note": [
+
+            ],
+            "appliesTo": [
+
+            ]
+          }
+        ],
+        "type": "person",
+        "status": "primary",
+        "role": [
+          {
+            "structuredValue": [
+
+            ],
+            "parallelValue": [
+
+            ],
+            "groupedValue": [
+
+            ],
+            "value": "author",
+            "code": "aut",
+            "uri": "http://id.loc.gov/vocabulary/relators/aut",
+            "identifier": [
+
+            ],
+            "source": {
+              "code": "marcrelator",
+              "uri": "http://id.loc.gov/vocabulary/relators/",
+              "note": [
+
+              ]
+            },
+            "note": [
+
+            ],
+            "appliesTo": [
+
+            ]
+          }
+        ],
+        "identifier": [
+
+        ],
+        "note": [
+
+        ],
+        "parallelContributor": [
+
+        ]
+      }
+    ],
+    "event": [
+      {
+        "structuredValue": [
+
+        ],
+        "type": "deposit",
+        "date": [
+          {
+            "structuredValue": [
+
+            ],
+            "parallelValue": [
+
+            ],
+            "groupedValue": [
+
+            ],
+            "value": "2024-02-28",
+            "type": "publication",
+            "encoding": {
+              "code": "edtf",
+              "note": [
+
+              ]
+            },
+            "identifier": [
+
+            ],
+            "note": [
+
+            ],
+            "appliesTo": [
+
+            ]
+          }
+        ],
+        "contributor": [
+
+        ],
+        "location": [
+
+        ],
+        "identifier": [
+
+        ],
+        "note": [
+
+        ],
+        "parallelEvent": [
+
+        ]
+      }
+    ],
+    "form": [
+      {
+        "structuredValue": [
+          {
+            "structuredValue": [
+
+            ],
+            "parallelValue": [
+
+            ],
+            "groupedValue": [
+
+            ],
+            "value": "Image",
+            "type": "type",
+            "identifier": [
+
+            ],
+            "note": [
+
+            ],
+            "appliesTo": [
+
+            ]
+          },
+          {
+            "structuredValue": [
+
+            ],
+            "parallelValue": [
+
+            ],
+            "groupedValue": [
+
+            ],
+            "value": "Preprint",
+            "type": "subtype",
+            "identifier": [
+
+            ],
+            "note": [
+
+            ],
+            "appliesTo": [
+
+            ]
+          }
+        ],
+        "parallelValue": [
+
+        ],
+        "groupedValue": [
+
+        ],
+        "type": "resource type",
+        "identifier": [
+
+        ],
+        "source": {
+          "value": "Stanford self-deposit resource types",
+          "note": [
+
+          ]
+        },
+        "note": [
+
+        ],
+        "appliesTo": [
+
+        ]
+      },
+      {
+        "structuredValue": [
+
+        ],
+        "parallelValue": [
+
+        ],
+        "groupedValue": [
+
+        ],
+        "value": "grey literature",
+        "type": "genre",
+        "uri": "http://vocab.getty.edu/page/aat/300256200",
+        "identifier": [
+
+        ],
+        "source": {
+          "code": "aat",
+          "note": [
+
+          ]
+        },
+        "note": [
+
+        ],
+        "appliesTo": [
+
+        ]
+      },
+      {
+        "structuredValue": [
+
+        ],
+        "parallelValue": [
+
+        ],
+        "groupedValue": [
+
+        ],
+        "value": "still image",
+        "type": "resource type",
+        "identifier": [
+
+        ],
+        "source": {
+          "value": "MODS resource types",
+          "note": [
+
+          ]
+        },
+        "note": [
+
+        ],
+        "appliesTo": [
+
+        ]
+      },
+      {
+        "structuredValue": [
+
+        ],
+        "parallelValue": [
+
+        ],
+        "groupedValue": [
+
+        ],
+        "value": "text",
+        "type": "resource type",
+        "identifier": [
+
+        ],
+        "source": {
+          "value": "MODS resource types",
+          "note": [
+
+          ]
+        },
+        "note": [
+
+        ],
+        "appliesTo": [
+
+        ]
+      },
+      {
+        "structuredValue": [
+
+        ],
+        "parallelValue": [
+
+        ],
+        "groupedValue": [
+
+        ],
+        "value": "Image",
+        "type": "resource type",
+        "identifier": [
+
+        ],
+        "source": {
+          "value": "DataCite resource types",
+          "note": [
+
+          ]
+        },
+        "note": [
+
+        ],
+        "appliesTo": [
+
+        ]
+      }
+    ],
+    "geographic": [
+
+    ],
+    "language": [
+
+    ],
+    "note": [
+      {
+        "structuredValue": [
+
+        ],
+        "parallelValue": [
+
+        ],
+        "groupedValue": [
+
+        ],
+        "value": "A machine learning meta analysis of special character circumstances in the collected case law regarding civil asset forfeiture.",
+        "type": "abstract",
+        "identifier": [
+
+        ],
+        "note": [
+
+        ],
+        "appliesTo": [
+
+        ]
+      },
+      {
+        "structuredValue": [
+
+        ],
+        "parallelValue": [
+
+        ],
+        "groupedValue": [
+
+        ],
+        "value": "Martin, J. (2024). Return of Carriage In Civil Asset Forfeiture Cases. Stanford Digital Repository. Available at https://sul-purl-stage.stanford.edu/bp823jx3060. https://doi.org/10.80343/bp823jx3060.",
+        "type": "preferred citation",
+        "identifier": [
+
+        ],
+        "note": [
+
+        ],
+        "appliesTo": [
+
+        ]
+      }
+    ],
+    "identifier": [
+
+    ],
+    "subject": [
+      {
+        "structuredValue": [
+
+        ],
+        "parallelValue": [
+
+        ],
+        "groupedValue": [
+
+        ],
+        "value": "Icons, Byzantine",
+        "type": "topic",
+        "uri": "http://id.worldcat.org/fast/966787/",
+        "identifier": [
+
+        ],
+        "source": {
+          "code": "fast",
+          "uri": "http://id.worldcat.org/fast/",
+          "note": [
+
+          ]
+        },
+        "note": [
+
+        ],
+        "appliesTo": [
+
+        ]
+      }
+    ],
+    "access": {
+      "url": [
+
+      ],
+      "physicalLocation": [
+
+      ],
+      "digitalLocation": [
+
+      ],
+      "accessContact": [
+        {
+          "structuredValue": [
+
+          ],
+          "parallelValue": [
+
+          ],
+          "groupedValue": [
+
+          ],
+          "value": "suntzu@stanford.edu",
+          "type": "email",
+          "identifier": [
+
+          ],
+          "displayLabel": "Contact",
+          "note": [
+
+          ],
+          "appliesTo": [
+
+          ]
+        }
+      ],
+      "digitalRepository": [
+
+      ],
+      "note": [
+
+      ]
+    },
+    "relatedResource": [
+
+    ],
+    "marcEncodedData": [
+
+    ],
+    "adminMetadata": {
+      "contributor": [
+
+      ],
+      "event": [
+        {
+          "structuredValue": [
+
+          ],
+          "type": "creation",
+          "date": [
+            {
+              "structuredValue": [
+
+              ],
+              "parallelValue": [
+
+              ],
+              "groupedValue": [
+
+              ],
+              "value": "2024-02-28",
+              "encoding": {
+                "code": "edtf",
+                "note": [
+
+                ]
+              },
+              "identifier": [
+
+              ],
+              "note": [
+
+              ],
+              "appliesTo": [
+
+              ]
+            }
+          ],
+          "contributor": [
+
+          ],
+          "location": [
+
+          ],
+          "identifier": [
+
+          ],
+          "note": [
+
+          ],
+          "parallelEvent": [
+
+          ]
+        }
+      ],
+      "language": [
+
+      ],
+      "note": [
+        {
+          "structuredValue": [
+
+          ],
+          "parallelValue": [
+
+          ],
+          "groupedValue": [
+
+          ],
+          "value": "Metadata created by user via Stanford self-deposit application",
+          "type": "record origin",
+          "identifier": [
+
+          ],
+          "note": [
+
+          ],
+          "appliesTo": [
+
+          ]
+        }
+      ],
+      "metadataStandard": [
+
+      ],
+      "identifier": [
+
+      ]
+    },
+    "purl": "https://sul-purl-stage.stanford.edu/bp823jx3060"
+  },
+  "identification": {
+    "catalogLinks": [
+
+    ],
+    "doi": "10.80343/bp823jx3060",
+    "sourceId": "hydrus:object-200"
+  },
+  "structural": {
+    "contains": [
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bp823jx3060-865f65c4-82a2-474c-942f-dab4287a0d5d",
+        "label": "",
+        "version": 1,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bp823jx3060-865f65c4-82a2-474c-942f-dab4287a0d5d/Icon\r\n",
+              "label": "",
+              "filename": "Icon\r\n",
+              "size": 0,
+              "version": 1,
+              "hasMimeType": "application/octet-stream",
+              "hasMessageDigests": [
+                {
+                  "type": "md5",
+                  "digest": "d41d8cd98f00b204e9800998ecf8427e"
+                },
+                {
+                  "type": "sha1",
+                  "digest": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+                }
+              ],
+              "access": {
+                "view": "dark",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "hasMemberOrders": [
+
+    ],
+    "isMemberOf": [
+      "druid:gr119sm4227"
+    ]
+  },
+  "created": "2024-02-28T04:47:09+00:00",
+  "modified": "2024-02-28T04:47:09+00:00",
+  "lock": "druid:bp823jx3060="
+}

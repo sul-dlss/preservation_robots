@@ -17,6 +17,12 @@ RSpec.describe DepositBagValidator do
           storage_obj = instance_double(Moab::StorageObject, deposit_bag_pathname: bag_pathname, current_version_id: 0)
           expect(described_class.new(storage_obj).validation_errors).to eq []
         end
+
+        it 'file with trailing newline characters in the file name' do
+          bag_pathname = Pathname(File.join(deposit_dir_pathname, 'bp823jx3060-h2-filename-has-trailing-newline-chars'))
+          storage_obj = instance_double(Moab::StorageObject, deposit_bag_pathname: bag_pathname, current_version_id: 0)
+          expect(described_class.new(storage_obj).validation_errors).to eq []
+        end
       end
 
       describe 'new version updates Moab' do
