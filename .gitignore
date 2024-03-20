@@ -1,4 +1,7 @@
 coverage
+# spec/examples.txt allows RSpec to persist some state between runs in order to support the `--only-failures` and
+# `--next-failure` CLI options. RSpec recommends configuring source control to ignore this file.
+spec/examples.txt
 log/wfs/*
 log/*.log
 workflow_service.log*
