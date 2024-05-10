@@ -23,7 +23,7 @@ moab:
 
 preservation_catalog:
   url: 'http://localhost:3000'
-  token: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcmVzZXJ2YXRpb25fcm9ib3RzIn0.cUW_P2o1eQFImKT4zVSJ9NrctVaE7h8TuBoSEpzPUVH0kQshz6S7XasotboxdmtEJj8kmCwXgr_ZZ6aUCTSCRg'
+  token: 'YOUR_TOKEN_HERE'
 
 email_addresses:
   discussion_list: 'user@discussion_list.org'
