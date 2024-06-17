@@ -1,5 +1,8 @@
-# Turn on RSpec cops
-require: rubocop-rspec
+require:
+  - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-rspec
+  - rubocop-rspec_rails
 
 inherit_from: .rubocop_todo.yml
 
@@ -205,7 +208,7 @@ Style/QuotedSymbols: # (new in 1.16)
   Enabled: true
 RSpec/IdenticalEqualityAssertion: # (new in 2.4)
   Enabled: true
-RSpec/Rails/AvoidSetupHook: # (new in 2.4)
+RSpecRails/AvoidSetupHook: # (new in 2.4)
   Enabled: true
 
 Gemspec/RequireMFA: # new in 1.23
@@ -283,7 +286,7 @@ RSpec/VerifiedDoubleReference: # new in 2.10.0
   Enabled: true
 Capybara/SpecificMatcher: # new in 2.12
   Enabled: true
-RSpec/Rails/HaveHttpStatus: # new in 2.12
+RSpecRails/HaveHttpStatus: # new in 2.12
   Enabled: true
 Lint/RequireRangeParentheses: # new in 1.32
   Enabled: true
@@ -380,11 +383,11 @@ RSpec/SkipBlockInsideExample: # new in 2.19
   Enabled: true
 RSpec/SortMetadata: # new in 2.14
   Enabled: true
-RSpec/Rails/InferredSpecType: # new in 2.14
+RSpecRails/InferredSpecType: # new in 2.14
   Enabled: true
-RSpec/Rails/MinitestAssertions: # new in 2.17
+RSpecRails/MinitestAssertions: # new in 2.17
   Enabled: true
-RSpec/Rails/TravelAround: # new in 2.19
+RSpecRails/TravelAround: # new in 2.19
   Enabled: true
 
 Lint/MixedCaseRange: # new in 1.53
@@ -401,7 +404,7 @@ Style/YAMLFileRead: # new in 1.53
   Enabled: true
 RSpec/ReceiveMessages: # new in 2.23
   Enabled: true
-RSpec/Rails/NegationBeValid: # new in 2.23
+RSpecRails/NegationBeValid: # new in 2.23
   Enabled: true
 
 RSpec/EmptyMetadata: # new in 2.24

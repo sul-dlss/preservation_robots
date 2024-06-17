@@ -25,7 +25,10 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rspec_junit_formatter' # For circleCI
   gem 'rubocop'
+  gem 'rubocop-capybara'
+  gem 'rubocop-factory_bot'
   gem 'rubocop-rspec'
+  gem 'rubocop-rspec_rails'
   gem 'simplecov', require: 'false'
 end
 
