@@ -1,7 +1,7 @@
 GEM
   remote: https://gems.contribsys.com/
   specs:
-    sidekiq-pro (7.3.0)
+    sidekiq-pro (7.3.1)
       sidekiq (>= 7.3.0, < 8)
 
 GEM
@@ -132,7 +132,7 @@ GEM
     faraday-retry (2.2.1)
       faraday (~> 2.0)
     hashdiff (1.1.1)
-    honeybadger (5.15.5)
+    honeybadger (5.15.6)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
@@ -152,7 +152,7 @@ GEM
       zeitwerk
     method_source (1.1.0)
     mini_portile2 (2.8.7)
-    minitest (5.24.1)
+    minitest (5.25.1)
     moab-versioning (6.1.0)
       druid-tools (>= 1.0.0)
       json
@@ -177,7 +177,7 @@ GEM
       commonmarker (>= 1.0)
     openapi_parser (1.0.0)
     optimist (3.1.0)
-    parallel (1.26.2)
+    parallel (1.26.3)
     parser (3.3.4.2)
       ast (~> 2.4.1)
       racc
@@ -199,7 +199,7 @@ GEM
     rack (3.1.7)
     rainbow (3.1.1)
     rake (13.2.1)
-    rb_sys (0.9.100)
+    rb_sys (0.9.101)
     redis-client (0.22.2)
       connection_pool
     regexp_parser (2.9.2)
@@ -232,7 +232,7 @@ GEM
       rubocop-ast (>= 1.31.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.32.0)
+    rubocop-ast (1.32.1)
       parser (>= 3.3.1.0)
     rubocop-capybara (2.21.0)
       rubocop (~> 1.41)
@@ -245,7 +245,7 @@ GEM
       rubocop-rspec (~> 3, >= 3.0.1)
     ruby-progressbar (1.13.0)
     securerandom (0.3.1)
-    sidekiq (7.3.0)
+    sidekiq (7.3.1)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
       logger
