@@ -1,7 +1,7 @@
 GEM
   remote: https://gems.contribsys.com/
   specs:
-    sidekiq-pro (7.3.4)
+    sidekiq-pro (7.3.5)
       sidekiq (>= 7.3.7, < 8)
 
 GEM
@@ -47,9 +47,8 @@ GEM
     capistrano-one_time_key (0.2.0)
       capistrano (~> 3.0)
     capistrano-shared_configs (0.2.2)
-    cocina-models (0.99.2)
+    cocina-models (0.99.3)
       activesupport
-      commonmarker (= 2.0.1)
       deprecation
       dry-struct (~> 1.0)
       dry-types (~> 1.1)
@@ -58,20 +57,16 @@ GEM
       i18n
       jsonpath
       nokogiri
-      openapi3_parser
       openapi_parser (~> 1.0)
       super_diff
       thor
       zeitwerk (~> 2.1)
     coderay (1.1.3)
-    commonmarker (2.0.1)
-      rb_sys (~> 0.9)
-    commonmarker (2.0.1-x86_64-linux)
     concurrent-ruby (1.3.4)
     config (5.5.2)
       deep_merge (~> 1.2, >= 1.2.1)
       ostruct
-    connection_pool (2.4.1)
+    connection_pool (2.5.0)
     crack (1.0.0)
       bigdecimal
       rexml
@@ -87,7 +82,7 @@ GEM
       capistrano-shared_configs
       ed25519
     docile (1.4.1)
-    dor-services-client (15.2.1)
+    dor-services-client (15.3.0)
       activesupport (>= 7.0.0)
       cocina-models (~> 0.99.0)
       deprecation
@@ -113,12 +108,12 @@ GEM
       concurrent-ruby (~> 1.0)
       dry-core (~> 1.1)
       zeitwerk (~> 2.6)
-    dry-struct (1.6.0)
-      dry-core (~> 1.0, < 2)
-      dry-types (>= 1.7, < 2)
+    dry-struct (1.7.0)
+      dry-core (~> 1.1)
+      dry-types (~> 1.8)
       ice_nine (~> 0.11)
       zeitwerk (~> 2.6)
-    dry-types (1.7.2)
+    dry-types (1.8.0)
       bigdecimal (~> 3.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 1.0)
@@ -139,8 +134,9 @@ GEM
     faraday-retry (2.2.1)
       faraday (~> 2.0)
     hashdiff (1.1.2)
-    honeybadger (5.26.1)
+    honeybadger (5.26.2)
       logger
+      ostruct
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
@@ -148,7 +144,7 @@ GEM
     jsonpath (1.1.5)
       multi_json
     language_server-protocol (3.17.0.3)
-    logger (1.6.4)
+    logger (1.6.5)
     lyber-core (7.7.0)
       activesupport
       config
@@ -181,8 +177,6 @@ GEM
       racc (~> 1.4)
     nokogiri-happymapper (0.10.0)
       nokogiri (~> 1.5)
-    openapi3_parser (0.10.0)
-      commonmarker (>= 1.0)
     openapi_parser (1.0.0)
     optimist (3.2.0)
     ostruct (0.6.1)
@@ -208,8 +202,7 @@ GEM
     rack (3.1.8)
     rainbow (3.1.1)
     rake (13.2.1)
-    rb_sys (0.9.105)
-    redis-client (0.23.0)
+    redis-client (0.23.1)
       connection_pool
     regexp_parser (2.10.0)
     retries (0.0.5)
@@ -229,7 +222,7 @@ GEM
     rspec-support (3.13.2)
     rspec_junit_formatter (0.6.0)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (1.69.2)
+    rubocop (1.70.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -270,7 +263,7 @@ GEM
       net-sftp (>= 2.1.2)
       net-ssh (>= 2.8.0)
       ostruct
-    super_diff (0.14.0)
+    super_diff (0.15.0)
       attr_extras (>= 6.2.4)
       diff-lcs
       patience_diff
