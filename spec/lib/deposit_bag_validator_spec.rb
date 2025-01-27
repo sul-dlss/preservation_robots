@@ -131,7 +131,8 @@ RSpec.describe DepositBagValidator do
       dbv = described_class.new(storage_obj)
       code = described_class::PAYLOAD_SIZE_MISMATCH
       size_from_file = dbv.send(:bag_info_payload_size)
-      exp_msg = "Failed payload size verification. Expected: #{size_from_file}; found: {:bytes=>4300, :files=>4}"
+      expected_found_size = { bytes: 4300, files: 4 }
+      exp_msg = "Failed payload size verification. Expected: #{size_from_file}; found: #{expected_found_size}"
       expect(dbv.validation_errors).to eq [{ code => exp_msg }]
     end
 
