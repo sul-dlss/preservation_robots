@@ -1,6 +1,5 @@
 [![CircleCI](https://circleci.com/gh/sul-dlss/preservation_robots.svg?style=svg)](https://circleci.com/gh/sul-dlss/preservation_robots)
-[![Code Climate](https://codeclimate.com/github/sul-dlss/preservation_robots/badges/gpa.svg)](https://codeclimate.com/github/sul-dlss/preservation_robots)
-[![Code Climate Test Coverage](https://codeclimate.com/github/sul-dlss/preservation_robots/badges/coverage.svg)](https://codeclimate.com/github/sul-dlss/)
+[![codecov](https://codecov.io/github/sul-dlss/preservation_robots/graph/badge.svg?token=i0Ofesr1wz)](https://codecov.io/github/sul-dlss/preservation_robots)
 [![GitHub version](https://badge.fury.io/gh/sul-dlss%2Fpreservation_robots.svg)](https://badge.fury.io/gh/sul-dlss%2Fpreservation_robots)
 
 # preservation_robots
