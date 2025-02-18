@@ -140,11 +140,11 @@ GEM
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    json (2.9.1)
+    json (2.10.1)
     jsonpath (1.1.5)
       multi_json
     language_server-protocol (3.17.0.4)
-    logger (1.6.5)
+    logger (1.6.6)
     lyber-core (7.7.0)
       activesupport
       config
@@ -186,7 +186,7 @@ GEM
       racc
     patience_diff (1.2.0)
       optimist (~> 3.0)
-    preservation-client (6.2.0)
+    preservation-client (7.0.2)
       activesupport (>= 4.2, < 8)
       faraday (~> 2.0)
       moab-versioning (>= 5.0.0, < 7)
@@ -280,7 +280,7 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    zeitwerk (2.7.1)
+    zeitwerk (2.7.2)
 
 PLATFORMS
   ruby
@@ -290,11 +290,11 @@ DEPENDENCIES
   capistrano-bundler
   config
   dlss-capistrano
-  dor-workflow-client (~> 7.0)
+  dor-workflow-client
   honeybadger
   lyber-core (~> 7.1)
   moab-versioning (~> 6.0)
-  preservation-client (~> 6.0)
+  preservation-client (~> 7.0)
   pry
   pry-byebug
   rake
