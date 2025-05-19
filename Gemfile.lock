@@ -48,7 +48,7 @@ GEM
     capistrano-one_time_key (0.2.0)
       capistrano (~> 3.0)
     capistrano-shared_configs (0.2.2)
-    cocina-models (0.103.1)
+    cocina-models (0.103.2)
       activesupport
       deprecation
       dry-struct (~> 1.0)
@@ -83,9 +83,9 @@ GEM
       capistrano-shared_configs
       ed25519
     docile (1.4.1)
-    dor-services-client (15.7.2)
+    dor-services-client (15.7.3)
       activesupport (>= 7.0.0)
-      cocina-models (~> 0.103.1)
+      cocina-models (~> 0.103.2)
       deprecation
       faraday (~> 2.0)
       faraday-retry
@@ -141,10 +141,10 @@ GEM
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    json (2.11.3)
+    json (2.12.0)
     jsonpath (1.1.5)
       multi_json
-    language_server-protocol (3.17.0.4)
+    language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
     lyber-core (7.7.0)
@@ -157,7 +157,7 @@ GEM
       sidekiq (~> 7.0)
       zeitwerk
     method_source (1.1.0)
-    mini_portile2 (2.8.8)
+    mini_portile2 (2.8.9)
     minitest (5.25.5)
     moab-versioning (6.1.0)
       druid-tools (>= 1.0.0)
@@ -202,7 +202,7 @@ GEM
       pry (>= 0.13, < 0.16)
     public_suffix (6.0.2)
     racc (1.8.1)
-    rack (3.1.14)
+    rack (3.1.15)
     rainbow (3.1.1)
     rake (13.2.1)
     redis-client (0.24.0)
@@ -225,7 +225,7 @@ GEM
     rspec-support (3.13.3)
     rspec_junit_formatter (0.6.0)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (1.75.5)
+    rubocop (1.75.6)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -323,4 +323,4 @@ DEPENDENCIES
   zeitwerk (~> 2.1)
 
 BUNDLED WITH
-   2.6.8
+   2.6.9
