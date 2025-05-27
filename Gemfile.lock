@@ -97,7 +97,7 @@ GEM
       faraday-retry (~> 2.0)
       nokogiri (~> 1.6)
       zeitwerk (~> 2.1)
-    drb (2.2.1)
+    drb (2.2.3)
     druid-tools (3.0.0)
     dry-core (1.1.0)
       concurrent-ruby (~> 1.0)
@@ -134,14 +134,14 @@ GEM
       net-http (>= 0.5.0)
     faraday-retry (2.3.1)
       faraday (~> 2.0)
-    hashdiff (1.1.2)
+    hashdiff (1.2.0)
     honeybadger (5.28.0)
       logger
       ostruct
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    json (2.12.0)
+    json (2.12.2)
     jsonpath (1.1.5)
       multi_json
     language_server-protocol (3.17.0.5)
@@ -225,7 +225,7 @@ GEM
     rspec-support (3.13.3)
     rspec_junit_formatter (0.6.0)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (1.75.6)
+    rubocop (1.75.7)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -289,7 +289,7 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    zeitwerk (2.7.2)
+    zeitwerk (2.7.3)
 
 PLATFORMS
   ruby
