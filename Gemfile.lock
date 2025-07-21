@@ -48,7 +48,7 @@ GEM
     capistrano-one_time_key (0.2.0)
       capistrano (~> 3.0)
     capistrano-shared_configs (0.2.2)
-    cocina-models (0.104.1)
+    cocina-models (0.105.0)
       activesupport
       deprecation
       dry-struct (~> 1.0)
@@ -83,9 +83,9 @@ GEM
       capistrano-shared_configs
       ed25519
     docile (1.4.1)
-    dor-services-client (15.17.0)
+    dor-services-client (15.19.0)
       activesupport (>= 7.0.0)
-      cocina-models (~> 0.104.1)
+      cocina-models (~> 0.105.0)
       deprecation
       faraday (~> 2.0)
       faraday-retry
@@ -142,7 +142,7 @@ GEM
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    json (2.12.2)
+    json (2.13.0)
     jsonpath (1.1.5)
       multi_json
     language_server-protocol (3.17.0.5)
@@ -165,7 +165,7 @@ GEM
       json
       nokogiri
       nokogiri-happymapper
-    multi_json (1.16.0)
+    multi_json (1.17.0)
     net-http (0.6.0)
       uri
     net-scp (4.1.0)
@@ -173,16 +173,16 @@ GEM
     net-sftp (4.0.0)
       net-ssh (>= 5.0.0, < 8.0.0)
     net-ssh (7.3.0)
-    nokogiri (1.18.8)
+    nokogiri (1.18.9)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-linux-gnu)
+    nokogiri (1.18.9-x86_64-linux-gnu)
       racc (~> 1.4)
     nokogiri-happymapper (0.10.0)
       nokogiri (~> 1.5)
     openapi_parser (1.0.0)
     optimist (3.2.1)
-    ostruct (0.6.2)
+    ostruct (0.6.3)
     parallel (1.27.0)
     parser (3.3.8.0)
       ast (~> 2.4.1)
@@ -206,7 +206,7 @@ GEM
     rack (3.1.16)
     rainbow (3.1.1)
     rake (13.3.0)
-    redis-client (0.25.0)
+    redis-client (0.25.1)
       connection_pool
     regexp_parser (2.10.0)
     retries (0.0.5)
@@ -237,7 +237,7 @@ GEM
       rubocop-ast (>= 1.45.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.45.1)
+    rubocop-ast (1.46.0)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
     rubocop-capybara (2.22.1)
@@ -265,7 +265,7 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
-    simplecov-html (0.13.1)
+    simplecov-html (0.13.2)
     simplecov_json_formatter (0.1.4)
     slop (4.10.1)
     sshkit (1.24.0)
@@ -279,7 +279,7 @@ GEM
       attr_extras (>= 6.2.4)
       diff-lcs
       patience_diff
-    thor (1.3.2)
+    thor (1.4.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.1.4)
@@ -324,4 +324,4 @@ DEPENDENCIES
   zeitwerk (~> 2.1)
 
 BUNDLED WITH
-   2.6.9
+   2.7.0
