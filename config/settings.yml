@@ -2,13 +2,6 @@ redis_url: redis://localhost:6379/
 
 lybercore_log: 'log/lybercore.log'
 
-# for workflows
-workflow:
-  url: 'https://workflows.example.org'
-  logfile: 'log/workflow_service.log'
-  shift_age: 'weekly'
-  timeout: 60 # seconds
-
 # where to find the deposit bag to be preserved
 transfer_object:
   from_dir: '/dor/export/'
@@ -28,3 +21,7 @@ preservation_catalog:
 email_addresses:
   discussion_list: 'user@discussion_list.org'
   user_list: 'user@user_list.org'
+
+dor_services:
+  url:  'https://dor-services-test.stanford.test'
+  token: secret-token
