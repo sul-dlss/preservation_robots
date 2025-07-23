@@ -4,10 +4,18 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
   let(:this_robot) { described_class.new }
   let(:druid) { 'druid:jc837rq9922' }
 
+  let(:object_client) { instance_double(Dor::Services::Client::Object, workflow: workflow) }
+  let(:workflow) { instance_double(Dor::Services::Client::ObjectWorkflow, process: process_client) }
+  let(:process_client) { instance_double(Dor::Services::Client::Process, update: true) }
+
+  before do
+    allow(this_robot).to receive(:object_client).and_return(object_client)
+  end
+
   describe '#perform' do
     context 'when it fails to update the accessionWF sdr-ingest-received step' do
       before do
-        allow(this_robot.workflow_service).to receive(:update_status).and_raise(Dor::WorkflowException.new('foo'))
+        allow(process_client).to receive(:update).and_raise(Dor::Services::Client::Error, 'foo')
       end
 
       it 'raises ItemError' do
@@ -17,21 +25,10 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::CompleteIngest do
     end
 
     it 'updates the accessionWF when no errors are raised' do
-      allow(this_robot.workflow_service).to receive(:update_status)
-        .with(druid: druid,
-              workflow: 'accessionWF',
-              process: 'sdr-ingest-received',
-              status: 'completed',
-              elapsed: 1,
-              note: String)
       test_perform(this_robot, druid)
-      expect(this_robot.workflow_service).to have_received(:update_status)
-        .with(druid: druid,
-              workflow: 'accessionWF',
-              process: 'sdr-ingest-received',
-              status: 'completed',
-              elapsed: 1,
-              note: String)
+      expect(object_client).to have_received(:workflow).with('accessionWF')
+      expect(process_client).to have_received(:update)
+        .with(status: 'completed', note: String)
     end
   end
 end

@@ -7,9 +7,9 @@ gem 'pry' # useful for production environment
 gem 'rake'
 
 # Stanford DLSS gems
-gem 'dor-workflow-client'
+gem 'dor-services-client', '~> 15.0'
 gem 'honeybadger' # for error reporting / tracking / notifications
-gem 'lyber-core', '~> 7.1'
+gem 'lyber-core', '~> 8.0'
 gem 'moab-versioning', '~> 6.0' # work with Moab Objects
 gem 'preservation-client', '~> 7.0'
 gem 'retries'

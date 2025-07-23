@@ -24,17 +24,11 @@ module Robots
         def complete_ingest
           # common_accessioning workflow blocks after it queues up preservation workflow for object
           #   until it receives this signal
-          update_accession_workflow
-        end
-
-        def update_accession_workflow
-          workflow_service.update_status(druid: druid,
-                                         workflow: 'accessionWF',
-                                         process: 'sdr-ingest-received',
-                                         status: 'completed',
-                                         elapsed: 1,
-                                         note: "#{WORKFLOW_NAME} completed on #{Socket.gethostname}")
-        rescue Dor::WorkflowException => e
+          object_client.workflow('accessionWF').process('sdr-ingest-received').update(
+            status: 'completed',
+            note: "#{WORKFLOW_NAME} completed on #{Socket.gethostname}"
+          )
+        rescue Dor::Services::Client::Error => e
           errmsg = "Error completing ingest for #{druid}: failed to update " \
                    "accessionWF:sdr-ingest-received to completed: #{e.message}\n#{e.backtrace.join('\n')}"
           logger.error(errmsg)
