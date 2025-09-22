@@ -48,7 +48,7 @@ GEM
     capistrano-one_time_key (0.2.0)
       capistrano (~> 3.0)
     capistrano-shared_configs (0.2.2)
-    cocina-models (0.105.2)
+    cocina-models (0.106.0)
       activesupport
       deprecation
       dry-struct (~> 1.0)
@@ -83,9 +83,9 @@ GEM
       capistrano-shared_configs
       ed25519
     docile (1.4.1)
-    dor-services-client (15.19.3)
+    dor-services-client (15.20.0)
       activesupport (>= 7.0.0)
-      cocina-models (~> 0.105.0)
+      cocina-models (~> 0.106.0)
       deprecation
       faraday (~> 2.0)
       faraday-retry
@@ -135,7 +135,7 @@ GEM
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    json (2.13.2)
+    json (2.14.1)
     jsonpath (1.1.5)
       multi_json
     language_server-protocol (3.17.0.5)
@@ -215,7 +215,7 @@ GEM
     rspec-mocks (3.13.5)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-support (3.13.5)
+    rspec-support (3.13.6)
     rspec_junit_formatter (0.6.0)
       rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (1.80.2)
@@ -229,7 +229,7 @@ GEM
       rubocop-ast (>= 1.46.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.46.0)
+    rubocop-ast (1.47.1)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
     rubocop-capybara (2.22.1)
