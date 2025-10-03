@@ -13,7 +13,7 @@ gem 'lyber-core', '~> 8.0'
 gem 'moab-versioning', '~> 6.0' # work with Moab Objects
 gem 'preservation-client', '~> 7.0'
 gem 'retries'
-gem 'sidekiq', '~> 7.0'
+gem 'sidekiq', '~> 8.0'
 gem 'slop'
 gem 'zeitwerk', '~> 2.1'
 
