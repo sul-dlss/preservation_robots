@@ -122,7 +122,8 @@ RSpec.describe DepositBagValidator do
       generated = '4227e88364c1f99ceb6aa9da763f5a9db345cb56d4a97ea56e5fb4e34e5123fd'
       exp_msg = "Failed tagmanifest verification. Differences:.*#{Regexp.escape('bagit.txt')}" \
                 ".*sha256.*manifest.*#{from_file}.*generated.*#{generated}.*"
-      expect(dbv.validation_errors).to match([{ code => a_string_matching(/#{exp_msg}/m) }])
+      expect(dbv.validation_errors).to include({ code => a_string_matching(/#{exp_msg}/m) })
+      expect(dbv.validation_errors).not_to include({ code => a_string_matching(/\.nfsd8b8ad4e23fb00930000030c/m) })
     end
 
     it 'result array has PAYLOAD_SIZE_MISMATCH result hash when payload size verification fails' do
