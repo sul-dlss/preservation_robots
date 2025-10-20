@@ -186,8 +186,10 @@ class DepositBagValidator
 
   # generate hash of checksums by file name for bag home dir files
   def generate_tagmanifest_checksums_hash(types_to_generate)
-    # all names in the bag home dir except those starting with 'tagmanifest'
-    home_dir_pathnames = deposit_bag_pathname.children.reject { |file| file.basename.to_s.start_with?(TAGMANIFEST) }
+    # all names in the bag home dir except those starting with 'tagmanifest' and NFS client temp files
+    home_dir_pathnames = deposit_bag_pathname.children.reject do |file|
+      file.basename.to_s.start_with?(TAGMANIFEST) || file.basename.to_s.match?(/\A\.nfs\w+\z/)
+    end
     hash_with_full_pathnames = generate_checksums_hash(home_dir_pathnames, types_to_generate)
     # return hash keys as basenames only
     hash_with_full_pathnames.transform_keys { |k| Pathname.new(k).basename.to_s }
