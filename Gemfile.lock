@@ -47,7 +47,7 @@ GEM
     capistrano-one_time_key (0.2.0)
       capistrano (~> 3.0)
     capistrano-shared_configs (0.2.2)
-    cocina-models (0.108.2)
+    cocina-models (0.108.3)
       activesupport
       deprecation
       dry-struct (~> 1.0)
@@ -150,7 +150,7 @@ GEM
       zeitwerk
     method_source (1.1.0)
     mini_portile2 (2.8.9)
-    minitest (5.26.1)
+    minitest (5.26.2)
     moab-versioning (6.1.2)
       druid-tools (>= 1.0.0)
       json
