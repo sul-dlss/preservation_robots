@@ -12,27 +12,35 @@ module Robots
       class TransferObject < Base
         ROBOT_NAME = 'transfer-object'
 
+        RETRIES = 5
+        WAIT = 30 # seconds
+
         def initialize
           super(WORKFLOW_NAME, ROBOT_NAME)
         end
 
         def perform_work
-          transfer_object
-        end
-
-        private
-
-        # Transfer the object from the DOR export area to the SDR deposit area.
-        def transfer_object
-          logger.debug("#{ROBOT_NAME} #{druid} starting")
-          verify_version_metadata
+          with_retry { verify_version_metadata }
           prepare_deposit_dir
-          transfer_bag
+          with_retry { transfer_bag }
         rescue StandardError => e
           raise ItemError, "Error transferring bag (via #{Settings.transfer_object&.from_dir}) for #{druid}: #{e.message}"
         end
 
+        private
+
         VERSION_METADATA_PATH_SUFFIX = '/data/metadata/versionMetadata.xml'
+
+        def with_retry
+          tries ||= 0
+          yield
+        rescue StandardError
+          if (tries += 1) <= RETRIES
+            sleep tries * WAIT
+            retry
+          end
+          raise
+        end
 
         # Check to see if the bag exists in the workspace directory before starting
         def verify_version_metadata
@@ -73,7 +81,10 @@ module Robots
             output = stdout_and_stderr.read
             status = wait_thr.value
 
-            raise "Transfering bag for #{druid} to preservation failed. STDOUT = #{output}" if status.nil? || !status.success?
+            if status.nil? || !status.success?
+              deposit_dir.rmtree if deposit_dir.exist?
+              raise "Transfering bag for #{druid} to preservation failed. STDOUT = #{output}"
+            end
           end
         end
 
