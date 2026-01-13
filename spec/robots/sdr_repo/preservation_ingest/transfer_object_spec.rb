@@ -17,12 +17,38 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
     deposit_dir_pathname.rmtree if deposit_dir_pathname.exist?
   end
 
-  context 'when versionMetadata.xml file does not exist' do
+  context 'when versionMetadata.xml file temporarily does not exist' do
+    before do
+      allow(xfer_obj).to receive(:sleep)
+      call_count = 0
+      allow(xfer_obj).to receive(:verify_version_metadata) do
+        call_count += 1
+        raise StandardError, 'Simulated transient error' if call_count == 1
+      end
+      allow(xfer_obj).to receive(:prepare_deposit_dir)
+      allow(xfer_obj).to receive(:transfer_bag)
+    end
+
     it 'raises ItemError if versionMetadata.xml file for druid does not exist' do
+      test_perform(xfer_obj, druid)
+      expect(xfer_obj).to have_received(:sleep).once
+      expect(xfer_obj).to have_received(:verify_version_metadata).exactly(2).times
+      expect(xfer_obj).to have_received(:prepare_deposit_dir).once
+      expect(xfer_obj).to have_received(:transfer_bag).once
+    end
+  end
+
+  context 'when versionMetadata.xml file does not exist' do
+    before do
+      allow(xfer_obj).to receive(:sleep)
+    end
+
+    it 'retries and raises ItemError if versionMetadata.xml file for druid does not exist' do
       expect { test_perform(xfer_obj, druid) }.to raise_error(
         Robots::SdrRepo::PreservationIngest::ItemError,
         "Error transferring bag (via #{Settings.transfer_object.from_dir}) for #{druid}: #{vm_file_path} not found"
       )
+      expect(xfer_obj).to have_received(:sleep).exactly(5).times
     end
   end
 
@@ -75,12 +101,38 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::TransferObject do
       allow(xfer_obj).to receive(:verify_version_metadata)
       allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
       allow(Open3).to receive(:popen2e).and_raise(StandardError, 'permission denied')
+      allow(xfer_obj).to receive(:sleep)
     end
 
     it 'raises ItemError if there is a StandardError while executing the transfer command' do
       expect do
         test_perform(xfer_obj, druid)
       end.to raise_error(Robots::SdrRepo::PreservationIngest::ItemError, a_string_matching(expected_message))
+      expect(xfer_obj).to have_received(:sleep).exactly(5).times
+    end
+  end
+
+  context 'when there is a transient error executing the transfer' do
+    let(:mock_moab) { instance_double(Moab::StorageObject, deposit_bag_pathname: deposit_bag_pathname) }
+    let(:expected_message) do
+      Regexp.escape("Error transferring bag (via #{Settings.transfer_object.from_dir}) for #{druid}: permission denied")
+    end
+
+    before do
+      allow(xfer_obj).to receive(:verify_version_metadata)
+      allow(Stanford::StorageServices).to receive(:find_storage_object).and_return(mock_moab)
+      allow(xfer_obj).to receive(:sleep)
+      call_count = 0
+      allow(Open3).to receive(:popen2e) do
+        call_count += 1
+        raise StandardError, 'Simulated transient error' if call_count == 1
+      end
+    end
+
+    it 'raises ItemError if there is a StandardError while executing the transfer command' do
+      test_perform(xfer_obj, druid)
+      expect(xfer_obj).to have_received(:sleep).exactly(1).times
+      expect(Open3).to have_received(:popen2e).exactly(2).times
     end
   end
 
