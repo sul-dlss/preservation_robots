@@ -41,7 +41,7 @@ GEM
     capistrano-one_time_key (0.2.0)
       capistrano (~> 3.0)
     capistrano-shared_configs (0.2.2)
-    cocina-models (0.108.3)
+    cocina-models (0.109.0)
       activesupport
       deprecation
       dry-struct (~> 1.0)
@@ -75,9 +75,9 @@ GEM
       capistrano-shared_configs
       ed25519
     docile (1.4.1)
-    dor-services-client (15.25.2)
+    dor-services-client (15.25.3)
       activesupport (>= 7.0.0)
-      cocina-models (~> 0.108.2)
+      cocina-models (~> 0.109.0)
       deprecation
       faraday (~> 2.0)
       faraday-retry
@@ -121,7 +121,7 @@ GEM
     faraday-retry (2.4.0)
       faraday (~> 2.0)
     hashdiff (1.2.1)
-    honeybadger (6.2.0)
+    honeybadger (6.2.1)
       logger
       ostruct
     i18n (1.14.8)
@@ -193,7 +193,7 @@ GEM
     rack (3.2.4)
     rainbow (3.1.1)
     rake (13.3.1)
-    redis-client (0.26.3)
+    redis-client (0.26.4)
       connection_pool
     regexp_parser (2.11.3)
     reline (0.6.3)
