@@ -82,7 +82,7 @@ module Robots
             status = wait_thr.value
 
             if status.nil? || !status.success?
-              deposit_dir.rmtree if deposit_dir.exist?
+              deposit_bag_pathname.rmtree if deposit_bag_pathname.exist?
               raise "Transfering bag for #{druid} to preservation failed. STDOUT = #{output}"
             end
           end
