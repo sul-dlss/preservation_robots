@@ -1,5 +1,6 @@
 ---
 :concurrency: 5
 :queues:
+  - preservationIngestWF_high
   - preservationIngestWF_default
   - preservationIngestWF_low
