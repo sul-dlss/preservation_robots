@@ -11,7 +11,7 @@ gem 'dor-services-client'
 gem 'honeybadger' # for error reporting / tracking / notifications
 # Temporarily pinned lyber-core on 7/10/2026 since >v9.0 lybercore has version-aware breaking changes requiring updates
 # to all consumers simultaneously. See https://github.com/sul-dlss/dor-services-app/pull/6196
-gem 'lyber-core', '~> 8.0' # For robots
+gem 'lyber-core' # For robots
 gem 'moab-versioning' # work with Moab Objects
 gem 'preservation-client'
 gem 'retries'
