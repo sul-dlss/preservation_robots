@@ -15,6 +15,7 @@ slop = Slop.parse do |o|
   o.string '-e', '--environment', 'Environment to run in (i.e. test, production). Defaults to development', default: 'development'
   o.string '-d', '--druid', 'One druid to run the robot with', required: true
   o.string '-f', '--file', 'One file containing a druid per line'
+  o.integer '-v', '--version', 'Object version to run the robot for. Defaults to the current version'
   o.on '--help' do
     puts o
     exit
@@ -50,5 +51,6 @@ druids.each do |druid|
   # years, and this script wasn't even working, so I'm content to leave this as
   # is since it now at least achieves parity with common-accessioning's
   # implementation of bin/run_robot
-  bot.perform druid
+  version = opts[:version] || Dor::Services::Client.object(druid).find.version
+  bot.perform druid, version
 end
