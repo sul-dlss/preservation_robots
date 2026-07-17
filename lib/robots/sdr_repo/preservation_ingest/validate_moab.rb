@@ -40,7 +40,7 @@ module Robots
           logger.debug("#{ROBOT_NAME} #{druid} starting")
           with_retries(max_tries: 3, handler: handler("Validating moab for #{druid}"),
                        rescue: Preservation::Client::ConnectionFailedError) do
-            Preservation::Client.objects.validate_moab(druid: druid)
+            Preservation::Client.objects.validate_moab(druid: druid, lane_id:)
           end
         end
       end

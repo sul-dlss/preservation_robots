@@ -4,10 +4,14 @@ RSpec.describe Robots::SdrRepo::PreservationIngest::ValidateMoab do
   subject(:this_robot) { described_class.new }
 
   let(:bare_druid) { 'bj102hs9687' }
-  let(:get_url) { "http://localhost:3000/v1/objects/#{bare_druid}/validate_moab" }
+  let(:get_url) { "http://localhost:3000/v1/objects/#{bare_druid}/validate_moab?lane-id=high" }
   let(:args) { { druid: bare_druid } }
 
   describe '#perform' do
+    before do
+      allow(this_robot).to receive(:lane_id).and_return('high') # rubocop:disable RSpec/SubjectStub
+    end
+
     context 'when the HTTP call is successful' do
       before do
         stub_request(:get, get_url).to_return(status: 200, body: 'ok', headers: {})
