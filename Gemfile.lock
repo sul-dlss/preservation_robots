@@ -41,7 +41,7 @@ GEM
     capistrano-one_time_key (0.2.0)
       capistrano (~> 3.0)
     capistrano-shared_configs (0.2.2)
-    cocina-models (0.129.0)
+    cocina-models (0.130.0)
       activesupport
       cocina_display
       deprecation
@@ -82,9 +82,9 @@ GEM
       capistrano-one_time_key (>= 0.2.0)
       capistrano-shared_configs
       ed25519
-    dor-services-client (15.64.1)
+    dor-services-client (15.65.0)
       activesupport (>= 7.0.0)
-      cocina-models (~> 0.129.0)
+      cocina-models (~> 0.130.0)
       deprecation
       faraday (~> 2.0)
       faraday-retry
@@ -142,12 +142,12 @@ GEM
     iso8601 (0.13.0)
     janeway-jsonpath (1.0.0)
     json (2.21.1)
-    jsonschema_rs (0.48.1)
+    jsonschema_rs (0.49.1)
       bigdecimal (>= 3.1, < 5)
       rb_sys (~> 0.9.124)
-    jsonschema_rs (0.48.1-arm64-darwin)
+    jsonschema_rs (0.49.1-arm64-darwin)
       bigdecimal (>= 3.1, < 5)
-    jsonschema_rs (0.48.1-x86_64-linux)
+    jsonschema_rs (0.49.1-x86_64-linux)
       bigdecimal (>= 3.1, < 5)
     language_server-protocol (3.17.0.6)
     lint_roller (1.1.0)
@@ -216,7 +216,7 @@ GEM
     rake-compiler-dock (1.12.0)
     rb_sys (0.9.128)
       rake-compiler-dock (= 1.12.0)
-    redis-client (0.30.0)
+    redis-client (0.30.1)
       connection_pool
     regexp_parser (2.12.0)
     reline (0.6.3)
@@ -274,9 +274,9 @@ GEM
       logger (>= 1.7.0)
       rack (>= 3.2.0)
       redis-client (>= 0.29.0)
-    simplecov (1.0.2)
+    simplecov (1.0.3)
     slop (4.10.1)
-    sshkit (1.25.0)
+    sshkit (1.25.1)
       base64
       logger
       net-scp (>= 1.1.2)
@@ -333,4 +333,4 @@ DEPENDENCIES
   zeitwerk
 
 BUNDLED WITH
-  4.0.16
+  4.0.17
