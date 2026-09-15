@@ -20,6 +20,23 @@ module Robots
         end
 
         def perform_work
+          # TODO: alternative idea for making pres robots multi-plexable...
+          # since the reads and writes that might suffer from networked
+          # file system lag are all in transfer_object, validate_bag, and update_moab;
+          # and since those are a sequence of dependencies, what about collapsing
+          # them into one job?
+          # yet another approach: just beef up the one pres robots VM and add worker threads or processes.
+          # consult with ops about this?  query WF DB to see average run time of the relevant steps?  or count
+          # of times that get close to hitting some very long runtime threshold?
+          # yet another approach: NFS mount can be setup so that these lag problems don't happen, but reading/writing
+          # is maybe way slower... would this be acceptable?  is this a setting on every mount point, or just a setting
+          # on servers that write?  like, is it flush related?  since pres cat is RO, maybe the change could be limited to
+          # pres bots VMs.
+          # also: use claude for high level meta advice, see argo-b3 for agent files that point to other gems/deps for context,
+          # and claude is good about looking at deps and going out to get context.  can also ask claude what it needs to
+          # give a good answer.
+          # also: draft up the collapsing-workflow-steps-into-one approach to see how it feels and whether it's an improvemnt or
+          # a mess.
           with_retry { verify_version_metadata }
           prepare_deposit_dir
           with_retry { transfer_bag }
