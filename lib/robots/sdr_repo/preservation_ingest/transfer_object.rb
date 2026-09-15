@@ -27,9 +27,9 @@ module Robots
           raise ItemError, "Error transferring bag (via #{Settings.transfer_object&.from_dir}) for #{druid}: #{e.message}"
         end
 
-        private
-
         VERSION_METADATA_PATH_SUFFIX = '/data/metadata/versionMetadata.xml'
+
+        private
 
         def with_retry
           tries ||= 0
