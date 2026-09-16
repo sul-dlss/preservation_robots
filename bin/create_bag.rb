@@ -15,9 +15,7 @@ require 'bundler/setup'
 require 'moab/stanford'
 require 'yaml'
 
-# rubocop:disable Style/MixinUsage
-include Stanford
-# rubocop:enable Style/MixinUsage
+include Stanford # rubocop:disable Style/MixinUsage
 
 settings = YAML.load_file('../config/environments/prod.yml')
 
@@ -29,8 +27,9 @@ Moab::Config.configure do
 end
 
 druids = []
-druidlist = File.open(ARGV[0])
-druidlist.each_line { |line| druids.push line.chomp }
+File.open(ARGV[0]) do |druidlist|
+  druidlist.each_line { |line| druids.push line.chomp }
+end
 
 druids.each do |druid|
   druid = druid.delete_prefix('druid:')
