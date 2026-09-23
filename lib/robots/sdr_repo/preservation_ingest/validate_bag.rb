@@ -17,6 +17,9 @@ module Robots
         attr_reader :druid
 
         def perform_work
+          # transfer-object wrote the deposit bag, and may have done so on another host.
+          # The Moab is read here too, for the version the bag is validated against.
+          wait_for_ceph_write_capabilities_release(deposit_bag_pathname, moab_object.object_pathname)
           validate_bag
         end
 
