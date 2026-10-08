@@ -6,7 +6,7 @@
 #
 # To run With Options
 # Options must be placed AFTER workflow and robot name
-# robot_root$ ./bin/run_robot PreservationIngest::TransferObject -e test -d druid:aa12bb1234
+# robot_root$ ./bin/run_robot PreservationIngest::WriteNewMoabVersion -e test -d druid:aa12bb1234
 require 'bundler/setup'
 require 'slop'
 
