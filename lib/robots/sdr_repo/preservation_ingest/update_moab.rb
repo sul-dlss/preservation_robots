@@ -15,6 +15,9 @@ module Robots
         end
 
         def perform_work
+          # The deposit bag and the Moab's previous version (whose signature catalog
+          # ingest_bag reads) were both written by earlier steps, possibly on another host.
+          wait_for_ceph_write_capabilities_release(deposit_bag_pathname, moab_object.object_pathname)
           update_moab
         end
 
