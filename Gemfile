@@ -2,7 +2,6 @@
 
 source 'https://rubygems.org'
 
-gem 'benchmark'
 gem 'config'
 gem 'pry' # useful for production environment
 gem 'rake'
