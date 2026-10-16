@@ -83,7 +83,7 @@ GEM
       capistrano-one_time_key (>= 0.2.0)
       capistrano-shared_configs
       ed25519
-    dor-services-client (15.67.0)
+    dor-services-client (15.69.0)
       activesupport (>= 7.0.0)
       cocina-models (~> 0.133.0)
       deprecation
@@ -121,11 +121,11 @@ GEM
       activesupport (>= 3.0, < 9.0)
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
-    faraday (2.14.4)
-      faraday-net_http (>= 2.0, < 3.5)
+    faraday (2.15.0)
+      faraday-net_http (>= 2.0, < 3.6)
       json
       logger
-    faraday-net_http (3.4.4)
+    faraday-net_http (3.5.0)
       net-http (~> 0.5)
     faraday-retry (2.4.0)
       faraday (~> 2.0)
@@ -142,7 +142,7 @@ GEM
     io-console (0.9.4)
     iso8601 (0.13.0)
     janeway-jsonpath (1.1.0)
-    json (3.0.2)
+    json (3.1.0)
     jsonschema_rs (0.58.6-arm64-darwin)
       bigdecimal (>= 3.1, < 5)
     jsonschema_rs (0.58.6-x86_64-linux)
@@ -247,9 +247,9 @@ GEM
     rubocop-ast (1.50.0)
       parser (>= 3.3.7.2)
       prism (~> 1.7)
-    rubocop-capybara (3.0.0)
+    rubocop-capybara (3.1.0)
       lint_roller (~> 1.1)
-      rubocop (~> 1.81)
+      rubocop (~> 1.89)
     rubocop-factory_bot (2.28.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
@@ -290,13 +290,14 @@ GEM
       unicode-emoji (~> 4.3)
     unicode-emoji (4.3.0)
     uri (1.1.2)
-    webmock (3.29.0)
+    webmock (3.34.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     zeitwerk (2.8.3)
 
 PLATFORMS
+  arm64-darwin-23
   arm64-darwin-24
   arm64-darwin-25
   x86_64-linux
@@ -321,7 +322,7 @@ DEPENDENCIES
   rubocop-factory_bot
   rubocop-rspec
   rubocop-rspec_rails
-  sidekiq (~> 8.0)
+  sidekiq
   sidekiq-pro!
   simplecov
   slop
