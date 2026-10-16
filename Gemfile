@@ -15,7 +15,7 @@ gem 'lyber-core' # For robots
 gem 'moab-versioning' # work with Moab Objects
 gem 'preservation-client'
 gem 'retries'
-gem 'sidekiq', '~> 8.0'
+gem 'sidekiq'
 gem 'slop'
 gem 'zeitwerk'
 

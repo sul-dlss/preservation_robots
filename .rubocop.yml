@@ -585,3 +585,28 @@ RSpec/Output: # new in 3.9
   Enabled: true
 RSpecRails/HttpStatusNameConsistency: # new in 2.32
   Enabled: true
+
+Capybara/AbsoluteXPathInElementScope: # new in 3.1
+  Enabled: true
+Capybara/AlwaysTrueCountQuery: # new in 3.1
+  Enabled: true
+Capybara/ChainedFind: # new in 3.1
+  Enabled: true
+Capybara/IgnoredQueryOption: # new in 3.1
+  Enabled: true
+Capybara/ModalMethodWithoutBlock: # new in 3.1
+  Enabled: true
+Capybara/NativeAttribute: # new in 3.1
+  Enabled: true
+Capybara/UnorderedWindowAccess: # new in 3.1
+  Enabled: true
+Capybara/VisibilityOption: # new in 3.1
+  Enabled: true
+Capybara/RSpec/CurrentUrlExpectation: # new in 3.1
+  Enabled: true
+Capybara/RSpec/FindElementValueEq: # new in 3.1
+  Enabled: true
+RSpecRails/FileFixture: # new in 2.33
+  Enabled: true
+RSpecRails/ReceivePerformLater: # new in 2.33
+  Enabled: true
