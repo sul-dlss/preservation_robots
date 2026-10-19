@@ -143,9 +143,9 @@ GEM
     iso8601 (0.13.0)
     janeway-jsonpath (1.1.0)
     json (3.1.0)
-    jsonschema_rs (0.58.6-arm64-darwin)
+    jsonschema_rs (0.59.0-arm64-darwin)
       bigdecimal (>= 3.1, < 5)
-    jsonschema_rs (0.58.6-x86_64-linux)
+    jsonschema_rs (0.59.0-x86_64-linux)
       bigdecimal (>= 3.1, < 5)
     language_server-protocol (3.17.0.6)
     lint_roller (1.1.0)
@@ -330,4 +330,4 @@ DEPENDENCIES
   zeitwerk
 
 BUNDLED WITH
-  4.0.22
+  4.0.23
