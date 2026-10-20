@@ -27,7 +27,7 @@ module Robots
         # scheduled fixity checking. Validating from a different VM catches a couple failure modes we've seen:
         # 1) Temporary inability of the pres cat VMs' Ceph clients to read data recently written by
         #    a preservation_robots Ceph client.
-        # 2) preservation_robots UpdateMoab gets control back as if the new Moab version has been fully written, when
+        # 2) preservation_robots WriteNewMoabVersion gets control back as if the new Moab version has been fully written, when
         #    in fact CephFS* may not have fully flushed its buffer to the underlying object store.  If the Ceph client loses
         #    connectivity or the VM is rebooted before the buffer is flushed, unflushed buffered data will actually be
         #    lost (though 0s may be written as placeholders, leading to files that seem complete at first glance).
