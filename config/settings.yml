@@ -14,6 +14,33 @@ moab:
   deposit_trunk: 'deposit'
   path_method: 'druid_tree'
 
+ceph:
+  # How to invoke the `ceph` CLI for the capability queries below.
+  cli:
+    executable: 'ceph'
+    conf: ~
+    name: ~
+    keyring: ~
+    connect_timeout: 30
+  # Before reading paths that another preservation_robots host may have just written,
+  # wait for that host's CephFS client to release its write capabilities on them.
+  # Requires a keyring with `mds allow *`, so this is off until one is deployed.
+  # See "Waiting on CephFS write capabilities" in the README.
+  write_capability_check:
+    enabled: false
+    filesystem_name: 'sdr'
+    # Local mount points, and where each one sits within the CephFS namespace.
+    mounts:
+      - mount_point: '/services-disk'
+        cephfs_root: '/'
+    # Which MDS ranks to query; empty means ask the cluster which ranks are in.
+    ranks: []
+    # Defaults to this host's name per Socket.gethostname.
+    local_hostname: ~
+    # Seconds to wait for other hosts to release write capabilities before giving up.
+    max_wait: 120
+    poll_interval: 2
+
 preservation_catalog:
   url: 'http://localhost:3000'
   token: 'YOUR_TOKEN_HERE'
